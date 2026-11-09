@@ -79,6 +79,25 @@ await check("Walrus Memory: write on mainnet and read it back", async () => {
   return `blob ${written.blob_id}`;
 });
 
+if (env.OPENAI_API_KEY?.trim()) {
+  await check(`OpenAI: key works and can use ${env.OPENAI_MODEL || "gpt-5.5"}`, async () => {
+    const res = await fetch(`https://api.openai.com/v1/models/${encodeURIComponent(env.OPENAI_MODEL || "gpt-5.5")}`, { headers: { authorization: `Bearer ${env.OPENAI_API_KEY.trim()}` } });
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${(await res.text()).slice(0, 200)}`);
+    return (await res.json()).id;
+  });
+}
+if (env.ANTHROPIC_API_KEY?.trim()) {
+  await check("Anthropic: key works and can use claude-opus-5-5", async () => {
+    const res = await fetch("https://api.anthropic.com/v1/models/claude-opus-5-5", { headers: { "x-api-key": env.ANTHROPIC_API_KEY.trim(), "anthropic-version": "2023-06-01" } });
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${(await res.text()).slice(0, 200)}`);
+    return (await res.json()).id;
+  });
+}
+if (!env.OPENAI_API_KEY?.trim() && !env.ANTHROPIC_API_KEY?.trim()) {
+  results.push({ name: "receipt reader", ok: false });
+  console.log("FAIL  Receipt reader: set OPENAI_API_KEY or ANTHROPIC_API_KEY in .env.local");
+}
+
 const failed = results.filter((r) => !r.ok).length;
 console.log(failed ? `\n${failed} check(s) failed.` : "\nAll checks passed.");
 process.exit(failed ? 1 : 0);
