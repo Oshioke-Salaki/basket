@@ -40,7 +40,9 @@ export function IndexChart({ points, label }: { points: readonly IndexPoint[]; l
 
   return (
     <figure className="m-0">
-      <div ref={ref} className="relative">
+      <div ref={ref} className="relative w-full min-w-0">
+        {width > 0 ? (
+        <>
         <svg
           width={width}
           height={HEIGHT}
@@ -84,6 +86,8 @@ export function IndexChart({ points, label }: { points: readonly IndexPoint[]; l
               Index {active.value.toFixed(1)} <span className="text-muted">({change(active.value)})</span>
             </p>
           </div>
+        ) : null}
+        </>
         ) : null}
       </div>
       <details className="mt-3 text-sm text-muted">

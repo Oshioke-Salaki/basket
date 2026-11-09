@@ -3,7 +3,7 @@ import { cx } from "./cx";
 
 /** The one card recipe: surface, hairline, large radius. Never nested. */
 export function Panel({ className, ...props }: ComponentProps<"section">) {
-  return <section className={cx("rounded-lg border border-line bg-surface p-6 sm:p-8", className)} {...props} />;
+  return <section className={cx("min-w-0 rounded-lg border border-line bg-surface p-6 sm:p-8", className)} {...props} />;
 }
 
 export function PanelHeader({ title, aside, children }: { title: ReactNode; aside?: ReactNode; children?: ReactNode }) {

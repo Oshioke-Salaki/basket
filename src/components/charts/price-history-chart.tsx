@@ -62,7 +62,9 @@ export function PriceHistoryChart({ points, currency, usual, basisLabel }: { poi
           </li>
         ) : null}
       </ul>
-      <div ref={ref} className="relative">
+      <div ref={ref} className="relative w-full min-w-0">
+        {width > 0 ? (
+        <>
         <svg width={width} height={HEIGHT} role="img" aria-labelledby={titleId} className="block" onPointerLeave={() => setHover(null)}>
           <title id={titleId}>{`Prices paid ${basisLabel}, ${points.length} purchases`}</title>
           {y.ticks(3).map((t) => (
@@ -110,6 +112,8 @@ export function PriceHistoryChart({ points, currency, usual, basisLabel }: { poi
               {money(active.value)} <span className="text-muted">{basisLabel}</span>
             </p>
           </div>
+        ) : null}
+        </>
         ) : null}
       </div>
     </figure>

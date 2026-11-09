@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useMemo, useState } from "react";
+import { useId, useMemo, useState, useSyncExternalStore } from "react";
 import { formatMoney } from "@/domain/money";
 import { weeklySpend } from "@/domain/spend";
 import { api, ApiError } from "@/lib/api";
@@ -14,23 +14,27 @@ import { useBasket } from "./basket-provider";
 const STORAGE_KEY = "basket:runway-address";
 const usd = (v: number) => new Intl.NumberFormat("en", { style: "currency", currency: "USD" }).format(v);
 
-/** Weekly grocery spend, and how many weeks of it a Sui wallet's SUI and USDC would cover. */
+/** The last address used on this device, a per-viewer convenience only. */
+function readSavedAddress(): string {
+  try {
+    return localStorage.getItem(STORAGE_KEY) ?? "";
+  } catch {
+    return "";
+  }
+}
+
+const subscribeToNothing = () => () => {};
+
+/** Weekly grocery spend, and how many weeks of it a Sui wallet’s SUI and USDC would cover. */
 export function RunwayPanel() {
   const { effective } = useBasket();
   const spend = useMemo(() => weeklySpend(effective), [effective]);
   const fieldId = useId();
   const errorId = useId();
-  const [address, setAddress] = useState("");
+  const saved = useSyncExternalStore(subscribeToNothing, readSavedAddress, () => "");
+  const [typed, setAddress] = useState<string | null>(null);
+  const address = typed ?? saved;
   const [state, setState] = useState<{ kind: "idle" } | { kind: "loading" } | { kind: "done"; report: RunwayPayload } | { kind: "error"; message: string }>({ kind: "idle" });
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) setAddress(saved);
-    } catch {
-      // Storage can be unavailable in private windows; the field just starts empty.
-    }
-  }, []);
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
@@ -56,7 +60,7 @@ export function RunwayPanel() {
 
   return (
     <Panel>
-      <PanelHeader title="Groceries in weeks">Your average week of groceries, and how long a Sui wallet's SUI and USDC would keep buying it.</PanelHeader>
+      <PanelHeader title="Groceries in weeks">Your average week of groceries, and how long a Sui wallet’s SUI and USDC would keep buying it.</PanelHeader>
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
         <div>
           <Label>Your average week</Label>

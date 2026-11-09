@@ -14,3 +14,6 @@ export default function ScanPage() {
     </div>
   );
 }
+
+/** The scan screen lives behind the basket gate, which waits on the browser's recall from Walrus. */
+export const instant = false;

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, type ReactNode } from "react";
+import { Suspense, useEffect, type ReactNode } from "react";
 import { buttonClass, ButtonLink } from "../ui/button";
 import { cx } from "../ui/cx";
 import { Mark } from "../ui/icons";
@@ -22,7 +22,6 @@ function isCurrent(pathname: string, href: string) {
 }
 
 export function Shell({ children }: { children: ReactNode }) {
-  const pathname = usePathname();
   const { readOnly, isDemo } = useBasket();
 
   return (
@@ -37,22 +36,9 @@ export function Shell({ children }: { children: ReactNode }) {
             Basket
           </a>
           <nav aria-label="Basket" className="hidden items-center gap-1 md:flex">
-            {NAV.map((item) => {
-              const current = isCurrent(pathname, item.href);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={current ? "page" : undefined}
-                  className={cx(
-                    "relative px-3 py-2 text-[15px] font-medium transition-colors",
-                    current ? "text-ink after:absolute after:inset-x-3 after:-bottom-[17px] after:h-0.5 after:bg-action" : "text-muted hover:text-ink",
-                  )}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
+            <Suspense fallback={<TopLinks pathname={null} />}>
+              <CurrentTopLinks />
+            </Suspense>
           </nav>
           <div className="flex items-center gap-4">
             <MemoryIndicator />
@@ -82,24 +68,60 @@ export function Shell({ children }: { children: ReactNode }) {
       </main>
 
       <nav aria-label="Basket" className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-ground pb-[env(safe-area-inset-bottom)] md:hidden">
-        <ul className="grid grid-cols-4">
-          {NAV.map((item) => {
-            const current = isCurrent(pathname, item.href);
-            return (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  aria-current={current ? "page" : undefined}
-                  className={cx("flex h-16 items-center justify-center text-sm font-medium", current ? "text-ink" : "text-muted")}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <Suspense fallback={<BottomLinks pathname={null} />}>
+          <CurrentBottomLinks />
+        </Suspense>
       </nav>
     </div>
+  );
+}
+
+/** The current page is runtime data, so only the links that mark it wait for it. */
+function CurrentTopLinks() {
+  return <TopLinks pathname={usePathname()} />;
+}
+
+function CurrentBottomLinks() {
+  return <BottomLinks pathname={usePathname()} />;
+}
+
+function TopLinks({ pathname }: { pathname: string | null }) {
+  return NAV.map((item) => {
+    const current = pathname !== null && isCurrent(pathname, item.href);
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        aria-current={current ? "page" : undefined}
+        className={cx(
+          "relative px-3 py-2 text-[15px] font-medium transition-colors",
+          current ? "text-ink after:absolute after:inset-x-3 after:-bottom-[17px] after:h-0.5 after:bg-action" : "text-muted hover:text-ink",
+        )}
+      >
+        {item.label}
+      </Link>
+    );
+  });
+}
+
+function BottomLinks({ pathname }: { pathname: string | null }) {
+  return (
+    <ul className="grid grid-cols-4">
+      {NAV.map((item) => {
+        const current = pathname !== null && isCurrent(pathname, item.href);
+        return (
+          <li key={item.href}>
+            <Link
+              href={item.href}
+              aria-current={current ? "page" : undefined}
+              className={cx("flex h-16 items-center justify-center text-sm font-medium", current ? "text-ink" : "text-muted")}
+            >
+              {item.label}
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 
@@ -135,3 +157,4 @@ function BasketGate({ children }: { children: ReactNode }) {
   }
   return <>{children}</>;
 }
+

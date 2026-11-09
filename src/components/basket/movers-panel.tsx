@@ -40,7 +40,7 @@ export function StoresPanel() {
   const standings = useMemo(() => storeStandings(effective), [effective]);
   return (
     <Panel>
-      <PanelHeader title="Stores for your basket">Each store's prices on the items you buy in more than one place.</PanelHeader>
+      <PanelHeader title="Stores for your basket">Each store’s prices on the items you buy in more than one place.</PanelHeader>
       {standings.length < 2 ? (
         <p className="text-muted">Shown once you have shopped for the same items at two stores.</p>
       ) : (

@@ -165,7 +165,9 @@ function usePendingWrites(jobs: State["jobs"], dispatch: (a: Action) => void) {
   const pending = Object.values(jobs).filter((j) => !TERMINAL.has(j.state));
   const key = pending.map((j) => j.jobId).sort().join(",");
   const jobsRef = useRef(jobs);
-  jobsRef.current = jobs;
+  useEffect(() => {
+    jobsRef.current = jobs;
+  }, [jobs]);
 
   useEffect(() => {
     if (!key) return;

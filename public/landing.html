@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="round" data-ground="sage" data-buttons="solid" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Basket: receipt price tracker for households</title>
+<meta name="description" content="Photograph your grocery receipts and see the inflation of the things your household actually buys, remembered on Walrus.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Basket: receipt price tracker for households">
+<meta property="og:description" content="See the inflation of the things your household actually buys, from your own receipts.">
+<meta property="og:image" content="/share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#1c1c1c">
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/system.css">
+<link rel="stylesheet" href="/assets/ui/cards.css">
+<link rel="stylesheet" href="/assets/motion/motion.css">
+<link rel="stylesheet" href="/assets/backgrounds/backgrounds.css">
+<link rel="stylesheet" href="/assets/layout/layout.css">
+<link rel="stylesheet" href="/assets/icons/icon.css">
+<style>
+:root {
+  --p-bg: #1c1c1c; --p-surface: #262626; --p-ink: #f1f1ef; --p-muted: #9a9b96;
+  --p-accent: #8fa68e; --p-accent-ink: #1c1c1c; --p-action: #8fa68e; --p-action-ink: #1c1c1c;
+  --p-inv-bg: #c8c5ba; --p-inv-surface: #bab8ae; --p-inv-ink: #1c1c1c; --p-inv-muted: #454442;
+  --p-inv-accent: #1c1c1c; --p-inv-accent-ink: #c8c5ba; --p-inv-action: #1c1c1c; --p-inv-action-ink: #c8c5ba;
+  --font-display: "Instrument Sans", system-ui, sans-serif;
+  --font-text: "Instrument Sans", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 500;
+  --display-tracking: -0.028em;
+  --display-tracking-xl: -0.036em;
+  --display-stretch: 96%;
+  --ly-scale: 1.04;
+}
+</style>
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+<script src="/assets/backgrounds/backgrounds.js"></script>
+<script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
+<link rel="modulepreload" href="/assets/moments/moments.js">
+<link rel="modulepreload" href="/assets/moments/lib.js">
+<link rel="modulepreload" href="/assets/moments/liquid-type/moment.js">
+<style>
+  /* Inside the visuals only: Basket's own receipt and index views, drawn as live HTML. */
+  .bk-rcpt { display: grid; gap: 0; font-size: 15px; }
+  .bk-rcpt__head { display: flex; justify-content: space-between; gap: 16px; padding: 4px 4px 14px; border-bottom: 1px solid color-mix(in srgb, var(--p-ink) 13%, transparent); }
+  .bk-rcpt__head b { font-weight: 500; }
+  .bk-rcpt__head span { color: var(--p-muted); }
+  .bk-line { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 12px 4px; border-bottom: 1px solid color-mix(in srgb, var(--p-ink) 13%, transparent); }
+  .bk-line:last-child { border-bottom: 0; }
+  .bk-line__name { font-weight: 500; }
+  .bk-line__name small { color: var(--p-muted); font-weight: 400; font-size: 14px; }
+  .bk-line__price { font-weight: 500; text-align: right; }
+  .bk-line__tags { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; }
+  .bk-tag { display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; font-size: 13px; font-weight: 500; background: color-mix(in srgb, var(--p-ink) 7%, transparent); color: #c9c9c5; }
+  .bk-tag--rise { background: rgb(226 160 127 / .14); color: #e2a07f; }
+  .bk-tag--fall { background: rgb(143 166 142 / .16); color: #8fa68e; }
+  .bk-tag--info { background: rgb(57 135 229 / .16); color: #8db8f0; }
+  .bk-sum { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 14px 4px 4px; }
+  .bk-sum b { display: block; font-size: 22px; font-weight: 500; letter-spacing: -0.02em; }
+  .bk-sum span { color: var(--p-muted); font-size: 13px; }
+  .bk-rise { color: #e2a07f; }
+  .bk-index { display: grid; gap: 16px; padding: 8px; }
+  .bk-index__big { font-size: 56px; line-height: 1; font-weight: 500; letter-spacing: -0.03em; color: #e2a07f; }
+  .bk-index svg { width: 100%; height: auto; display: block; }
+  .bk-movers { display: grid; gap: 0; font-size: 15px; }
+  .bk-movers div { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid color-mix(in srgb, var(--p-ink) 13%, transparent); }
+  .bk-movers div:last-child { border-bottom: 0; }
+  #how .panel { --p-h: 260px; }
+  @media (max-width: 639px) {
+    #how .panel { --p-h: 170px; }
+    .bk-sum { grid-template-columns: 1fr 1fr; }
+    .bk-sum > :nth-child(3) { display: none; }
+    .bk-index__big { font-size: 40px; }
+  }
+</style>
+</head>
+<!-- type: software
+     deal: hero centred, nav nav-centre, close close-type, footer footer-statement, rhythm dark-band, buttons solid, mark stack, grounds none
+     palette charcoal-room-sage: a near-black ground with a produce-green accent answers a money product about groceries
+     moments: liquid-type on the #memory statement -->
+<body>
+<header class="nav nav--centre">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Skip to content</a>
+    <a class="nav__logo" href="#top"><span class="mark" data-mark="stack" aria-hidden="true"></span>Basket</a>
+    <nav class="nav__links" aria-label="Main">
+      <div class="nav__item">
+        <a class="nav__link" href="#how">Receipts <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav__menu">
+          <div class="wrap grid">
+            <div class="menu-col span-4">
+              <p class="t-label">What a receipt tells Basket</p>
+              <a href="#how">Price rises<span>Against what you usually pay</span></a>
+              <a href="#how">Smaller packs<span>Same price, less in the pack</span></a>
+              <a href="#how">Cheaper stores<span>Among the stores you already use</span></a>
+            </div>
+            <div class="menu-col span-4">
+              <p class="t-label">What Basket works out</p>
+              <a href="#inflation">Your inflation rate<span>Weighted by what you spend</span></a>
+              <a href="#inflation">Groceries in weeks<span>What a Sui wallet would cover</span></a>
+              <a href="#memory">Where it is stored<span>Walrus Memory on Sui mainnet</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="#inflation">Inflation</a></div>
+      <div class="nav__item"><a class="nav__link" href="#memory">Memory</a></div>
+    </nav>
+    <a class="btn btn--primary nav__cta" href="/start">Start your basket</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero hero--centred" data-enter aria-labelledby="hero-h">
+    <div class="wrap"><div class="hero-text">
+      <div class="hero__c">
+        <a class="pill" href="#memory"><span>Remembered on Walrus</span><span class="muted">Encrypted, on Sui mainnet</span></a>
+        <h1 id="hero-h" aria-label="Receipt price tracker for households"><span class="ly-mark" aria-hidden="true"></span> Receipt price tracker for households</h1>
+        <p class="hero__lead">Photograph a grocery receipt. Basket remembers every price you pay, then shows what rose, what shrank and which of your stores was cheaper.</p>
+        <div class="btn-row"><a class="btn btn--primary" href="/start">Start your basket</a><a class="btn btn--secondary" href="/demo">See the demo household</a></div>
+      </div>
+      <div class="hero__window" role="img" aria-label="Basket judging a Shoprite receipt: Peak milk 14% over usual, rice cheaper at Market Square, spaghetti in a smaller pack">
+        <div class="ly-piece d-win d-win--dark" aria-hidden="true">
+          <div class="d-win__bar"><span class="d-win__dots"><i></i><i></i><i></i></span><span><b>Shoprite Lekki</b> · 7 Nov</span><span class="sp"></span><span>4 items · ₦19,900</span></div>
+          <div class="d-win__body">
+            <div class="bk-rcpt" data-ly-steps="900">
+              <div class="bk-line">
+                <span class="bk-line__name">Peak Evaporated Milk <small>400g</small></span><span class="bk-line__price">₦2,600</span>
+                <span class="bk-line__tags"><span class="bk-tag bk-tag--rise">14% over usual</span><span class="bk-tag">You usually pay ₦2,275</span></span>
+              </div>
+              <div class="bk-line" data-step>
+                <span class="bk-line__name">Mama Gold Rice <small>5kg</small></span><span class="bk-line__price">₦13,100</span>
+                <span class="bk-line__tags"><span class="bk-tag bk-tag--rise">13% over usual</span><span class="bk-tag bk-tag--info">Cheaper at Market Square Ajah</span></span>
+              </div>
+              <div class="bk-line" data-step>
+                <span class="bk-line__name">Golden Penny Spaghetti <small>450g</small></span><span class="bk-line__price">₦1,000</span>
+                <span class="bk-line__tags"><span class="bk-tag bk-tag--rise">Smaller pack</span><span class="bk-tag">Was 500g at the same price</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section" id="how" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="how-h">How Basket reads a receipt. <span class="muted">Three steps, about half a minute.</span></h2>
+      </div>
+      <div class="grid">
+        <article class="card span-4">
+          <div class="panel" role="img" aria-label="A receipt line printed as PEAK MLK 400G matched to Peak Evaporated Milk">
+            <div class="stage"><div class="at-rise fit"><div class="d-pane bk-rcpt" aria-hidden="true">
+              <div class="bk-rcpt__head"><b>Read</b><span>Shoprite Lekki</span></div>
+              <div class="bk-line"><span class="bk-line__name">PEAK MLK 400G</span><span class="bk-line__price">2,600.00</span><span class="bk-line__tags"><span class="bk-tag bk-tag--fall">Peak Evaporated Milk</span></span></div>
+              <div class="bk-line"><span class="bk-line__name">MAMA GOLD 5KG</span><span class="bk-line__price">13,100.00</span><span class="bk-line__tags"><span class="bk-tag bk-tag--fall">Mama Gold Rice</span></span></div>
+            </div></div></div>
+          </div>
+          <h3 class="t-card">Reads every printed line</h3>
+          <p>Claude reads the photo and matches each line to the items your household has bought before, however the store abbreviates them.</p>
+        </article>
+        <article class="card span-4">
+          <div class="panel" role="img" aria-label="Rice at 13,100 naira compared with a usual price of 11,600 and 11,200 at Market Square">
+            <div class="stage"><div class="at-rise fit"><div class="d-pane bk-rcpt" aria-hidden="true">
+              <div class="bk-rcpt__head"><b>Mama Gold Rice</b><span>5kg</span></div>
+              <div class="bk-movers"><div><span>Paid today</span><b>₦13,100</b></div><div><span>Your usual</span><span>₦11,600</span></div><div><span>Market Square Ajah</span><span>₦11,200</span></div></div>
+            </div></div></div>
+          </div>
+          <h3 class="t-card">Compares each price with yours</h3>
+          <p>Each price is weighed against what you usually pay, your other stores and the pack size, so a smaller pack shows as the rise it is.</p>
+        </article>
+        <article class="card span-4">
+          <div class="panel" role="img" aria-label="Three lessons written to Walrus Memory after the scan">
+            <div class="stage"><div class="at-rise fit"><div class="d-pane bk-rcpt" aria-hidden="true">
+              <div class="bk-rcpt__head"><b>Written to Walrus</b><span>3 lessons</span></div>
+              <div class="bk-movers"><div><span>Usual price for rice</span><span>₦11,600</span></div><div><span>Cheapest for rice</span><span>Market Square</span></div><div><span>Spaghetti shrank</span><span>500g → 450g</span></div></div>
+            </div></div></div>
+          </div>
+          <h3 class="t-card">Remembers the receipt and the lesson</h3>
+          <p>The receipt and anything Basket newly learned are encrypted and stored on Walrus Memory, so the next scan starts from them.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ground-inverse" id="inflation" aria-labelledby="inflation-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="inflation-h">Inflation measured on your own basket. <span class="muted">Not a national average of things you never buy.</span></h2>
+      </div>
+      <div class="grid">
+        <div class="span-5 stack-4">
+          <p class="lead">Basket follows every item you buy more than once and weights its price change by what you spend on it. That gives one number: how much dearer your own shopping has become.</p>
+          <ul class="rows">
+            <li><span>In your currency and in US dollars</span></li>
+            <li><span>The items pushing it up, ranked by their weight</span></li>
+            <li><span>Your stores ranked on the items you share</span></li>
+            <li><span>Your groceries counted in weeks of a Sui wallet’s USDC and SUI, read through Tatum</span></li>
+          </ul>
+        </div>
+        <div class="span-6 start-7">
+          <div class="panel" role="img" aria-label="Basket showing a household's inflation of 9.4 percent since early October, with milk and rice as the biggest movers">
+            <div class="stage"><div class="at-rise fit"><div class="d-pane bk-index" aria-hidden="true">
+              <span class="t-label">Your basket inflation, in NGN</span>
+              <span class="bk-index__big">+9.4%</span>
+              <svg viewBox="0 0 520 150" aria-hidden="true"><line x1="0" x2="520" y1="118" y2="118" stroke="#9a9b96" stroke-dasharray="3 4"/><path d="M4 118 L180 112 L350 86 L516 40" fill="none" stroke="#8fa68e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><g fill="#8fa68e" stroke="#262626" stroke-width="2"><circle cx="4" cy="118" r="5"/><circle cx="180" cy="112" r="5"/><circle cx="350" cy="86" r="5"/><circle cx="516" cy="40" r="5"/></g></svg>
+              <div class="bk-movers"><div><span>Peak Evaporated Milk</span><span class="bk-rise">+13.0%</span></div><div><span>Mama Gold Rice</span><span class="bk-rise">+9.2%</span></div><div><span>Golden Penny Spaghetti</span><span class="bk-rise">+11.1%</span></div></div>
+            </div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="memory" aria-labelledby="memory-h" data-moment="liquid-type" data-moment-still="reduced">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="memory-h" class="mo-lt__type">Memory that stays yours</h2>
+      </div>
+      <div class="grid">
+        <div class="span-6 stack-4">
+          <p class="lead">Every receipt and every lesson is encrypted with Seal and stored on Walrus Memory on Sui mainnet. Basket keeps no database of its own: each visit recalls your basket from Walrus.</p>
+          <p>A basket key opens it on any phone. Nobody else can read it without that key, and there is no reset link: lose the key and the basket is gone.</p>
+        </div>
+        <div class="span-5 start-8">
+          <ul class="rows">
+            <li><span>No account, no email address</span></li>
+            <li><span>Receipts and lessons kept in two Walrus namespaces</span></li>
+            <li><span>Each write stamped with a Sui checkpoint, read through Tatum</span></li>
+            <li><span>The same receipt scanned twice is recognised</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer closing footer--statement" id="contact" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="closing__cta close--type">
+      <div class="section-head">
+        <h2 id="close-h">Start your basket in one click</h2>
+        <p>Free, with no account. Your first receipt sets the prices every later one is judged against.</p>
+      </div>
+      <a class="btn btn--primary btn--xl btn--wide" href="/start">Start your basket<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+    </div>
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-4 stack-4">
+          <a class="nav__logo" href="#top"><span class="mark" data-mark="stack" aria-hidden="true"></span>Basket</a>
+          <p class="footer__lede">A receipt price tracker that measures each household’s own inflation.</p>
+        </div>
+        <div class="span-2 footer__col"><h3>Receipts</h3><ul><li><a href="#how">How it reads them</a></li><li><a href="/demo">The demo household</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Inflation</h3><ul><li><a href="#inflation">Your own rate</a></li><li><a href="/start">Open your basket</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Memory</h3><ul><li><a href="#memory">Where it is stored</a></li><li><a href="https://docs.wal.app/walrus-memory" rel="noreferrer">Walrus Memory</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Built with</h3><ul><li><a href="https://tatum.io" rel="noreferrer">Tatum</a></li><li><a href="https://github.com/Oshioke-Salaki/basket" rel="noreferrer">Source code</a></li></ul></div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; 2026 Basket</span>
+        <div class="socials"></div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="/assets/system.js"></script>
+<script type="module" src="/assets/motion/motion.js"></script>
+<script type="module" src="/assets/layout/layout.js"></script>
+</body>
+</html>
