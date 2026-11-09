@@ -47,3 +47,4 @@ next-env.d.ts
 /.taste-skill
 /test-results
 /playwright-report
+/.vercel
