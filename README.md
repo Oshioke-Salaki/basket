@@ -14,6 +14,14 @@ Built for the Tatum × Walrus **Total Recall** hackathon, Track 3: Consumer Fina
 
 A **With memory / Without memory** switch on every receipt replays it with no history: the gap between the two views is what memory buys.
 
+**Before you pay, and wherever you are:**
+
+- **Price check.** At a shelf or a market stall, type the quoted price or photograph the tag. Basket answers instantly from the recalled memory: your usual price (per 100 g, so any pack size compares), the cheapest of your stores lately, and a fair offer rounded to a sensible amount. You can quote in any currency.
+- **Your next shop.** Basket learns how often you buy each item, and lists what runs out this week, grouped by the cheapest of your own stores, with an estimated total and the saving against your usual prices.
+- **Any currency, and travel.** A home currency (stored as a memory, editable) measures inflation, stores and the next shop. Receipts in other currencies keep their printed amounts, convert at the rate of their own day, and group into **trips abroad**, each priced against what you pay at home ("2.3× your home price").
+- **Corrections that stick.** Fix a misread name, price, quantity or size, or remove a line that isn't an item. Each fix is written to Walrus as a new version of the receipt, and every analysis follows it.
+- **Household and sharing.** A QR code opens the same basket on a partner's phone (the key travels in the URL fragment, never to a server). "Share my number" makes a card with only the headline figures and a generated preview image.
+
 ## How it uses Walrus Memory
 
 Memory is the product, not a log. Each household gets two namespaces under one Walrus Memory account:
@@ -66,7 +74,7 @@ public/
 ```
 
 - **Identity without accounts:** a basket key (`bsk_…`, 128 random bits) lives in an HttpOnly cookie. Namespaces are derived from a hash of the key, so the key itself never reaches Walrus.
-- **Receipt reading:** `claude-opus-5-5` with structured outputs (`messages.parse` + Zod schema). Every value is then validated and normalised server-side: minor units, ISO currency, no future dates, canonical keys, plausible totals. Photos are downscaled in the browser and sniffed by magic bytes on the server.
+- **Receipt reading:** one `VisionModel` port with two implementations, OpenAI (`gpt-5.5`, Responses API structured outputs) and Claude (`claude-opus-5-5`, `messages.parse`), both validated against the same Zod schema. Every value is then validated and normalised server-side: minor units, ISO currency, no future dates, canonical keys, plausible totals. Photos are downscaled in the browser and sniffed by magic bytes on the server.
 - **Money** is always integer minor units with an ISO 4217 code. Floats appear only in derived ratios.
 
 ## Run it
@@ -79,7 +87,7 @@ pnpm dev
 
 | Variable | Where to get it |
 | --- | --- |
-| `ANTHROPIC_API_KEY` | console.anthropic.com |
+| `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` | Either reads receipts and price tags. `RECEIPT_READER=openai\|anthropic` picks one when both are set; `OPENAI_MODEL` defaults to `gpt-5.5`. |
 | `TATUM_API_KEY` | dashboard.tatum.io (the free plan is enough) |
 | `MEMWAL_ACCOUNT_ID`, `MEMWAL_PRIVATE_KEY` | memory.walrus.xyz/dashboard: create the account, add a delegate key. The managed relayer pays gas and storage. |
 | `BASKET_DEMO_KEY` | optional: the basket key of a household to show read-only at `/demo` |
@@ -87,11 +95,12 @@ pnpm dev
 ## Tests
 
 ```bash
-pnpm check        # typecheck, lint, 39 unit tests (domain, codec, repository on MemWalMock, receipt normalisation, sessions)
+pnpm verify       # live check of Tatum (REST + Sui gRPC) and Walrus Memory (write and read back); prints the agent ID
+pnpm check        # typecheck, lint, 58 unit tests (domain, codec, repository on MemWalMock, receipt normalisation, sessions)
 pnpm test:e2e     # Playwright on desktop and phone against in-process fakes of Walrus, Tatum and Claude
 ```
 
-The end-to-end suite walks the real journey: start a basket, scan three receipts at two stores, watch rises, a cheaper store and a smaller pack appear, switch memory off and on, merge two item names, read a wallet, open the memory proof.
+The end-to-end suite (12 runs, desktop and phone) walks the real journeys: scan three receipts at two stores and watch rises, a cheaper store and a smaller pack appear; switch memory off and on; merge two item names; check a price by hand and from a photo; follow the next shop; correct a line; scan a receipt abroad and see it priced against home; change the home currency; open a basket from its QR link; and view a shared card.
 
 ## Limits
 

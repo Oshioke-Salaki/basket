@@ -74,6 +74,7 @@
   .bk-sum span { color: var(--p-muted); font-size: 13px; }
   .bk-rise { color: #e2a07f; }
   .bk-index { display: grid; gap: 16px; padding: 8px; }
+  #check .bk-index__big { font-size: 34px; }
   .bk-index__big { font-size: 56px; line-height: 1; font-weight: 500; letter-spacing: -0.03em; color: #e2a07f; }
   .bk-index svg { width: 100%; height: auto; display: block; }
   .bk-movers { display: grid; gap: 0; font-size: 15px; }
@@ -83,7 +84,7 @@
   .bk-rcpt.d-pane, .bk-index.d-pane { background: var(--p-bg); color: var(--p-ink); border: 1px solid color-mix(in srgb, var(--p-ink) 13%, transparent); border-radius: 14px; padding: 16px; }
   #how .panel { --p-h: 230px; }
   @media (max-width: 639px) {
-    #how .panel { --p-h: 170px; }
+    #how .panel { --p-h: 250px; }
     .bk-sum { grid-template-columns: 1fr 1fr; }
     .bk-sum > :nth-child(3) { display: none; }
     .bk-index__big { font-size: 40px; }
@@ -114,12 +115,14 @@
             <div class="menu-col span-4">
               <p class="t-label">What Basket works out</p>
               <a href="#inflation">Your inflation rate<span>Weighted by what you spend</span></a>
+              <a href="#check">Price check<span>Judge a price before you pay</span></a>
               <a href="#inflation">Groceries in weeks<span>What a Sui wallet would cover</span></a>
               <a href="#memory">Where it is stored<span>Walrus Memory on Sui mainnet</span></a>
             </div>
           </div>
         </div>
       </div>
+      <div class="nav__item"><a class="nav__link" href="#check">Price check</a></div>
       <div class="nav__item"><a class="nav__link" href="#inflation">Inflation</a></div>
       <div class="nav__item"><a class="nav__link" href="#memory">Memory</a></div>
     </nav>
@@ -137,9 +140,9 @@
   <section class="hero hero--centred" data-enter aria-labelledby="hero-h">
     <div class="wrap"><div class="hero-text">
       <div class="hero__c">
-        <a class="pill" href="#memory"><span>For iPhone and Android, in the browser</span><span class="muted">Memory on Walrus mainnet</span></a>
+        <a class="pill" href="#memory"><span>For iPhone and Android</span><span class="muted">Memory on Walrus</span></a>
         <h1 id="hero-h">Receipt price tracker for households</h1>
-        <p class="hero__lead">Photograph a grocery receipt. Basket remembers every price you pay, then shows what rose, what shrank and which of your stores was cheaper.</p>
+        <p class="hero__lead">Photograph a grocery receipt in any currency. Basket remembers every price you pay, then shows what rose, what shrank and which of your stores was cheaper.</p>
         <div class="btn-row"><a class="btn btn--primary" href="/start">Start your basket</a><a class="btn btn--secondary" href="/demo">See the demo household</a></div>
       </div>
       <div class="hero__window" data-visual role="img" aria-label="Basket judging a Shoprite receipt: Peak milk 14% over usual, rice cheaper at Market Square, spaghetti in a smaller pack">
@@ -207,6 +210,33 @@
     </div>
   </section>
 
+  <section class="section" id="check" aria-labelledby="check-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="check-h">A price check before you pay. <span class="muted">At the shelf, the stall or abroad.</span></h2>
+      </div>
+      <div class="grid">
+        <div class="span-5 stack-4">
+          <p class="lead">Type the price you are quoted, or photograph the tag. Basket answers from your own history in under a second: your usual price, the cheapest of your stores lately, and a fair amount to offer.</p>
+          <ul class="rows">
+            <li><span>Any pack size, compared per 100 g or per item</span></li>
+            <li><span>Quoted in euros, pounds or dollars, judged against what you pay at home</span></li>
+            <li><span>Your next shop: what is running out and where it is cheapest</span></li>
+          </ul>
+        </div>
+        <div class="span-6 start-7">
+          <div class="panel" role="img" aria-label="Basket judging rice quoted at 13,500 naira: 16% over the usual 11,600, cheapest lately 11,200 at Market Square, a fair offer of 11,000">
+            <div class="stage"><div class="at-rise fit"><div class="d-pane bk-index" aria-hidden="true">
+              <span class="t-label">Mama Gold Rice, 5kg at ₦13,500</span>
+              <span class="bk-index__big">High: 16% over usual</span>
+              <div class="bk-movers"><div><span>Your usual</span><span>₦11,600</span></div><div><span>Cheapest lately</span><span>₦11,200 at Market Square</span></div><div><span>A fair offer</span><b>₦11,000</b></div></div>
+            </div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section ground-inverse" id="inflation" aria-labelledby="inflation-h">
     <div class="wrap">
       <div class="section-head">
@@ -216,7 +246,8 @@
         <div class="span-5 stack-4">
           <p class="lead">Basket follows every item you buy more than once and weights its price change by what you spend on it. That gives one number: how much dearer your own shopping has become.</p>
           <ul class="rows">
-            <li><span>In your currency and in US dollars</span></li>
+            <li><span>In your home currency and in US dollars</span></li>
+            <li><span>Trips abroad priced against home, at the rate of each day</span></li>
             <li><span>The items pushing it up, ranked by their weight</span></li>
             <li><span>Your stores ranked on the items you share</span></li>
             <li><span>Your groceries counted in weeks of a Sui wallet’s USDC and SUI, read through Tatum</span></li>
@@ -274,7 +305,7 @@
           <a class="nav__logo" href="#top"><span class="mark" data-mark="stack" aria-hidden="true"></span>Basket</a>
           <p class="footer__lede">A receipt price tracker that measures each household’s own inflation.</p>
         </div>
-        <div class="span-2 footer__col"><h3>Receipts</h3><ul><li><a href="#how">How it reads them</a></li><li><a href="/demo">The demo household</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Receipts</h3><ul><li><a href="#how">How it reads them</a></li><li><a href="#check">Price check</a></li></ul></div>
         <div class="span-2 footer__col"><h3>Inflation</h3><ul><li><a href="#inflation">Your own rate</a></li><li><a href="/start">Open your basket</a></li></ul></div>
         <div class="span-2 footer__col"><h3>Memory</h3><ul><li><a href="#memory">Where it is stored</a></li><li><a href="https://docs.wal.app/walrus-memory" rel="noreferrer">Walrus Memory</a></li></ul></div>
         <div class="span-2 footer__col"><h3>Project</h3><ul><li><a href="https://tatum.io" rel="noreferrer">Tatum</a></li><li><a href="https://github.com/Oshioke-Salaki/basket" rel="noreferrer">Source code</a></li></ul></div>
