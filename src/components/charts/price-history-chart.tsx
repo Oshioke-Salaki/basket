@@ -2,7 +2,7 @@
 
 import { useId, useState } from "react";
 import { formatDay } from "@/domain/dates";
-import { formatMoney } from "@/domain/money";
+import { formatUnitPrice } from "@/domain/money";
 import { dayValue, linear } from "./scale";
 import { useWidth } from "./use-width";
 
@@ -43,7 +43,7 @@ export function PriceHistoryChart({ points, currency, usual, basisLabel }: { poi
   const t0 = Math.min(...times);
   const t1 = Math.max(...times);
   const x = linear(t0 === t1 ? [t0 - 7 * 864e5, t1 + 7 * 864e5] : [t0, t1], [PAD.left + 8, width - PAD.right - 8]);
-  const money = (v: number) => formatMoney(Math.round(v), currency);
+  const money = (v: number) => formatUnitPrice(v, currency);
   const active = hover === null ? null : points[hover]!;
 
   return (

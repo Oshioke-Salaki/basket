@@ -54,7 +54,7 @@ export function ReceiptReport({ receipt, learned, isNew }: { receipt: Receipt; l
         <Summary analysis={analysis} currency={receipt.currency} mode={mode} earlier={earlier} />
       </Panel>
 
-      <Panel className="p-0 sm:p-0">
+      <Panel flush>
         <h2 className="sr-only">Items on this receipt</h2>
         <ul>
           {receipt.lines.map((line, i) => {

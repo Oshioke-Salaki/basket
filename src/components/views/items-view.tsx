@@ -21,7 +21,7 @@ export function ItemsView() {
           {items.length} things you buy, most bought first. Open one to see every price you paid, or to tell Basket two names are the same product.
         </p>
       </header>
-      <Panel className="overflow-x-auto p-0 sm:p-0">
+      <Panel flush className="overflow-x-auto">
         <table className="w-full min-w-[640px] text-left">
           <thead className="text-label text-muted">
             <tr className="border-b border-line">

@@ -1,15 +1,20 @@
 import "server-only";
+import { unstable_rethrow } from "next/navigation";
+import { connection } from "next/server";
 import { AppError, type ErrorBody } from "./errors";
 
 /**
  * Wrap a route handler so every failure leaves as `{ error: { code, message } }`
- * with the right status, and nothing internal leaks to the browser.
+ * with the right status, and nothing internal leaks to the browser. Every Basket
+ * route answers for one household, so none is ever prerendered.
  */
 export function route<Args extends unknown[]>(handler: (...args: Args) => Promise<Response>) {
   return async (...args: Args): Promise<Response> => {
     try {
+      await connection();
       return await handler(...args);
     } catch (error) {
+      unstable_rethrow(error);
       return errorResponse(error);
     }
   };

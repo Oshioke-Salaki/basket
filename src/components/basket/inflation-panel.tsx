@@ -61,7 +61,9 @@ export function InflationPanel() {
       </div>
       {canShowUsd && denomination === "local" && usd.changeRatio !== null ? (
         <p className="mt-4 text-soft">
-          Measured in dollars, the same basket moved {formatPercent(usd.changeRatio)}. The gap is what the exchange rate added.
+          {Math.abs(usd.changeRatio - change) < 0.005
+            ? `Measured in dollars the basket moved the same, ${formatPercent(usd.changeRatio)}: the exchange rate held while you shopped.`
+            : `Measured in dollars, the same basket moved ${formatPercent(usd.changeRatio)}. The difference is the exchange rate's doing.`}
         </p>
       ) : null}
       {shown.series.length >= 2 ? (

@@ -1,14 +1,15 @@
-import { redirect } from "next/navigation";
-import { AppError } from "@/server/errors";
+import { redirect, unstable_rethrow } from "next/navigation";
+import { connection } from "next/server";
 import { openDemoBasket } from "@/server/session";
 
 /** Open the public demo household (read-only) and go straight to it. */
 export async function GET() {
+  await connection();
   try {
     await openDemoBasket();
   } catch (error) {
-    if (error instanceof AppError) redirect("/start");
-    throw error;
+    unstable_rethrow(error);
+    redirect("/start");
   }
   redirect("/basket");
 }

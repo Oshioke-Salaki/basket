@@ -19,7 +19,7 @@ export function ReceiptsView() {
           {receipts.length} {receipts.length === 1 ? "receipt" : "receipts"} remembered on Walrus, newest purchase first.
         </p>
       </header>
-      <Panel className="p-0 sm:p-0">
+      <Panel flush>
         <ul>
           {sorted.map((r) => (
             <li key={r.id} className="border-b border-line last:border-b-0">

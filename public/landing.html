@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-type="software" data-radius="round" data-ground="sage" data-buttons="solid" data-motion>
+<html lang="en" data-type="software" data-radius="round" data-buttons="solid" data-motion>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -47,6 +47,14 @@
 <link rel="modulepreload" href="/assets/moments/liquid-type/moment.js">
 <style>
   /* Inside the visuals only: Basket's own receipt and index views, drawn as live HTML. */
+  .d-win { background: var(--p-bg); color: var(--p-ink); border-radius: 16px; overflow: hidden; box-shadow: 0 0 0 1px rgb(241 241 239 / .1), 0 30px 70px -30px rgb(0 0 0 / .8); max-width: 880px; margin-inline: auto; }
+  .d-win__bar { display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 18px; border-bottom: 1px solid rgb(241 241 239 / .1); font-size: 14px; color: var(--p-muted); }
+  .d-win__bar b { color: var(--p-ink); font-weight: 500; }
+  .d-win__bar .sp { flex: 1; }
+  .d-win__dots { display: flex; gap: 6px; }
+  .d-win__dots i { width: 10px; height: 10px; border-radius: 50%; background: #3a3a39; }
+  .d-win__body { padding: 8px 24px 24px; }
+  @media (max-width: 639px) { .d-win__body { padding: 4px 16px 16px; } .d-win__bar > span:last-child { display: none; } }
   .bk-rcpt { display: grid; gap: 0; font-size: 15px; }
   .bk-rcpt__head { display: flex; justify-content: space-between; gap: 16px; padding: 4px 4px 14px; border-bottom: 1px solid color-mix(in srgb, var(--p-ink) 13%, transparent); }
   .bk-rcpt__head b { font-weight: 500; }
@@ -71,12 +79,15 @@
   .bk-movers { display: grid; gap: 0; font-size: 15px; }
   .bk-movers div { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid color-mix(in srgb, var(--p-ink) 13%, transparent); }
   .bk-movers div:last-child { border-bottom: 0; }
-  #how .panel { --p-h: 260px; }
+  .hero.hero--centred .hero__lead { color: color-mix(in srgb, var(--p-ink) 84%, var(--p-bg)); }
+  .bk-rcpt.d-pane, .bk-index.d-pane { background: var(--p-bg); color: var(--p-ink); border: 1px solid color-mix(in srgb, var(--p-ink) 13%, transparent); border-radius: 14px; padding: 16px; }
+  #how .panel { --p-h: 230px; }
   @media (max-width: 639px) {
     #how .panel { --p-h: 170px; }
     .bk-sum { grid-template-columns: 1fr 1fr; }
     .bk-sum > :nth-child(3) { display: none; }
     .bk-index__big { font-size: 40px; }
+    .hero__window .bk-line:nth-child(3) { display: none; }
   }
 </style>
 </head>
@@ -112,7 +123,13 @@
       <div class="nav__item"><a class="nav__link" href="#inflation">Inflation</a></div>
       <div class="nav__item"><a class="nav__link" href="#memory">Memory</a></div>
     </nav>
-    <a class="btn btn--primary nav__cta" href="/start">Start your basket</a>
+    <div class="nav__actions">
+      <a class="nav__link" href="/demo">Demo</a>
+      <a class="btn btn--primary" href="/start">Start your basket</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
   </div>
 </header>
 
@@ -120,25 +137,25 @@
   <section class="hero hero--centred" data-enter aria-labelledby="hero-h">
     <div class="wrap"><div class="hero-text">
       <div class="hero__c">
-        <a class="pill" href="#memory"><span>Remembered on Walrus</span><span class="muted">Encrypted, on Sui mainnet</span></a>
-        <h1 id="hero-h" aria-label="Receipt price tracker for households"><span class="ly-mark" aria-hidden="true"></span> Receipt price tracker for households</h1>
+        <a class="pill" href="#memory"><span>For iPhone and Android, in the browser</span><span class="muted">Memory on Walrus mainnet</span></a>
+        <h1 id="hero-h">Receipt price tracker for households</h1>
         <p class="hero__lead">Photograph a grocery receipt. Basket remembers every price you pay, then shows what rose, what shrank and which of your stores was cheaper.</p>
         <div class="btn-row"><a class="btn btn--primary" href="/start">Start your basket</a><a class="btn btn--secondary" href="/demo">See the demo household</a></div>
       </div>
-      <div class="hero__window" role="img" aria-label="Basket judging a Shoprite receipt: Peak milk 14% over usual, rice cheaper at Market Square, spaghetti in a smaller pack">
+      <div class="hero__window" data-visual role="img" aria-label="Basket judging a Shoprite receipt: Peak milk 14% over usual, rice cheaper at Market Square, spaghetti in a smaller pack">
         <div class="ly-piece d-win d-win--dark" aria-hidden="true">
           <div class="d-win__bar"><span class="d-win__dots"><i></i><i></i><i></i></span><span><b>Shoprite Lekki</b> · 7 Nov</span><span class="sp"></span><span>4 items · ₦19,900</span></div>
           <div class="d-win__body">
-            <div class="bk-rcpt" data-ly-steps="900">
+            <div class="bk-rcpt">
               <div class="bk-line">
                 <span class="bk-line__name">Peak Evaporated Milk <small>400g</small></span><span class="bk-line__price">₦2,600</span>
                 <span class="bk-line__tags"><span class="bk-tag bk-tag--rise">14% over usual</span><span class="bk-tag">You usually pay ₦2,275</span></span>
               </div>
-              <div class="bk-line" data-step>
+              <div class="bk-line">
                 <span class="bk-line__name">Mama Gold Rice <small>5kg</small></span><span class="bk-line__price">₦13,100</span>
                 <span class="bk-line__tags"><span class="bk-tag bk-tag--rise">13% over usual</span><span class="bk-tag bk-tag--info">Cheaper at Market Square Ajah</span></span>
               </div>
-              <div class="bk-line" data-step>
+              <div class="bk-line">
                 <span class="bk-line__name">Golden Penny Spaghetti <small>450g</small></span><span class="bk-line__price">₦1,000</span>
                 <span class="bk-line__tags"><span class="bk-tag bk-tag--rise">Smaller pack</span><span class="bk-tag">Was 500g at the same price</span></span>
               </div>
@@ -149,42 +166,42 @@
     </div></div>
   </section>
 
-  <section class="section" id="how" aria-labelledby="how-h">
+  <section class="section" id="how" style="--hm: 2" aria-labelledby="how-h">
     <div class="wrap">
       <div class="section-head">
         <h2 id="how-h">How Basket reads a receipt. <span class="muted">Three steps, about half a minute.</span></h2>
       </div>
       <div class="grid">
         <article class="card span-4">
+          <h3 class="t-card">Reads every printed line</h3>
+          <p>Claude reads the photo and matches each line to the items your household has bought before, however the store abbreviates them.</p>
           <div class="panel" role="img" aria-label="A receipt line printed as PEAK MLK 400G matched to Peak Evaporated Milk">
-            <div class="stage"><div class="at-rise fit"><div class="d-pane bk-rcpt" aria-hidden="true">
+            <div class="stage stage--fade-b"><div class="at-rise fit"><div class="d-pane bk-rcpt" aria-hidden="true">
               <div class="bk-rcpt__head"><b>Read</b><span>Shoprite Lekki</span></div>
               <div class="bk-line"><span class="bk-line__name">PEAK MLK 400G</span><span class="bk-line__price">2,600.00</span><span class="bk-line__tags"><span class="bk-tag bk-tag--fall">Peak Evaporated Milk</span></span></div>
               <div class="bk-line"><span class="bk-line__name">MAMA GOLD 5KG</span><span class="bk-line__price">13,100.00</span><span class="bk-line__tags"><span class="bk-tag bk-tag--fall">Mama Gold Rice</span></span></div>
             </div></div></div>
           </div>
-          <h3 class="t-card">Reads every printed line</h3>
-          <p>Claude reads the photo and matches each line to the items your household has bought before, however the store abbreviates them.</p>
         </article>
         <article class="card span-4">
+          <h3 class="t-card">Compares each price with yours</h3>
+          <p>Each price is weighed against what you usually pay, your other stores and the pack size, so a smaller pack shows as the rise it is.</p>
           <div class="panel" role="img" aria-label="Rice at 13,100 naira compared with a usual price of 11,600 and 11,200 at Market Square">
-            <div class="stage"><div class="at-rise fit"><div class="d-pane bk-rcpt" aria-hidden="true">
+            <div class="stage stage--fade-b"><div class="at-rise fit"><div class="d-pane bk-rcpt" aria-hidden="true">
               <div class="bk-rcpt__head"><b>Mama Gold Rice</b><span>5kg</span></div>
               <div class="bk-movers"><div><span>Paid today</span><b>₦13,100</b></div><div><span>Your usual</span><span>₦11,600</span></div><div><span>Market Square Ajah</span><span>₦11,200</span></div></div>
             </div></div></div>
           </div>
-          <h3 class="t-card">Compares each price with yours</h3>
-          <p>Each price is weighed against what you usually pay, your other stores and the pack size, so a smaller pack shows as the rise it is.</p>
         </article>
         <article class="card span-4">
+          <h3 class="t-card">Remembers the receipt and the lesson</h3>
+          <p>The receipt and anything Basket newly learned are encrypted and stored on Walrus Memory, so the next scan starts from them.</p>
           <div class="panel" role="img" aria-label="Three lessons written to Walrus Memory after the scan">
-            <div class="stage"><div class="at-rise fit"><div class="d-pane bk-rcpt" aria-hidden="true">
+            <div class="stage stage--fade-b"><div class="at-rise fit"><div class="d-pane bk-rcpt" aria-hidden="true">
               <div class="bk-rcpt__head"><b>Written to Walrus</b><span>3 lessons</span></div>
               <div class="bk-movers"><div><span>Usual price for rice</span><span>₦11,600</span></div><div><span>Cheapest for rice</span><span>Market Square</span></div><div><span>Spaghetti shrank</span><span>500g → 450g</span></div></div>
             </div></div></div>
           </div>
-          <h3 class="t-card">Remembers the receipt and the lesson</h3>
-          <p>The receipt and anything Basket newly learned are encrypted and stored on Walrus Memory, so the next scan starts from them.</p>
         </article>
       </div>
     </div>
@@ -260,7 +277,7 @@
         <div class="span-2 footer__col"><h3>Receipts</h3><ul><li><a href="#how">How it reads them</a></li><li><a href="/demo">The demo household</a></li></ul></div>
         <div class="span-2 footer__col"><h3>Inflation</h3><ul><li><a href="#inflation">Your own rate</a></li><li><a href="/start">Open your basket</a></li></ul></div>
         <div class="span-2 footer__col"><h3>Memory</h3><ul><li><a href="#memory">Where it is stored</a></li><li><a href="https://docs.wal.app/walrus-memory" rel="noreferrer">Walrus Memory</a></li></ul></div>
-        <div class="span-2 footer__col"><h3>Built with</h3><ul><li><a href="https://tatum.io" rel="noreferrer">Tatum</a></li><li><a href="https://github.com/Oshioke-Salaki/basket" rel="noreferrer">Source code</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Project</h3><ul><li><a href="https://tatum.io" rel="noreferrer">Tatum</a></li><li><a href="https://github.com/Oshioke-Salaki/basket" rel="noreferrer">Source code</a></li></ul></div>
       </div>
       <div class="footer__legal">
         <span>&copy; 2026 Basket</span>

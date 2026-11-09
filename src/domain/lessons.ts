@@ -2,7 +2,7 @@ import { z } from "zod";
 import { baselineFor } from "./baseline";
 import { formatDay } from "./dates";
 import { personalInflation, primaryCurrency } from "./inflation";
-import { formatMoney, formatPercent } from "./money";
+import { formatMoney, formatPercent, formatUnitPrice } from "./money";
 import { observationsOf, unitPrice, type Observation } from "./observations";
 import type { Receipt } from "./receipt";
 import { purchaseCadence } from "./spend";
@@ -98,7 +98,7 @@ export function deriveLessons(receipts: readonly Receipt[]): Draft[] {
   for (const latest of latestPerItem(observations)) {
     const baseline = baselineFor({ ...latest, receiptId: "__probe__" }, observations);
     if (baseline && baseline.sampleSize >= 2) {
-      const price = formatMoney(Math.round(baseline.usual), currency);
+      const price = baseline.basis === "pack" ? formatMoney(Math.round(baseline.usual), currency) : formatUnitPrice(baseline.usual, currency);
       const size = latest.size ? ` (${formatSize(latest.size)})` : "";
       const basis = baseline.basis === "pack" ? "" : ` ${formatBasis(latest.size!.unit)}`;
       drafts.push({

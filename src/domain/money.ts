@@ -69,3 +69,13 @@ export function formatPercent(ratio: number, { signed = true, digits = 1 } = {})
     signDisplay: signed ? "exceptZero" : "auto",
   }).format(ratio);
 }
+
+/**
+ * A derived unit price (per 100 g, per item). Whole major units once it is 10 or
+ * more, since kobo or cents on a per-100g price are noise.
+ */
+export function formatUnitPrice(minor: number, currency: CurrencyCode): string {
+  const major = toMajor(minor, currency);
+  if (Math.abs(major) >= 10) return formatMoney(Math.round(major) * 10 ** fractionDigits(currency), currency);
+  return formatMoney(Math.round(minor), currency, { compact: false });
+}

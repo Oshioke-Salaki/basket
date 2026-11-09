@@ -9,7 +9,7 @@ import { Button, TextLink } from "@/components/ui/button";
 import { Label, Panel, PanelHeader } from "@/components/ui/panel";
 import { formatDay } from "@/domain/dates";
 import { itemSummaries } from "@/domain/items";
-import { formatMoney, formatPercent } from "@/domain/money";
+import { formatMoney, formatPercent, formatUnitPrice } from "@/domain/money";
 import { unitPrice } from "@/domain/observations";
 import { formatSize } from "@/domain/units";
 import { ApiError } from "@/lib/api";
@@ -42,6 +42,7 @@ function ItemContent() {
     .filter((o) => unitPrice(o).basis === item.basis)
     .map((o) => ({ date: o.date, value: unitPrice(o).value, storeKey: o.storeKey, storeName: o.storeName }));
   const money = (minor: number) => formatMoney(Math.round(minor), item.currency);
+  const unit = (minor: number) => formatUnitPrice(minor, item.currency);
 
   return (
     <div className="grid gap-6">
@@ -56,7 +57,7 @@ function ItemContent() {
         <div className="mb-8 grid gap-6 sm:grid-cols-3">
           <div>
             <Label>Usual price {label}</Label>
-            <p className="mt-1 text-[2rem] leading-tight font-medium tracking-tight">{item.usual === null ? "Not yet" : money(item.usual)}</p>
+            <p className="mt-1 text-[2rem] leading-tight font-medium tracking-tight">{item.usual === null ? "Not yet" : unit(item.usual)}</p>
           </div>
           <div>
             <Label>Since you first bought it</Label>
@@ -70,7 +71,7 @@ function ItemContent() {
         <PriceHistoryChart points={points} currency={item.currency} usual={item.usual} basisLabel={label} />
       </Panel>
 
-      <Panel className="p-0 sm:p-0">
+      <Panel flush>
         <h2 className="px-6 pt-6 text-lead font-medium sm:px-8 sm:pt-8">Every purchase</h2>
         <ul className="mt-4">
           {[...item.observations].reverse().map((o) => (
@@ -85,7 +86,7 @@ function ItemContent() {
               </span>
               <span className="shrink-0 text-right">
                 <span className="block font-medium">{money(o.packMinor)}</span>
-                {o.size ? <span className="block text-sm text-muted">{money(unitPrice(o).value)} {basisLabel(unitPrice(o).basis)}</span> : null}
+                {o.size ? <span className="block text-sm text-muted">{unit(unitPrice(o).value)} {basisLabel(unitPrice(o).basis)}</span> : null}
               </span>
             </li>
           ))}
