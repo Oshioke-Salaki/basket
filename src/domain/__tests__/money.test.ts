@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatMoney, isCurrencyCode, toMinor } from "../money";
+import { formatApprox, formatMoney, isCurrencyCode, toMinor } from "../money";
 import { normalizeSize } from "../units";
 import { slugify } from "../receipt";
 
@@ -9,6 +9,12 @@ describe("money and units", () => {
     expect(formatMoney(1999, "USD")).toBe("$19.99");
     expect(toMinor(19.99, "USD")).toBe(1999);
     expect(toMinor(500, "JPY")).toBe(500);
+  });
+
+  it("drops minor digits from large approximate amounts only", () => {
+    expect(formatApprox(305650, "NGN")).toBe("₦3,057");
+    expect(formatApprox(249, "USD")).toBe("$2.49");
+    expect(formatApprox(1234567, "USD")).toBe("$12,346");
   });
 
   it("validates currency codes", () => {

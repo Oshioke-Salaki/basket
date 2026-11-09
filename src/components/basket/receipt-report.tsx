@@ -186,7 +186,7 @@ function MemorySwitch({ mode, onChange }: { mode: Mode; onChange: (m: Mode) => v
 }
 
 function Summary({ analysis, currency, mode, earlier }: { analysis: ReturnType<typeof analyzeReceipt>; currency: string; mode: Mode; earlier: number }) {
-  const money = (minor: number) => formatMoney(Math.abs(minor), currency);
+  const money = (minor: number) => formatApprox(Math.abs(minor), currency);
   const rises = analysis.findings.filter((f) => f.kind === "above_usual").length;
   const shrinks = analysis.findings.filter((f) => f.kind === "shrinkflation").length;
 

@@ -1,0 +1,47 @@
+{
+  "l1": {
+    "file": "vo/l1-fab6b87fa0.wav",
+    "seconds": 7.35,
+    "bar": 0.4
+  },
+  "l2": {
+    "file": "vo/l2-617cd00c5c.wav",
+    "seconds": 6.25,
+    "bar": 4.4
+  },
+  "l3": {
+    "file": "vo/l3-3a2d3d7427.wav",
+    "seconds": 8.9,
+    "bar": 10.4
+  },
+  "l4": {
+    "file": "vo/l4-c87e7d0c13.wav",
+    "seconds": 10.5,
+    "bar": 16.4
+  },
+  "l5": {
+    "file": "vo/l5-966bde6ec6.wav",
+    "seconds": 7.95,
+    "bar": 22.4
+  },
+  "l6": {
+    "file": "vo/l6-55627938e4.wav",
+    "seconds": 6.65,
+    "bar": 28.4
+  },
+  "l7": {
+    "file": "vo/l7-fc5eed2904.wav",
+    "seconds": 7.05,
+    "bar": 34.4
+  },
+  "l8": {
+    "file": "vo/l8-58a94b0eb4.wav",
+    "seconds": 8.9,
+    "bar": 38.4
+  },
+  "l9": {
+    "file": "vo/l9-c321e35e78.wav",
+    "seconds": 3.35,
+    "bar": 43.2
+  }
+}

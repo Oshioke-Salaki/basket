@@ -80,7 +80,12 @@ export function formatUnitPrice(minor: number, currency: CurrencyCode): string {
   return formatMoney(Math.round(minor), currency, { compact: false });
 }
 
-/** An estimate or a conversion: whole major units, since the minor digits are not real. */
+/**
+ * A derived difference, estimate or conversion. From 100 major units up the minor
+ * digits are noise (₦3,056.50 reads as ₦3,057); below that they matter ($2.49).
+ */
 export function formatApprox(minor: number, currency: CurrencyCode): string {
-  return formatMoney(Math.round(toMajor(minor, currency)) * 10 ** fractionDigits(currency), currency);
+  const major = toMajor(minor, currency);
+  if (Math.abs(major) < 100) return formatMoney(Math.round(minor), currency);
+  return formatMoney(Math.round(major) * 10 ** fractionDigits(currency), currency);
 }

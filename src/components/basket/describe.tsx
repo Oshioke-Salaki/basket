@@ -1,6 +1,6 @@
 import { formatDay } from "@/domain/dates";
 import type { Finding } from "@/domain/findings";
-import { formatMoney, formatPercent, formatUnitPrice } from "@/domain/money";
+import { formatApprox, formatMoney, formatPercent, formatUnitPrice } from "@/domain/money";
 import type { PriceBasis } from "@/domain/observations";
 import { formatSize } from "@/domain/units";
 import { ArrowDown, ArrowUp, Equal, Shrink, Sparkle, Store } from "../ui/icons";
@@ -30,7 +30,7 @@ const icon = "size-3.5";
 
 /** Plain words for one finding. Colour never carries the meaning alone. */
 export function describeFinding(f: Finding, currency: string): FindingView {
-  const money = (minor: number) => formatMoney(Math.round(minor), currency);
+  const money = (minor: number) => formatApprox(minor, currency);
   const unit = (minor: number) => formatUnitPrice(minor, currency);
   switch (f.kind) {
     case "first_sighting":
@@ -62,7 +62,7 @@ export function describeFinding(f: Finding, currency: string): FindingView {
       return {
         tone: "rise",
         tag: "Smaller pack",
-        sentence: `The pack shrank from ${formatSize(f.before)} to ${formatSize(f.after)} since ${formatDay(f.seenOn)} while the price stayed at ${money(f.packAfterMinor)}. That is a ${formatPercent(f.measureRiseRatio, { digits: 0, signed: false })} rise per gram.`,
+        sentence: `The pack shrank from ${formatSize(f.before)} to ${formatSize(f.after)} since ${formatDay(f.seenOn)} while the price stayed at ${formatMoney(f.packAfterMinor, currency)}. That is a ${formatPercent(f.measureRiseRatio, { digits: 0, signed: false })} rise per gram.`,
         icon: <Shrink className={icon} />,
       };
   }

@@ -1,0 +1,11 @@
+[
+  { "id": "l1", "bar": 0.4, "text": "Every month, someone tells you how much prices went up. But that number was never about your shopping." },
+  { "id": "l2", "bar": 4.4, "text": "Basket starts with the receipt in your bag. Snap it, in any currency, and every line is read." },
+  { "id": "l3", "bar": 10.4, "text": "Then it remembers. Every price, every store, encrypted on Walrus Memory. No account. Just a key that's yours." },
+  { "id": "l4", "bar": 16.4, "text": "From your next shop, it knows. Milk is up twenty percent. Rice was cheaper at Market Square. And the spaghetti? Fifty grams smaller. Same price." },
+  { "id": "l5", "bar": 22.4, "text": "Add it all up, and you get the number that matters. Your own inflation. Eighteen percent, since September." },
+  { "id": "l6", "bar": 28.4, "text": "At the market, snap the price tag. Basket checks it against everything you've paid, and tells you what to offer." },
+  { "id": "l7", "bar": 34.4, "text": "It learns your rhythm, plans your next shop at your cheapest store, and prices your trips abroad against home." },
+  { "id": "l8", "bar": 38.4, "text": "Underneath, Walrus Memory keeps everything Basket learns, and Tatum reads Sui for every checkpoint, wallet and rate." },
+  { "id": "l9", "bar": 43.2, "text": "Basket. Your prices, remembered." }
+]

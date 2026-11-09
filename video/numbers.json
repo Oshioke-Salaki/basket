@@ -1,0 +1,640 @@
+{
+  "home": "NGN",
+  "receipts": [
+    {
+      "id": "54eb88d6-b062-481e-b385-a7d2f007e5e3",
+      "store": "Shoprite Lekki",
+      "date": "2026-09-20",
+      "currency": "NGN",
+      "total": 2220000,
+      "lines": [
+        {
+          "name": "Peak Evaporated Milk",
+          "raw": "PEAK EVAP MILK TIN 400G",
+          "total": 215000,
+          "qty": 1
+        },
+        {
+          "name": "Mama Gold Rice",
+          "raw": "MAMA GOLD RICE 5KG",
+          "total": 1100000,
+          "qty": 1
+        },
+        {
+          "name": "Golden Penny Spaghetti",
+          "raw": "G/PENNY SPAGHETTI 500G",
+          "total": 95000,
+          "qty": 1
+        },
+        {
+          "name": "Kings Vegetable Oil",
+          "raw": "KINGS VEG OIL 1LTR",
+          "total": 290000,
+          "qty": 1
+        },
+        {
+          "name": "Dangote Sugar",
+          "raw": "DANGOTE SUGAR 500G",
+          "total": 100000,
+          "qty": 1
+        },
+        {
+          "name": "Eggs Crate",
+          "raw": "EGGS CRATE 30PCS",
+          "total": 420000,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "d93b77d9-252b-4e55-b37e-e611d2e7d4d2",
+      "store": "Market Square Ajah",
+      "date": "2026-10-04",
+      "currency": "NGN",
+      "total": 1885000,
+      "lines": [
+        {
+          "name": "Peak Evaporated Milk",
+          "raw": "PEAK MILK 400G TIN",
+          "total": 210000,
+          "qty": 1
+        },
+        {
+          "name": "Mama Gold Rice",
+          "raw": "MAMA GOLD 5KG",
+          "total": 1060000,
+          "qty": 1
+        },
+        {
+          "name": "Golden Penny Spaghetti",
+          "raw": "GOLDEN PENNY SPAG 500G",
+          "total": 90000,
+          "qty": 1
+        },
+        {
+          "name": "Indomie Chicken Noodles",
+          "raw": "INDOMIE CHICKEN 70G / 5 X 250.00",
+          "total": 125000,
+          "qty": 5
+        },
+        {
+          "name": "Eggs Crate",
+          "raw": "FRESH EGGS 30",
+          "total": 400000,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "b3f6e51d-b38a-42b6-9ab3-645169f6814e",
+      "store": "Shoprite Lekki",
+      "date": "2026-10-18",
+      "currency": "NGN",
+      "total": 1935000,
+      "lines": [
+        {
+          "name": "Peak Evaporated Milk",
+          "raw": "PEAK EVAP MILK TIN 400G",
+          "total": 230000,
+          "qty": 1
+        },
+        {
+          "name": "Mama Gold Rice",
+          "raw": "MAMA GOLD RICE 5KG",
+          "total": 1180000,
+          "qty": 1
+        },
+        {
+          "name": "Golden Penny Spaghetti",
+          "raw": "G/PENNY SPAGHETTI 500G",
+          "total": 100000,
+          "qty": 1
+        },
+        {
+          "name": "Kings Vegetable Oil",
+          "raw": "KINGS VEG OIL 1LTR",
+          "total": 315000,
+          "qty": 1
+        },
+        {
+          "name": "Dangote Sugar",
+          "raw": "DANGOTE SUGAR 500G",
+          "total": 110000,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "db1b503f-790a-4ec9-a508-a0e201843843",
+      "store": "Tesco Express Brixton Hill",
+      "date": "2026-10-21",
+      "currency": "GBP",
+      "total": 690,
+      "lines": [
+        {
+          "name": "Peak Evaporated Milk",
+          "raw": "PEAK EVAPORATED MILK 400G",
+          "total": 240,
+          "qty": 1
+        },
+        {
+          "name": "Tesco White Bread",
+          "raw": "TESCO WHITE BREAD 800G",
+          "total": 140,
+          "qty": 1
+        },
+        {
+          "name": "Tesco Free Range Eggs",
+          "raw": "TESCO 12 FREE RANGE EGGS",
+          "total": 310,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "3254519f-c5a0-4023-924b-0e70babfb3a8",
+      "store": "Peckham Afro Foods Peckham",
+      "date": "2026-10-23",
+      "currency": "GBP",
+      "total": 2269,
+      "lines": [
+        {
+          "name": "Mama Gold Rice",
+          "raw": "MAMA GOLD RICE 5KG",
+          "total": 1699,
+          "qty": 1
+        },
+        {
+          "name": "Indomie Chicken Noodles",
+          "raw": "INDOMIE CHICKEN 70G / 5 @ £0.70",
+          "total": 350,
+          "qty": 5
+        },
+        {
+          "name": "Peak Evaporated Milk",
+          "raw": "PEAK MILK TIN 400G",
+          "total": 220,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "0b8e1033-c4fe-41fb-9ad9-de12d0497d7a",
+      "store": "SPAR Adeniyi Jones",
+      "date": "2026-11-01",
+      "currency": "NGN",
+      "total": 2048000,
+      "lines": [
+        {
+          "name": "Peak Evaporated Milk",
+          "raw": "PEAK MILK EVAPORATED 400G",
+          "total": 225000,
+          "qty": 1
+        },
+        {
+          "name": "Mama Gold Rice",
+          "raw": "MAMAGOLD RICE 5KG BAG",
+          "total": 1140000,
+          "qty": 1
+        },
+        {
+          "name": "Golden Penny Spaghetti",
+          "raw": "GOLDEN PENNY SPAG 500G",
+          "total": 98000,
+          "qty": 1
+        },
+        {
+          "name": "Indomie Chicken Noodles",
+          "raw": "INDOMIE CHICKEN 70G / 5 @ 270.00",
+          "total": 135000,
+          "qty": 5
+        },
+        {
+          "name": "Eggs Crate",
+          "raw": "EGGS 30 CRATE",
+          "total": 450000,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "da2ca886-24be-428d-89c2-c902ffbfbe36",
+      "store": "Shoprite Lekki",
+      "date": "2026-11-05",
+      "currency": "NGN",
+      "total": 2140000,
+      "lines": [
+        {
+          "name": "Peak Evaporated Milk",
+          "raw": "PEAK EVAP MILK TIN 400G",
+          "total": 265000,
+          "qty": 1
+        },
+        {
+          "name": "Mama Gold Rice",
+          "raw": "MAMA GOLD RICE 5KG",
+          "total": 1330000,
+          "qty": 1
+        },
+        {
+          "name": "Golden Penny Spaghetti",
+          "raw": "G/PENNY SPAGHETTI 450G",
+          "total": 100000,
+          "qty": 1
+        },
+        {
+          "name": "Kings Vegetable Oil",
+          "raw": "KINGS VEG OIL 1LTR",
+          "total": 330000,
+          "qty": 1
+        },
+        {
+          "name": "Dangote Sugar",
+          "raw": "DANGOTE SUGAR 500G",
+          "total": 115000,
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "memories": 46,
+  "lessons": 39,
+  "lastReceipt": {
+    "id": "da2ca886-24be-428d-89c2-c902ffbfbe36",
+    "store": "Shoprite Lekki",
+    "date": "2026-11-05",
+    "findings": [
+      {
+        "lineIndex": 0,
+        "itemKey": "peak-evaporated-milk",
+        "itemName": "Peak Evaporated Milk",
+        "kind": "above_usual",
+        "basis": "measure:g",
+        "paid": 66250,
+        "usual": 55000,
+        "deltaRatio": 0.20454545454545459,
+        "differenceMinor": 45000,
+        "sampleSize": 4
+      },
+      {
+        "lineIndex": 0,
+        "itemKey": "peak-evaporated-milk",
+        "itemName": "Peak Evaporated Milk",
+        "kind": "cheaper_elsewhere",
+        "basis": "measure:g",
+        "storeName": "Market Square Ajah",
+        "seenOn": "2026-10-04",
+        "paid": 66250,
+        "theirs": 52500,
+        "deltaRatio": -0.2075471698113207,
+        "couldSaveMinor": 55000
+      },
+      {
+        "lineIndex": 1,
+        "itemKey": "mama-gold-rice",
+        "itemName": "Mama Gold Rice",
+        "kind": "above_usual",
+        "basis": "measure:g",
+        "paid": 26600,
+        "usual": 22400,
+        "deltaRatio": 0.1875,
+        "differenceMinor": 210000,
+        "sampleSize": 4
+      },
+      {
+        "lineIndex": 1,
+        "itemKey": "mama-gold-rice",
+        "itemName": "Mama Gold Rice",
+        "kind": "cheaper_elsewhere",
+        "basis": "measure:g",
+        "storeName": "Market Square Ajah",
+        "seenOn": "2026-10-04",
+        "paid": 26600,
+        "theirs": 21200,
+        "deltaRatio": -0.20300751879699253,
+        "couldSaveMinor": 270000
+      },
+      {
+        "lineIndex": 2,
+        "itemKey": "golden-penny-spaghetti",
+        "itemName": "Golden Penny Spaghetti",
+        "kind": "shrinkflation",
+        "before": {
+          "amount": 500,
+          "unit": "g"
+        },
+        "after": {
+          "amount": 450,
+          "unit": "g"
+        },
+        "packBeforeMinor": 98000,
+        "packAfterMinor": 100000,
+        "measureRiseRatio": 0.13378684807256236,
+        "seenOn": "2026-11-01"
+      },
+      {
+        "lineIndex": 2,
+        "itemKey": "golden-penny-spaghetti",
+        "itemName": "Golden Penny Spaghetti",
+        "kind": "above_usual",
+        "basis": "measure:g",
+        "paid": 22222.222222222223,
+        "usual": 19300,
+        "deltaRatio": 0.15141047783534822,
+        "differenceMinor": 13150,
+        "sampleSize": 4
+      },
+      {
+        "lineIndex": 2,
+        "itemKey": "golden-penny-spaghetti",
+        "itemName": "Golden Penny Spaghetti",
+        "kind": "cheaper_elsewhere",
+        "basis": "measure:g",
+        "storeName": "Market Square Ajah",
+        "seenOn": "2026-10-04",
+        "paid": 22222.222222222223,
+        "theirs": 18000,
+        "deltaRatio": -0.19000000000000006,
+        "couldSaveMinor": 19000
+      },
+      {
+        "lineIndex": 3,
+        "itemKey": "kings-vegetable-oil",
+        "itemName": "Kings Vegetable Oil",
+        "kind": "above_usual",
+        "basis": "measure:ml",
+        "paid": 33000,
+        "usual": 30250,
+        "deltaRatio": 0.09090909090909083,
+        "differenceMinor": 27500,
+        "sampleSize": 2
+      },
+      {
+        "lineIndex": 4,
+        "itemKey": "dangote-sugar",
+        "itemName": "Dangote Sugar",
+        "kind": "above_usual",
+        "basis": "measure:g",
+        "paid": 23000,
+        "usual": 21000,
+        "deltaRatio": 0.09523809523809534,
+        "differenceMinor": 10000,
+        "sampleSize": 2
+      }
+    ],
+    "net": 305650,
+    "couldSave": 344000
+  },
+  "inflation": {
+    "change": 0.18109496824824411,
+    "since": "2026-09-20",
+    "items": 7,
+    "series": [
+      {
+        "date": "2026-09-20",
+        "value": 100
+      },
+      {
+        "date": "2026-10-04",
+        "value": 96.83
+      },
+      {
+        "date": "2026-10-18",
+        "value": 105.68
+      },
+      {
+        "date": "2026-11-01",
+        "value": 104.93
+      },
+      {
+        "date": "2026-11-05",
+        "value": 118.11
+      }
+    ],
+    "movers": [
+      {
+        "itemKey": "mama-gold-rice",
+        "itemName": "Mama Gold Rice",
+        "changeRatio": 0.209090909090909,
+        "weight": 0.5680484943292922,
+        "firstSeenOn": "2026-09-20",
+        "lastSeenOn": "2026-11-05"
+      },
+      {
+        "itemKey": "peak-evaporated-milk",
+        "itemName": "Peak Evaporated Milk",
+        "changeRatio": 0.2325581395348837,
+        "weight": 0.11194759483770043,
+        "firstSeenOn": "2026-09-20",
+        "lastSeenOn": "2026-11-05"
+      },
+      {
+        "itemKey": "kings-vegetable-oil",
+        "itemName": "Kings Vegetable Oil",
+        "changeRatio": 0.13793103448275867,
+        "weight": 0.09141572154868988,
+        "firstSeenOn": "2026-09-20",
+        "lastSeenOn": "2026-11-05"
+      },
+      {
+        "itemKey": "eggs-crate",
+        "itemName": "Eggs Crate",
+        "changeRatio": 0.0714285714285714,
+        "weight": 0.124168947985921,
+        "firstSeenOn": "2026-09-20",
+        "lastSeenOn": "2026-11-01"
+      },
+      {
+        "itemKey": "golden-penny-spaghetti",
+        "itemName": "Golden Penny Spaghetti",
+        "changeRatio": 0.16959064327485374,
+        "weight": 0.04722330856472429,
+        "firstSeenOn": "2026-09-20",
+        "lastSeenOn": "2026-11-05"
+      }
+    ]
+  },
+  "stores": [
+    {
+      "storeKey": "market-square-ajah",
+      "storeName": "Market Square Ajah",
+      "relativeRatio": -0.07801103979178925,
+      "itemsCompared": 5,
+      "visits": 1
+    },
+    {
+      "storeKey": "spar-adeniyi-jones",
+      "storeName": "SPAR Adeniyi Jones",
+      "relativeRatio": 0.0034980476963448527,
+      "itemsCompared": 5,
+      "visits": 1
+    },
+    {
+      "storeKey": "shoprite-lekki",
+      "storeName": "Shoprite Lekki",
+      "relativeRatio": 0.09314124011930541,
+      "itemsCompared": 4,
+      "visits": 3
+    }
+  ],
+  "nextShop": {
+    "currency": "NGN",
+    "items": [
+      {
+        "itemKey": "golden-penny-spaghetti",
+        "itemName": "Golden Penny Spaghetti",
+        "size": {
+          "amount": 450,
+          "unit": "g"
+        },
+        "quantity": 1,
+        "intervalDays": 12,
+        "lastBoughtOn": "2026-11-05",
+        "dueInDays": 4,
+        "storeKey": "market-square-ajah",
+        "storeName": "Market Square Ajah",
+        "expectedMinor": 81000,
+        "usualMinor": 88200
+      },
+      {
+        "itemKey": "mama-gold-rice",
+        "itemName": "Mama Gold Rice",
+        "size": {
+          "amount": 5000,
+          "unit": "g"
+        },
+        "quantity": 1,
+        "intervalDays": 12,
+        "lastBoughtOn": "2026-11-05",
+        "dueInDays": 4,
+        "storeKey": "market-square-ajah",
+        "storeName": "Market Square Ajah",
+        "expectedMinor": 1060000,
+        "usualMinor": 1140000
+      },
+      {
+        "itemKey": "peak-evaporated-milk",
+        "itemName": "Peak Evaporated Milk",
+        "size": {
+          "amount": 400,
+          "unit": "g"
+        },
+        "quantity": 1,
+        "intervalDays": 12,
+        "lastBoughtOn": "2026-11-05",
+        "dueInDays": 4,
+        "storeKey": "market-square-ajah",
+        "storeName": "Market Square Ajah",
+        "expectedMinor": 210000,
+        "usualMinor": 225000
+      }
+    ],
+    "stops": [
+      {
+        "storeKey": "market-square-ajah",
+        "storeName": "Market Square Ajah",
+        "items": [
+          {
+            "itemKey": "golden-penny-spaghetti",
+            "itemName": "Golden Penny Spaghetti",
+            "size": {
+              "amount": 450,
+              "unit": "g"
+            },
+            "quantity": 1,
+            "intervalDays": 12,
+            "lastBoughtOn": "2026-11-05",
+            "dueInDays": 4,
+            "storeKey": "market-square-ajah",
+            "storeName": "Market Square Ajah",
+            "expectedMinor": 81000,
+            "usualMinor": 88200
+          },
+          {
+            "itemKey": "mama-gold-rice",
+            "itemName": "Mama Gold Rice",
+            "size": {
+              "amount": 5000,
+              "unit": "g"
+            },
+            "quantity": 1,
+            "intervalDays": 12,
+            "lastBoughtOn": "2026-11-05",
+            "dueInDays": 4,
+            "storeKey": "market-square-ajah",
+            "storeName": "Market Square Ajah",
+            "expectedMinor": 1060000,
+            "usualMinor": 1140000
+          },
+          {
+            "itemKey": "peak-evaporated-milk",
+            "itemName": "Peak Evaporated Milk",
+            "size": {
+              "amount": 400,
+              "unit": "g"
+            },
+            "quantity": 1,
+            "intervalDays": 12,
+            "lastBoughtOn": "2026-11-05",
+            "dueInDays": 4,
+            "storeKey": "market-square-ajah",
+            "storeName": "Market Square Ajah",
+            "expectedMinor": 210000,
+            "usualMinor": 225000
+          }
+        ],
+        "subtotalMinor": 1351000
+      }
+    ],
+    "totalMinor": 1351000,
+    "savingMinor": 102200,
+    "receiptsUsed": 7,
+    "upcoming": []
+  },
+  "trips": [
+    {
+      "currency": "GBP",
+      "from": "2026-10-21",
+      "to": "2026-10-23",
+      "total": 2959,
+      "totalHome": 5348636,
+      "stores": [
+        "Tesco Express Brixton Hill",
+        "Peckham Afro Foods Peckham"
+      ],
+      "comparisons": [
+        {
+          "itemKey": "indomie-chicken-noodles",
+          "itemName": "Indomie Chicken Noodles",
+          "abroadHome": 180758.21104876994,
+          "homeUsual": 37142.857142857145,
+          "ratio": 4.866567220543806,
+          "basis": "measure:g"
+        },
+        {
+          "itemKey": "mama-gold-rice",
+          "itemName": "Mama Gold Rice",
+          "abroadHome": 61421.64011437203,
+          "homeUsual": 22800,
+          "ratio": 2.6939315839636855,
+          "basis": "measure:g"
+        },
+        {
+          "itemKey": "peak-evaporated-milk",
+          "itemName": "Peak Evaporated Milk",
+          "abroadHome": 99417.01607682348,
+          "homeUsual": 56250,
+          "ratio": 1.7674136191435286,
+          "basis": "measure:g"
+        }
+      ]
+    }
+  ],
+  "weekly": {
+    "currency": "NGN",
+    "weeklyMinor": 2057292,
+    "weeksObserved": 7.6,
+    "receipts": 7,
+    "unconverted": 0
+  }
+}
