@@ -7,6 +7,8 @@ import type { Lesson } from "@/domain/lessons";
 import { formatMoney } from "@/domain/money";
 import type { Receipt } from "@/domain/receipt";
 import { formatSize } from "@/domain/units";
+import { receiptInHome } from "@/domain/currency";
+import { tripsOf } from "@/domain/trips";
 import { shortId, suiCheckpointUrl, walrusBlobUrl } from "@/lib/links";
 import { ExternalLink } from "../ui/button";
 import { cx } from "../ui/cx";
@@ -16,6 +18,7 @@ import { Spinner } from "../ui/spinner";
 import { Tag } from "../ui/tag";
 import { useBasket } from "./basket-provider";
 import { describeFinding } from "./describe";
+import { LineEditor } from "./line-editor";
 
 type Mode = "memory" | "blank";
 
@@ -25,8 +28,17 @@ type Mode = "memory" | "blank";
  * app without memory could tell you.
  */
 export function ReceiptReport({ receipt, learned, isNew }: { receipt: Receipt; learned: readonly Lesson[]; isNew: boolean }) {
-  const { effective } = useBasket();
+  const { effective, home, rates, readOnly } = useBasket();
   const [mode, setMode] = useState<Mode>("memory");
+  const [editing, setEditing] = useState<number | null>(null);
+  const foreign = home !== null && receipt.currency !== home;
+  const inHome = foreign ? receiptInHome(receipt, home, effective, rates) : null;
+  const abroad = useMemo(() => {
+    if (!foreign || !home) return [];
+    const trip = tripsOf(effective, home, rates).find((t) => t.receipts.some((r) => r.id === receipt.id));
+    const keys = new Set((effective.find((r) => r.id === receipt.id) ?? receipt).lines.map((l) => l.itemKey));
+    return trip ? trip.comparisons.filter((c) => keys.has(c.itemKey)) : [];
+  }, [foreign, home, effective, rates, receipt]);
   const current = effective.find((r) => r.id === receipt.id) ?? receipt;
   const analysis = useMemo(
     () => (mode === "memory" ? analyzeReceipt(current, effective) : analyzeReceipt(current, [current])),
@@ -45,7 +57,9 @@ export function ReceiptReport({ receipt, learned, isNew }: { receipt: Receipt; l
           <h1 className="mt-2 text-title sm:text-[2.5rem] sm:leading-[1.1] sm:tracking-[-0.025em]">{receipt.store.name}</h1>
           <p className="mt-2 text-muted">
             {formatDay(receipt.purchasedOn, { year: true })} · {receipt.lines.length} items · {money(receipt.totalMinor)}
+            {inHome !== null && home ? ` ≈ ${formatMoney(inHome, home)}` : ""}
           </p>
+          {receipt.revisedAt ? <p className="mt-1 text-sm text-muted">Corrected {formatDay(receipt.revisedAt, { year: true })}</p> : null}
         </div>
         <MemorySwitch mode={mode} onChange={setMode} />
       </header>
@@ -53,6 +67,22 @@ export function ReceiptReport({ receipt, learned, isNew }: { receipt: Receipt; l
       <Panel className={cx(mode === "blank" && "border-dashed")}>
         <Summary analysis={analysis} currency={receipt.currency} mode={mode} earlier={earlier} />
       </Panel>
+
+      {abroad.length ? (
+        <Panel>
+          <PanelHeader title={`Against your prices at home in ${home}`}>Each item you also buy at home, converted at the rate on the day of this receipt.</PanelHeader>
+          <ul>
+            {abroad.map((c) => (
+              <li key={c.itemKey} className="flex items-center justify-between gap-4 border-b border-line py-3 last:border-b-0">
+                <span className="min-w-0 truncate">{c.itemName}</span>
+                <span className={cx("shrink-0 font-medium", c.ratio >= 1.05 ? "text-rise" : c.ratio <= 0.95 ? "text-fall" : "text-muted")}>
+                  {c.ratio >= 1.05 ? `${c.ratio.toFixed(1)}× home` : c.ratio <= 0.95 ? `${Math.round((1 - c.ratio) * 100)}% under home` : "same as home"}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </Panel>
+      ) : null}
 
       <Panel flush>
         <h2 className="sr-only">Items on this receipt</h2>
@@ -84,7 +114,24 @@ export function ReceiptReport({ receipt, learned, isNew }: { receipt: Receipt; l
                     </ul>
                   ) : null}
                 </div>
-                <p className="text-lg font-medium sm:text-right">{money(line.totalMinor)}</p>
+                <div className="flex items-start justify-between gap-4 sm:flex-col sm:items-end">
+                  <p className="text-lg font-medium">{money(line.totalMinor)}</p>
+                  {readOnly || editing === i ? null : (
+                    <button
+                      type="button"
+                      onClick={() => setEditing(i)}
+                      className="min-h-11 text-sm text-muted underline decoration-line-strong underline-offset-4 hover:text-ink sm:min-h-0"
+                      aria-label={`Correct ${line.itemName}`}
+                    >
+                      Correct
+                    </button>
+                  )}
+                </div>
+                {editing === i ? (
+                  <div className="sm:col-span-2">
+                    <LineEditor receiptId={receipt.id} lineIndex={i} line={line} currency={receipt.currency} onDone={() => setEditing(null)} />
+                  </div>
+                ) : null}
               </li>
             );
           })}

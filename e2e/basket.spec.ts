@@ -80,7 +80,7 @@ test("a household's basket learns from receipt to receipt", async ({ page }) => 
   await expect(page.getByText("What Basket believes now")).toBeVisible();
   await expect(page.getByText(/Two names, one product/)).toBeVisible();
   await expect(page.getByText("Latest checkpoint")).toBeVisible();
-  await page.getByRole("button", { name: "Show the key" }).click();
+  await page.getByRole("button", { name: "Show the key and QR code" }).click();
   await expect(page.locator("code")).toHaveText(/^bsk_/);
 });
 

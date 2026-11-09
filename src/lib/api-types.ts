@@ -65,3 +65,25 @@ export interface ProofPayload {
 export interface ApiErrorBody {
   readonly error: { readonly code: string; readonly message: string };
 }
+
+export interface PriceTagPayload {
+  /** The household's item this price is for, or null when it is something they have not bought. */
+  readonly itemKey: string | null;
+  readonly itemName: string;
+  readonly quotedMinor: number;
+  readonly currency: string;
+  readonly size: { readonly amount: number; readonly unit: "g" | "ml" | "unit" } | null;
+}
+
+export interface RevisionPayload {
+  readonly receipt: Receipt;
+  readonly learned: readonly Lesson[];
+  readonly memory: MemoryWritePayload;
+}
+
+export interface RatesPayload {
+  /** USD value of one major unit of each currency asked for. */
+  readonly usdPerUnit: Readonly<Record<string, number>>;
+  readonly asOf: string | null;
+  readonly missing: readonly string[];
+}

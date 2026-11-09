@@ -1,11 +1,13 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef, type ReactNode } from "react";
-import { effectiveReceipts } from "@/domain/ledger";
+import { rateBook, type RateBook } from "@/domain/currency";
+import { effectiveReceipts, homeCurrency } from "@/domain/ledger";
 import type { Lesson } from "@/domain/lessons";
 import type { Receipt } from "@/domain/receipt";
+import type { LineRevision } from "@/domain/revise";
 import { api, ApiError } from "@/lib/api";
-import type { BasketPayload, JobStatePayload, MemoryWritePayload, MergePayload, ScanPayload } from "@/lib/api-types";
+import type { BasketPayload, JobStatePayload, MemoryWritePayload, MergePayload, RevisionPayload, ScanPayload } from "@/lib/api-types";
 
 /** How often pending Walrus writes are checked, and when to stop waiting on them. */
 const POLL_MS = 5_000;
@@ -32,6 +34,8 @@ interface State {
   readonly degraded: boolean;
   readonly jobs: Readonly<Record<string, MemoryJob>>;
   readonly lastScan: ScanPayload | null;
+  /** Today's USD rates from Tatum, for currencies the screens have asked for. */
+  readonly liveRates: Readonly<Record<string, number>>;
 }
 
 type Action =
@@ -40,6 +44,8 @@ type Action =
   | { type: "failed"; status: Status; error: string }
   | { type: "scanned"; scan: ScanPayload }
   | { type: "merged"; merge: MergePayload }
+  | { type: "revised"; revision: RevisionPayload }
+  | { type: "rates"; usdPerUnit: Readonly<Record<string, number>> }
   | { type: "jobs"; updates: readonly Partial<MemoryJob>[] };
 
 const initial: State = {
@@ -52,6 +58,7 @@ const initial: State = {
   degraded: false,
   jobs: {},
   lastScan: null,
+  liveRates: {},
 };
 
 function track(jobs: State["jobs"], write: MemoryWritePayload, receiptId: string | null): State["jobs"] {
@@ -86,6 +93,17 @@ function reducer(state: State, action: Action): State {
     }
     case "merged":
       return { ...state, lessons: [...state.lessons, ...action.merge.learned], jobs: track(state.jobs, action.merge.memory, null) };
+    case "revised": {
+      const { revision } = action;
+      return {
+        ...state,
+        receipts: state.receipts.map((r) => (r.id === revision.receipt.id ? revision.receipt : r)),
+        lessons: [...state.lessons, ...revision.learned],
+        jobs: track(state.jobs, revision.memory, revision.receipt.id),
+      };
+    }
+    case "rates":
+      return { ...state, liveRates: { ...state.liveRates, ...action.usdPerUnit } };
     case "jobs": {
       const jobs = { ...state.jobs };
       for (const u of action.updates) {
@@ -103,6 +121,14 @@ interface BasketContextValue extends State {
   readonly reload: (fresh?: boolean) => Promise<void>;
   readonly scan: (image: Blob) => Promise<ScanPayload>;
   readonly merge: (from: string, into: string) => Promise<MergePayload>;
+  readonly revise: (receiptId: string, revision: LineRevision) => Promise<RevisionPayload>;
+  readonly setHomeCurrency: (currency: string) => Promise<void>;
+  /** Fetch today's rates for currencies not yet in the book. Failures leave the book as it is. */
+  readonly ensureRates: (currencies: readonly string[]) => Promise<void>;
+  /** The currency the basket is measured in. */
+  readonly home: string | null;
+  /** USD value per unit: each currency's latest receipt rate, overlaid with today's live rates. */
+  readonly rates: RateBook;
   readonly blobFor: (receiptId: string) => MemoryJob | null;
 }
 
@@ -137,17 +163,51 @@ export function BasketProvider({ children }: { children: ReactNode }) {
     return result;
   }, []);
 
+  const revise = useCallback(async (receiptId: string, revision: LineRevision) => {
+    const result = await api.revise(receiptId, revision);
+    dispatch({ type: "revised", revision: result });
+    return result;
+  }, []);
+
+  const setHomeCurrency = useCallback(async (currency: string) => {
+    const result = await api.setHomeCurrency(currency);
+    dispatch({ type: "merged", merge: result });
+  }, []);
+
+  const liveRef = useRef(state.liveRates);
+  useEffect(() => {
+    liveRef.current = state.liveRates;
+  }, [state.liveRates]);
+  const ensureRates = useCallback(async (currencies: readonly string[]) => {
+    const missing = [...new Set(currencies)].filter((c) => c !== "USD" && !(c in liveRef.current)).slice(0, 10);
+    if (missing.length === 0) return;
+    try {
+      const { usdPerUnit } = await api.rates(missing);
+      dispatch({ type: "rates", usdPerUnit });
+    } catch {
+      // Receipt rates still convert; a missing live rate only hides a conversion.
+    }
+  }, []);
+
   usePendingWrites(state.jobs, dispatch);
 
   const effective = useMemo(() => effectiveReceipts({ receipts: state.receipts, lessons: state.lessons }), [state.receipts, state.lessons]);
+  const home = useMemo(() => homeCurrency({ receipts: state.receipts, lessons: state.lessons }), [state.receipts, state.lessons]);
+  const rates = useMemo(() => rateBook(state.receipts, state.liveRates), [state.receipts, state.liveRates]);
+
+  // The home currency and every currency in the basket get today's rate once.
+  const currencies = useMemo(() => [...new Set([...(home ? [home] : []), ...state.receipts.map((r) => r.currency)])].sort().join(","), [home, state.receipts]);
+  useEffect(() => {
+    if (currencies) void ensureRates(currencies.split(","));
+  }, [currencies, ensureRates]);
   const blobFor = useCallback(
     (receiptId: string) => Object.values(state.jobs).find((j) => j.receiptId === receiptId) ?? null,
     [state.jobs],
   );
 
   const value = useMemo<BasketContextValue>(
-    () => ({ ...state, effective, reload, scan, merge, blobFor }),
-    [state, effective, reload, scan, merge, blobFor],
+    () => ({ ...state, effective, home, rates, reload, scan, merge, revise, setHomeCurrency, ensureRates, blobFor }),
+    [state, effective, home, rates, reload, scan, merge, revise, setHomeCurrency, ensureRates, blobFor],
   );
   return <BasketContext value={value}>{children}</BasketContext>;
 }

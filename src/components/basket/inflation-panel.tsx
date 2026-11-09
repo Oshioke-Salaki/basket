@@ -8,12 +8,13 @@ import { IndexChart } from "../charts/index-chart";
 import { cx } from "../ui/cx";
 import { Label, Panel } from "../ui/panel";
 import { useBasket } from "./basket-provider";
+import { ShareInflation } from "./share-inflation";
 
 export function InflationPanel() {
-  const { effective } = useBasket();
+  const { effective, home } = useBasket();
   const [denomination, setDenomination] = useState<Denomination>("local");
-  const local = useMemo(() => personalInflation(effective, "local"), [effective]);
-  const usd = useMemo(() => personalInflation(effective, "usd"), [effective]);
+  const local = useMemo(() => personalInflation(effective, "local", home), [effective, home]);
+  const usd = useMemo(() => personalInflation(effective, "usd", home), [effective, home]);
   const shown = denomination === "local" ? local : usd;
   const canShowUsd = local.currency !== "USD" && usd.changeRatio !== null;
 
@@ -71,6 +72,9 @@ export function InflationPanel() {
           <IndexChart points={shown.series} label={`Basket index in ${denomination === "local" ? local.currency : "USD"}`} />
         </div>
       ) : null}
+      <div className="mt-6 border-t border-line pt-6">
+        <ShareInflation card={{ r: local.changeRatio, u: canShowUsd && usd.changeRatio !== null ? usd.changeRatio : null, c: local.currency, s: local.sinceDate!, n: local.itemsTracked }} />
+      </div>
     </Panel>
   );
 }

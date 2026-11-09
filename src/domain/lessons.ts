@@ -17,6 +17,7 @@ export const LESSON_KINDS = [
   "inflation",
   "best_store",
   "same_item",
+  "home_currency",
 ] as const;
 export type LessonKind = (typeof LESSON_KINDS)[number];
 
@@ -33,10 +34,12 @@ export const LessonSchema = z.object({
   learnedAt: z.string().datetime(),
   /** Item merges carry the keys they join; other lessons carry nothing extra. */
   merge: z.object({ from: z.string(), into: z.string(), name: z.string() }).nullable(),
+  /** Set on the household's home-currency choice. */
+  homeCurrency: z.string().regex(/^[A-Z]{3}$/).nullable().optional(),
 });
 export type Lesson = z.infer<typeof LessonSchema>;
 
-type Draft = Omit<Lesson, "learnedAt" | "merge"> & { merge?: Lesson["merge"] };
+type Draft = Omit<Lesson, "learnedAt" | "merge" | "homeCurrency"> & { merge?: Lesson["merge"] };
 
 /** The newest lesson per key. */
 export function currentLessons(lessons: readonly Lesson[]): Lesson[] {
@@ -89,8 +92,8 @@ export function mergeLesson(from: string, into: string, name: string, now: Date)
 }
 
 /** Everything the ledger currently supports believing. */
-export function deriveLessons(receipts: readonly Receipt[]): Draft[] {
-  const currency = primaryCurrency(receipts);
+export function deriveLessons(receipts: readonly Receipt[], home: string | null = primaryCurrency(receipts)): Draft[] {
+  const currency = home;
   if (!currency) return [];
   const drafts: Draft[] = [];
   const observations = observationsOf(receipts).filter((o) => o.currency === currency);
@@ -139,7 +142,7 @@ export function deriveLessons(receipts: readonly Receipt[]): Draft[] {
     });
   }
 
-  const standings = storeStandings(receipts);
+  const standings = storeStandings(receipts, currency);
   if (standings.length >= 2) {
     const best = standings[0]!;
     drafts.push({
@@ -150,7 +153,7 @@ export function deriveLessons(receipts: readonly Receipt[]): Draft[] {
     });
   }
 
-  const inflation = personalInflation(receipts);
+  const inflation = personalInflation(receipts, "local", currency);
   if (inflation.changeRatio !== null && inflation.untilDate) {
     const month = inflation.untilDate.slice(0, 7);
     drafts.push({
@@ -221,4 +224,21 @@ function bucket(value: number, step: number): string {
 
 function bucketAbsolute(value: number, step: number): string {
   return String(Math.round(value / step));
+}
+
+/** The home currency the household chose, if it has. */
+export function chosenHomeCurrency(lessons: readonly Lesson[]): string | null {
+  return currentLessons(lessons).find((l) => l.kind === "home_currency")?.homeCurrency ?? null;
+}
+
+export function homeCurrencyLesson(currency: string, now: Date): Lesson {
+  return {
+    key: "home_currency",
+    kind: "home_currency",
+    text: `This household's home currency is ${currency}. Spending, inflation and the next shop are counted in it.`,
+    signature: currency,
+    learnedAt: now.toISOString(),
+    merge: null,
+    homeCurrency: currency,
+  };
 }

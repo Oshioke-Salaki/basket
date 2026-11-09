@@ -10,8 +10,8 @@ import { Panel, PanelHeader } from "../ui/panel";
 import { useBasket } from "./basket-provider";
 
 export function MoversPanel() {
-  const { effective } = useBasket();
-  const movers = useMemo(() => personalInflation(effective).movers.slice(0, 5), [effective]);
+  const { effective, home } = useBasket();
+  const movers = useMemo(() => personalInflation(effective, "local", home).movers.slice(0, 5), [effective, home]);
   return (
     <Panel>
       <PanelHeader title="Items driving it">The prices that moved your basket most, weighted by how much you spend on them.</PanelHeader>
@@ -36,8 +36,8 @@ export function MoversPanel() {
 }
 
 export function StoresPanel() {
-  const { effective } = useBasket();
-  const standings = useMemo(() => storeStandings(effective), [effective]);
+  const { effective, home } = useBasket();
+  const standings = useMemo(() => storeStandings(effective, home), [effective, home]);
   return (
     <Panel>
       <PanelHeader title="Stores for your basket">Each store’s prices on the items you buy in more than one place.</PanelHeader>

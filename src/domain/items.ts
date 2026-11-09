@@ -20,8 +20,8 @@ export interface ItemSummary {
 }
 
 /** One row per item the household buys, in its main currency. */
-export function itemSummaries(receipts: readonly Receipt[]): ItemSummary[] {
-  const currency = primaryCurrency(receipts);
+export function itemSummaries(receipts: readonly Receipt[], home: string | null = primaryCurrency(receipts)): ItemSummary[] {
+  const currency = home;
   if (!currency) return [];
   const byItem = new Map<string, Observation[]>();
   for (const o of observationsOf(receipts)) {

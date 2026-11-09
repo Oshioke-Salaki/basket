@@ -3,11 +3,15 @@ import type {
   BasketPayload,
   MemoryStatusPayload,
   MergePayload,
+  PriceTagPayload,
   ProofPayload,
+  RatesPayload,
+  RevisionPayload,
   RunwayPayload,
   ScanPayload,
   SessionPayload,
 } from "./api-types";
+import type { LineRevision } from "@/domain/revise";
 
 export class ApiError extends Error {
   constructor(
@@ -46,6 +50,15 @@ export const api = {
     return call<ScanPayload>("/api/basket/receipts", { method: "POST", body: form });
   },
   merge: (from: string, into: string) => call<MergePayload>("/api/basket/merge", json({ from, into })),
+  revise: (receiptId: string, revision: LineRevision) =>
+    call<RevisionPayload>(`/api/basket/receipts/${encodeURIComponent(receiptId)}`, { ...json(revision), method: "PATCH" }),
+  setHomeCurrency: (homeCurrency: string) => call<MergePayload>("/api/basket/settings", json({ homeCurrency })),
+  priceTag: (image: Blob) => {
+    const form = new FormData();
+    form.append("image", image, "price");
+    return call<PriceTagPayload>("/api/basket/price-tag", { method: "POST", body: form });
+  },
+  rates: (currencies: readonly string[]) => call<RatesPayload>(`/api/rates?currencies=${currencies.map(encodeURIComponent).join(",")}`),
   memoryStatus: (jobIds: readonly string[]) => call<MemoryStatusPayload>(`/api/basket/memory?jobs=${jobIds.map(encodeURIComponent).join(",")}`),
   runway: (address: string) => call<RunwayPayload>(`/api/basket/runway?address=${encodeURIComponent(address)}`),
   proof: () => call<ProofPayload>("/api/basket/proof"),

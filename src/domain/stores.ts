@@ -16,8 +16,8 @@ export interface StoreStanding {
 export const MIN_SHARED_ITEMS = 2;
 
 /** Rank stores by what this household's own items cost there, on each store's latest price. */
-export function storeStandings(receipts: readonly Receipt[]): StoreStanding[] {
-  const currency = primaryCurrency(receipts);
+export function storeStandings(receipts: readonly Receipt[], home: string | null = primaryCurrency(receipts)): StoreStanding[] {
+  const currency = home;
   if (!currency) return [];
   const observations = observationsOf(receipts).filter((o) => o.currency === currency);
 

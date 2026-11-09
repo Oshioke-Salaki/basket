@@ -60,8 +60,9 @@ export function primaryCurrency(receipts: readonly Receipt[]): string | null {
 export function personalInflation(
   receipts: readonly Receipt[],
   denomination: Denomination = "local",
+  home: string | null = primaryCurrency(receipts),
 ): PersonalInflation {
-  const currency = primaryCurrency(receipts);
+  const currency = home;
   const empty: PersonalInflation = {
     currency: currency ?? "USD",
     denomination,

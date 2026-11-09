@@ -10,6 +10,10 @@ const optional = z
 
 const schema = z.object({
   ANTHROPIC_API_KEY: optional,
+  OPENAI_API_KEY: optional,
+  OPENAI_MODEL: z.string().trim().min(1).default("gpt-5.5"),
+  /** Which provider reads photos; unset picks whichever has a key, OpenAI first. */
+  RECEIPT_READER: z.enum(["openai", "anthropic"]).optional(),
   TATUM_API_KEY: optional,
   MEMWAL_PRIVATE_KEY: optional,
   MEMWAL_ACCOUNT_ID: optional,

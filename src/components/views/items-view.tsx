@@ -10,8 +10,8 @@ import { itemSummaries } from "@/domain/items";
 import { formatMoney, formatPercent } from "@/domain/money";
 
 export function ItemsView() {
-  const { effective } = useBasket();
-  const items = useMemo(() => itemSummaries(effective), [effective]);
+  const { effective, home } = useBasket();
+  const items = useMemo(() => itemSummaries(effective, home), [effective, home]);
   if (items.length === 0) return <EmptyBasket />;
   return (
     <div className="grid gap-8">

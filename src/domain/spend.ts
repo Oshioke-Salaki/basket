@@ -1,4 +1,5 @@
 import { daysBetween } from "./dates";
+import { receiptInHome, type RateBook } from "./currency";
 import { primaryCurrency } from "./inflation";
 import type { Receipt } from "./receipt";
 
@@ -7,26 +8,32 @@ export interface WeeklySpend {
   readonly weeklyMinor: number;
   readonly weeksObserved: number;
   readonly receipts: number;
+  /** Receipts in other currencies that could not be converted and were left out. */
+  readonly unconverted: number;
 }
 
 /**
  * Average weekly grocery spend in the household's main currency. The window runs
  * from the first receipt to a week past the last, so one shop counts as one week.
  */
-export function weeklySpend(receipts: readonly Receipt[]): WeeklySpend | null {
-  const currency = primaryCurrency(receipts);
-  if (!currency) return null;
-  const own = receipts.filter((r) => r.currency === currency);
-  const dates = own.map((r) => r.purchasedOn).sort();
+export function weeklySpend(receipts: readonly Receipt[], home: string | null = primaryCurrency(receipts), book: RateBook = {}): WeeklySpend | null {
+  if (!home || receipts.length === 0) return null;
+  let total = 0;
+  let unconverted = 0;
+  let counted = 0;
+  for (const r of receipts) {
+    const inHome = receiptInHome(r, home, receipts, book);
+    if (inHome === null) unconverted += 1;
+    else {
+      total += inHome;
+      counted += 1;
+    }
+  }
+  if (counted === 0) return null;
+  const dates = receipts.map((r) => r.purchasedOn).sort();
   const days = daysBetween(dates[0]!, dates[dates.length - 1]!) + 7;
   const weeks = Math.max(1, days / 7);
-  const total = own.reduce((sum, r) => sum + r.totalMinor, 0);
-  return {
-    currency,
-    weeklyMinor: Math.round(total / weeks),
-    weeksObserved: Math.round(weeks * 10) / 10,
-    receipts: own.length,
-  };
+  return { currency: home, weeklyMinor: Math.round(total / weeks), weeksObserved: Math.round(weeks * 10) / 10, receipts: counted, unconverted };
 }
 
 export interface Runway {

@@ -12,6 +12,7 @@ import { MemoryIndicator } from "./memory-indicator";
 
 const NAV = [
   { href: "/basket", label: "Overview" },
+  { href: "/basket/check", label: "Check" },
   { href: "/basket/items", label: "Items" },
   { href: "/basket/receipts", label: "Receipts" },
   { href: "/basket/memory", label: "Memory" },
@@ -106,7 +107,7 @@ function TopLinks({ pathname }: { pathname: string | null }) {
 
 function BottomLinks({ pathname }: { pathname: string | null }) {
   return (
-    <ul className="grid grid-cols-4">
+    <ul className="grid grid-cols-5">
       {NAV.map((item) => {
         const current = pathname !== null && isCurrent(pathname, item.href);
         return (

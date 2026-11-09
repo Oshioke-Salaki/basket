@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useBasket, type MemoryJob } from "@/components/basket/basket-provider";
+import { BasketQr, HomeCurrencyPanel } from "@/components/basket/household-panels";
 import { LessonsList } from "@/components/basket/lessons-list";
 import { Button, ExternalLink } from "@/components/ui/button";
 import { Copy } from "@/components/ui/icons";
@@ -45,6 +46,7 @@ export function MemoryView() {
         {beliefs.length ? <LessonsList lessons={beliefs} /> : <p className="text-muted">Nothing yet. Lessons form once an item has been bought twice.</p>}
       </Panel>
 
+      <HomeCurrencyPanel />
       <ProofPanel />
       {readOnly ? null : <KeyPanel />}
     </div>
@@ -184,9 +186,11 @@ function KeyPanel() {
   return (
     <Panel>
       <PanelHeader title="Your basket key">
-        The key opens this basket on any device. Anyone who has it can read your receipts, so keep it like a password. There is no other way to recover the basket.
+        The key opens this basket on any device, so your household can share one basket. Anyone who has it can read your receipts, so keep it like a password. There is no other way to recover the basket.
       </PanelHeader>
       {key ? (
+        <div className="grid gap-6">
+        <BasketQr basketKey={key} />
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <code className="rounded-sm border border-line bg-ground px-4 py-3 font-mono text-[15px] break-all">{key}</code>
           <Button variant="secondary" onClick={() => void copy()}>
@@ -194,9 +198,10 @@ function KeyPanel() {
             {copied ? "Copied" : "Copy the key"}
           </Button>
         </div>
+        </div>
       ) : (
         <Button variant="secondary" onClick={() => void reveal()}>
-          Show the key
+          Show the key and QR code
         </Button>
       )}
       {error ? <p className="mt-2 text-sm text-rise">{error}</p> : null}

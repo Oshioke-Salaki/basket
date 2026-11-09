@@ -1,6 +1,6 @@
 import "server-only";
-import { primaryCurrency } from "@/domain/inflation";
-import { effectiveReceipts } from "@/domain/ledger";
+import { rateBook } from "@/domain/currency";
+import { effectiveReceipts, homeCurrency } from "@/domain/ledger";
 import { toMinor } from "@/domain/money";
 import { runway, weeklySpend } from "@/domain/spend";
 import { AppError } from "../errors";
@@ -27,11 +27,11 @@ export async function walletRunway(household: Household, addressInput: string): 
   const address = parseSuiAddress(addressInput);
   const ledger = await loadLedger(household);
   const receipts = effectiveReceipts(ledger);
-  const currency = primaryCurrency(receipts);
-  const spend = weeklySpend(receipts);
-  if (!currency || !spend) throw new AppError("bad_request", "Scan a receipt first, so Basket knows what your groceries cost.");
-
+  const currency = homeCurrency(ledger);
+  if (!currency) throw new AppError("bad_request", "Scan a receipt first, so Basket knows what your groceries cost.");
   const [holdings, suiUsd, local] = await Promise.all([holdingsOf(address), rate("SUI", "USD"), rate(currency, "USD")]);
+  const spend = weeklySpend(receipts, currency, rateBook(receipts, { [currency]: local.value }));
+  if (!spend) throw new AppError("bad_request", "Scan a receipt first, so Basket knows what your groceries cost.");
   const sui = Number(holdings.suiRaw) / 1e9;
   const usdc = Number(holdings.usdcRaw) / 1e6;
   const totalUsd = sui * suiUsd.value + usdc;

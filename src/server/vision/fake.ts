@@ -62,6 +62,18 @@ const FIXTURES: readonly Extraction[] = [
       line("KINGS VEG OIL 1L", "kings-vegetable-oil", "Kings Vegetable Oil", [1, "l"], 3200, "staples"),
     ],
   },
+  {
+    readable: true,
+    problem: null,
+    store_name: "Tesco Brixton",
+    purchased_on: "2026-10-24",
+    currency: "GBP",
+    total: 3.8,
+    lines: [
+      line("PEAK EVAP MILK 400G", "peak-evaporated-milk", "Peak Evaporated Milk", [400, "g"], 2.4, "dairy_eggs"),
+      line("TESCO WHITE BREAD 800G", "tesco-white-bread", "Tesco White Bread", [800, "g"], 1.4, "bakery"),
+    ],
+  },
 ];
 
 const UNREADABLE: Extraction = { readable: false, problem: "This looks like a photo of a cat, not a receipt.", store_name: "", purchased_on: null, currency: "NGN", total: null, lines: [] };

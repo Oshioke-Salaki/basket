@@ -27,8 +27,8 @@ const subscribeToNothing = () => () => {};
 
 /** Weekly grocery spend, and how many weeks of it a Sui wallet’s SUI and USDC would cover. */
 export function RunwayPanel() {
-  const { effective } = useBasket();
-  const spend = useMemo(() => weeklySpend(effective), [effective]);
+  const { effective, home, rates } = useBasket();
+  const spend = useMemo(() => weeklySpend(effective, home, rates), [effective, home, rates]);
   const fieldId = useId();
   const errorId = useId();
   const saved = useSyncExternalStore(subscribeToNothing, readSavedAddress, () => "");
@@ -67,6 +67,7 @@ export function RunwayPanel() {
           <p className="mt-1 text-[2rem] leading-tight font-medium tracking-tight">{money(spend.weeklyMinor)}</p>
           <p className="text-sm text-muted">
             from {spend.receipts} {spend.receipts === 1 ? "receipt" : "receipts"} over {spend.weeksObserved} {spend.weeksObserved === 1 ? "week" : "weeks"}
+            {spend.unconverted ? `, leaving out ${spend.unconverted} without an exchange rate` : ""}
           </p>
         </div>
         <div>

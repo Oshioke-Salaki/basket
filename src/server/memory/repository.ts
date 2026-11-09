@@ -3,6 +3,7 @@ import { MemWalRateLimitedError, isTimeoutError } from "@mysten-incubation/memwa
 import type { Ledger } from "@/domain/ledger";
 import type { Lesson } from "@/domain/lessons";
 import type { Receipt } from "@/domain/receipt";
+import { newerVersion } from "@/domain/revise";
 import { AppError } from "../errors";
 import { decodeLesson, decodeReceipt, encodeLesson, encodeReceipt } from "./codec";
 import type { MemoryPort } from "./port";
@@ -50,7 +51,11 @@ export class BasketMemory {
       this.recallAll(this.lessonsNamespace, "Basket learned usual price cheapest store"),
     ]);
     const byId = new Map<string, Receipt>();
-    for (const r of receipts.texts.map(decodeReceipt)) if (r) byId.set(r.id, r);
+    for (const r of receipts.texts.map(decodeReceipt)) {
+      if (!r) continue;
+      const seen = byId.get(r.id);
+      byId.set(r.id, seen ? newerVersion(seen, r) : r);
+    }
     return {
       receipts: [...byId.values()],
       lessons: lessons.texts.map(decodeLesson).filter((l): l is Lesson => l !== null),

@@ -1,4 +1,5 @@
-import { applyMerges, currentLessons, type Lesson } from "./lessons";
+import { homeCurrencyOf } from "./currency";
+import { applyMerges, chosenHomeCurrency, currentLessons, type Lesson } from "./lessons";
 import type { Receipt } from "./receipt";
 import type { Size } from "./units";
 
@@ -54,3 +55,8 @@ export function memoryCount(ledger: Ledger): number {
 }
 
 export { currentLessons };
+
+/** The currency this household's basket is measured in. */
+export function homeCurrency(ledger: Ledger): string | null {
+  return homeCurrencyOf(ledger.receipts, chosenHomeCurrency(ledger.lessons));
+}

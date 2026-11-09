@@ -70,6 +70,8 @@ export const ReceiptSchema = z.object({
   /** Sui checkpoint observed through Tatum when the receipt was committed. */
   checkpoint: z.string().regex(/^\d+$/).nullable(),
   scannedAt: z.string().datetime(),
+  /** Set on a version the household corrected; the newest version of a receipt wins. */
+  revisedAt: z.string().datetime().nullable().optional(),
 });
 export type Receipt = z.infer<typeof ReceiptSchema>;
 

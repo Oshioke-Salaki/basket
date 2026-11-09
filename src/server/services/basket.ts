@@ -1,10 +1,10 @@
 import "server-only";
 import { randomUUID } from "node:crypto";
 import { analyzeReceipt, type ReceiptAnalysis } from "@/domain/findings";
-import { primaryCurrency } from "@/domain/inflation";
-import { effectiveReceipts, knownItems, type Ledger } from "@/domain/ledger";
-import { deriveLessons, lessonsToRecord, mergeLesson, type Lesson } from "@/domain/lessons";
+import { effectiveReceipts, homeCurrency, knownItems, type Ledger } from "@/domain/ledger";
+import { deriveLessons, homeCurrencyLesson, lessonsToRecord, mergeLesson, type Lesson } from "@/domain/lessons";
 import type { Receipt } from "@/domain/receipt";
+import { reviseReceipt, RevisionError, type LineRevision } from "@/domain/revise";
 import { AppError } from "../errors";
 import { cachedLedger, lastKnownLedger, reconcile, storeLedger } from "../memory/cache";
 import { memoryClient } from "../memory/client";
@@ -48,15 +48,15 @@ export interface ScanResult {
  */
 export async function scanReceipt(household: Household, image: ReceiptImage, now = new Date()): Promise<ScanResult> {
   const ledger = await loadLedger(household);
-  const homeCurrency = primaryCurrency(ledger.receipts);
-  const extraction = await readReceipt(image, knownItems(ledger), homeCurrency);
+  const home = homeCurrency(ledger);
+  const extraction = await readReceipt(image, knownItems(ledger), home);
 
   const currencyGuess = extraction.currency.trim().toUpperCase();
   const [rate, checkpoint] = await Promise.all([
     usdPerUnit(currencyGuess).catch(() => null),
     latestCheckpoint().then((c) => c.sequence).catch(() => null),
   ]);
-  const receipt = toReceipt(extraction, { id: randomUUID(), now, homeCurrency, usdPerUnit: rate, checkpoint });
+  const receipt = toReceipt(extraction, { id: randomUUID(), now, homeCurrency: home, usdPerUnit: rate, checkpoint });
 
   const duplicate = ledger.receipts.find(
     (r) => r.store.key === receipt.store.key && r.purchasedOn === receipt.purchasedOn && r.totalMinor === receipt.totalMinor,
@@ -70,7 +70,7 @@ export async function scanReceipt(household: Household, image: ReceiptImage, now
   const next: Ledger = { receipts: [...ledger.receipts, receipt], lessons: ledger.lessons };
   const effective = effectiveReceipts(next);
   const analysis = analyzeReceipt(effective.find((r) => r.id === receipt.id)!, effective);
-  const learned = lessonsToRecord(deriveLessons(effective), ledger.lessons, now);
+  const learned = lessonsToRecord(deriveLessons(effective, homeCurrency(next)), ledger.lessons, now);
 
   const memory = await memoryOf(household).commit(receipt, learned);
   storeLedger(household.namespace, { receipts: next.receipts, lessons: [...ledger.lessons, ...learned] });
@@ -88,7 +88,7 @@ export async function mergeItems(household: Household, from: string, into: strin
   }
   const merge = mergeLesson(from, into, target.itemName, now);
   const after: Ledger = { receipts: ledger.receipts, lessons: [...ledger.lessons, merge] };
-  const relearned = lessonsToRecord(deriveLessons(effectiveReceipts(after)), after.lessons, now);
+  const relearned = lessonsToRecord(deriveLessons(effectiveReceipts(after), homeCurrency(after)), after.lessons, now);
   const learned = [merge, ...relearned];
   const memory = await memoryOf(household).commit(null, learned);
   storeLedger(household.namespace, { receipts: ledger.receipts, lessons: [...ledger.lessons, ...learned] });
@@ -97,4 +97,35 @@ export async function mergeItems(household: Household, from: string, into: strin
 
 export async function memoryStatus(household: Household, jobIds: readonly string[]): Promise<JobStatus[]> {
   return memoryOf(household).status(jobIds);
+}
+
+/** Correct a line the reader got wrong: a new version of the receipt goes to Walrus, then lessons are re-learned. */
+export async function reviseLine(household: Household, receiptId: string, revision: LineRevision, now = new Date()): Promise<{ receipt: Receipt; learned: readonly Lesson[]; memory: MemoryWrite }> {
+  const ledger = await loadLedger(household);
+  const current = ledger.receipts.find((r) => r.id === receiptId);
+  if (!current) throw new AppError("not_found", "That receipt is not in this basket.");
+  let receipt: Receipt;
+  try {
+    receipt = reviseReceipt(current, revision, now);
+  } catch (error) {
+    if (error instanceof RevisionError) throw new AppError("bad_request", error.message);
+    throw new AppError("bad_request", "That correction is not valid.", { cause: error });
+  }
+  const next: Ledger = { receipts: ledger.receipts.map((r) => (r.id === receiptId ? receipt : r)), lessons: ledger.lessons };
+  const learned = lessonsToRecord(deriveLessons(effectiveReceipts(next), homeCurrency(next)), ledger.lessons, now);
+  const memory = await memoryOf(household).commit(receipt, learned);
+  storeLedger(household.namespace, { receipts: next.receipts, lessons: [...ledger.lessons, ...learned] });
+  return { receipt, learned, memory };
+}
+
+/** Set the household's home currency, and re-learn what that changes. */
+export async function setHomeCurrency(household: Household, currency: string, now = new Date()): Promise<{ learned: readonly Lesson[]; memory: MemoryWrite }> {
+  const ledger = await loadLedger(household);
+  const choice = homeCurrencyLesson(currency, now);
+  const after: Ledger = { receipts: ledger.receipts, lessons: [...ledger.lessons, choice] };
+  const relearned = lessonsToRecord(deriveLessons(effectiveReceipts(after), currency), after.lessons, now);
+  const learned = [choice, ...relearned];
+  const memory = await memoryOf(household).commit(null, learned);
+  storeLedger(household.namespace, { receipts: ledger.receipts, lessons: [...ledger.lessons, ...learned] });
+  return { learned, memory };
 }

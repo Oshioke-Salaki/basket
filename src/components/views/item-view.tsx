@@ -24,8 +24,8 @@ export function ItemView() {
 
 function ItemContent() {
   const { key } = useParams<{ key: string }>();
-  const { effective } = useBasket();
-  const items = useMemo(() => itemSummaries(effective), [effective]);
+  const { effective, home } = useBasket();
+  const items = useMemo(() => itemSummaries(effective, home), [effective, home]);
   const item = items.find((i) => i.itemKey === key);
 
   if (!item) {

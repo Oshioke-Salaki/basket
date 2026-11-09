@@ -7,6 +7,8 @@ import { EmptyBasket } from "@/components/basket/empty-basket";
 import { InflationPanel } from "@/components/basket/inflation-panel";
 import { LessonsList } from "@/components/basket/lessons-list";
 import { MoversPanel, StoresPanel } from "@/components/basket/movers-panel";
+import { NextShopPanel } from "@/components/basket/next-shop-panel";
+import { TripsPanel } from "@/components/basket/trips-panel";
 import { RunwayPanel } from "@/components/basket/runway-panel";
 import { TextLink } from "@/components/ui/button";
 import { Panel, PanelHeader } from "@/components/ui/panel";
@@ -15,7 +17,7 @@ import { currentLessons } from "@/domain/lessons";
 import { formatMoney } from "@/domain/money";
 
 export function OverviewView() {
-  const { receipts, lessons, effective, isDemo } = useBasket();
+  const { receipts, lessons, effective, isDemo, home } = useBasket();
   const latest = useMemo(() => currentLessons(lessons).slice(0, 4), [lessons]);
   const recent = useMemo(() => [...receipts].sort((a, b) => b.purchasedOn.localeCompare(a.purchasedOn)).slice(0, 4), [receipts]);
   if (receipts.length === 0) return <EmptyBasket />;
@@ -26,9 +28,12 @@ export function OverviewView() {
       <header className="mb-2">
         <h1 className="text-title sm:text-[2.5rem] sm:leading-[1.1] sm:tracking-[-0.025em]">{isDemo ? "The demo household" : "Your basket"}</h1>
         <p className="mt-2 text-muted">
-          {receipts.length} {receipts.length === 1 ? "receipt" : "receipts"}, {items} items and {lessons.length} lessons, all remembered on Walrus Memory.
+          {receipts.length} {receipts.length === 1 ? "receipt" : "receipts"}, {items} items and {lessons.length} lessons, all remembered on Walrus Memory
+          {home ? `. Counted in ${home}` : ""}.
         </p>
       </header>
+
+      <NextShopPanel />
 
       <InflationPanel />
 
@@ -38,6 +43,8 @@ export function OverviewView() {
       </div>
 
       <RunwayPanel />
+
+      <TripsPanel />
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Panel>

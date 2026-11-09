@@ -1,5 +1,6 @@
 import "server-only";
 import type { Ledger } from "@/domain/ledger";
+import { newerVersion } from "@/domain/revise";
 
 /**
  * Recall costs a relayer call from a budget shared by every household, and a
@@ -43,7 +44,10 @@ export function storeLedger(namespace: string, ledger: Ledger): void {
 export function reconcile(recalled: Ledger, previous: Ledger | null): Ledger {
   if (!previous) return recalled;
   const receipts = new Map(previous.receipts.map((r) => [r.id, r]));
-  for (const r of recalled.receipts) receipts.set(r.id, r);
+  for (const r of recalled.receipts) {
+    const seen = receipts.get(r.id);
+    receipts.set(r.id, seen ? newerVersion(seen, r) : r);
+  }
   const lessons = new Map(previous.lessons.map((l) => [`${l.key}@${l.learnedAt}`, l]));
   for (const l of recalled.lessons) lessons.set(`${l.key}@${l.learnedAt}`, l);
   return { receipts: [...receipts.values()], lessons: [...lessons.values()] };
