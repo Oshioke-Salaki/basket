@@ -49,6 +49,20 @@ export function CheckView() {
     return item?.sizes.find((s) => `${s.amount}${s.unit}` === sizeChoice) ?? null;
   }, [sizeChoice, amount, unit, item]);
 
+  /** Each size once; the latest size stands for "your usual". */
+  const sizeOptions = useMemo(() => {
+    if (!item) return [];
+    const latest = item.sizes[item.sizes.length - 1];
+    const latestKey = latest ? `${latest.amount}${latest.unit}` : null;
+    const selected = sizeChoice === "usual" ? (latestKey ?? "usual") : sizeChoice;
+    const sized = item.sizes.map((s) => {
+      const key = `${s.amount}${s.unit}`;
+      return { key, value: key === latestKey ? "usual" : key, label: key === latestKey ? `${formatSize(s)} (usual)` : formatSize(s) };
+    });
+    const options = [...sized, ...(latest ? [] : [{ key: "usual", value: "usual", label: "Your usual" }]), { key: "other", value: "other", label: "Another size" }];
+    return options.map((o) => ({ ...o, pressed: o.key === selected }));
+  }, [item, sizeChoice]);
+
   const result = useMemo(() => {
     if (!item) return null;
     const major = Number(price.replace(/,/g, ""));
@@ -201,19 +215,17 @@ export function CheckView() {
             <fieldset className="grid gap-3">
               <legend className="mb-2 text-sm font-medium text-soft">Pack size</legend>
               <div className="flex flex-wrap gap-2">
-                {[{ key: "usual", label: item.sizes[item.sizes.length - 1] ? `Your usual, ${formatSize(item.sizes[item.sizes.length - 1]!)}` : "Your usual" }, ...item.sizes.map((s) => ({ key: `${s.amount}${s.unit}`, label: formatSize(s) })), { key: "other", label: "Another size" }]
-                  .filter((o, i, all) => all.findIndex((x) => x.label === o.label) === i)
-                  .map((o) => (
-                    <button
-                      key={o.key}
-                      type="button"
-                      aria-pressed={sizeChoice === o.key}
-                      onClick={() => setSizeChoice(o.key)}
-                      className={cx("h-10 rounded-full border px-4 text-sm font-medium transition-colors", sizeChoice === o.key ? "border-ink bg-ink text-ground" : "border-line-strong text-soft hover:border-ink/50")}
-                    >
-                      {o.label}
-                    </button>
-                  ))}
+                {sizeOptions.map((o) => (
+                  <button
+                    key={o.key}
+                    type="button"
+                    aria-pressed={o.pressed}
+                    onClick={() => setSizeChoice(o.value)}
+                    className={cx("h-10 rounded-full border px-4 text-sm font-medium transition-colors", o.pressed ? "border-ink bg-ink text-ground" : "border-line-strong text-soft hover:border-ink/50")}
+                  >
+                    {o.label}
+                  </button>
+                ))}
               </div>
               {sizeChoice === "other" ? (
                 <div className="flex gap-3">
