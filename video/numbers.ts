@@ -24,7 +24,7 @@ const out = {
   lastReceipt: { id: last.id, store: last.store.name, date: last.purchasedOn, findings: analysis.findings, net: analysis.netDifferenceMinor, couldSave: analysis.couldSaveMinor },
   inflation: { change: inflation.changeRatio, since: inflation.sinceDate, items: inflation.itemsTracked, series: inflation.series, movers: inflation.movers.slice(0, 5) },
   stores: storeStandings(receipts, home),
-  nextShop: nextShop(receipts, "2026-11-13", home),
+  nextShop: nextShop(receipts, "2026-11-09", home),
   trips: tripsOf(receipts, home, book).map((t) => ({ currency: t.currency, from: t.from, to: t.to, total: t.totalMinor, totalHome: t.totalHomeMinor, stores: t.stores, comparisons: t.comparisons })),
   weekly: weeklySpend(receipts, home, book),
 };

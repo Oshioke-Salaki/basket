@@ -1,0 +1,3594 @@
+{
+ "bpm": 96,
+ "beat": 0.625,
+ "bar": 2.5,
+ "bars": 48,
+ "duration": 120.0,
+ "fps": 30,
+ "cuts": [
+  10.0,
+  25.0,
+  40.0,
+  55.0,
+  70.0,
+  85.0,
+  95.0,
+  105.0
+ ],
+ "wipeColors": [
+  "#FF4D2E",
+  "#FFC21A",
+  "#1FB574",
+  "#2F7BFF",
+  "#FF5FA2",
+  "#14213D",
+  "#FF8A1F",
+  "#00B3A4",
+  "#3F2DB5"
+ ],
+ "scenes": [
+  {
+   "id": "open",
+   "start": 0,
+   "end": 10.0,
+   "els": [
+    {
+     "type": "text",
+     "lines": [
+      "Prices",
+      "went up."
+     ],
+     "x": 160,
+     "y": 300,
+     "size": 168,
+     "font": "display",
+     "color": "ink",
+     "in": [
+      0.625,
+      1.25
+     ],
+     "out": 4.375,
+     "gap": null
+    },
+    {
+     "type": "floater",
+     "emoji": "🍅",
+     "x": 980,
+     "y": 560,
+     "size": 150,
+     "t": 0.9375,
+     "rise": 46,
+     "out": 4.375,
+     "phase": 0
+    },
+    {
+     "type": "floater",
+     "emoji": "🥛",
+     "x": 1230,
+     "y": 400,
+     "size": 150,
+     "t": 1.25,
+     "rise": 46,
+     "out": 4.415,
+     "phase": 1
+    },
+    {
+     "type": "floater",
+     "emoji": "🍚",
+     "x": 1470,
+     "y": 600,
+     "size": 150,
+     "t": 1.5625,
+     "rise": 46,
+     "out": 4.455,
+     "phase": 2
+    },
+    {
+     "type": "floater",
+     "emoji": "🍝",
+     "x": 1700,
+     "y": 430,
+     "size": 150,
+     "t": 1.875,
+     "rise": 46,
+     "out": 4.495,
+     "phase": 3
+    },
+    {
+     "type": "floater",
+     "emoji": "📈",
+     "x": 1520,
+     "y": 140,
+     "size": 120,
+     "t": 3.125,
+     "out": 4.375,
+     "bob": 6
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Whose prices?"
+     ],
+     "x": 160,
+     "y": 360,
+     "size": 120,
+     "font": "display",
+     "color": "ink",
+     "in": [
+      5.0
+     ],
+     "out": 6.25,
+     "gap": null
+    },
+    {
+     "type": "floater",
+     "emoji": "🤔",
+     "x": 1080,
+     "y": 330,
+     "size": 150,
+     "t": 5.3125,
+     "out": 6.25
+    },
+    {
+     "type": "reveal",
+     "word": "Basket",
+     "x": 160,
+     "y": 330,
+     "size": 300,
+     "grow": 6.25,
+     "reveal": 7.5
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Your prices, remembered."
+     ],
+     "x": 168,
+     "y": 680,
+     "size": 56,
+     "font": "words",
+     "color": "muted",
+     "in": [
+      8.75
+     ],
+     "out": null,
+     "gap": null
+    },
+    {
+     "type": "floater",
+     "emoji": "🧺",
+     "x": 1130,
+     "y": 360,
+     "size": 220,
+     "t": 7.65625,
+     "bob": 10
+    },
+    {
+     "type": "mascot",
+     "x": 1500,
+     "y": 760,
+     "w": 260,
+     "h": 96,
+     "color": "#14213D",
+     "track": [
+      {
+       "t": 8.125,
+       "do": "enter"
+      },
+      {
+       "t": 9.0625,
+       "do": "wake"
+      },
+      {
+       "t": 9.6875,
+       "do": "blink"
+      }
+     ]
+    }
+   ],
+   "bg": "#FFE7D1",
+   "bar": "#FF4D2E"
+  },
+  {
+   "id": "snap",
+   "start": 10.0,
+   "end": 25.0,
+   "els": [
+    {
+     "type": "chapter",
+     "word": "Snap",
+     "t": 10.0
+    },
+    {
+     "type": "printer",
+     "x": 1150,
+     "y": 900,
+     "w": 470,
+     "lines": [
+      {
+       "l": "SHOPRITE LEKKI",
+       "r": "",
+       "b": true
+      },
+      {
+       "l": "05/11/2026  17:42",
+       "r": "",
+       "b": false
+      },
+      {
+       "l": "PEAK EVAP MILK TIN 400G",
+       "r": "2,650.00",
+       "b": false
+      },
+      {
+       "l": "MAMA GOLD RICE 5KG",
+       "r": "13,300.00",
+       "b": false
+      },
+      {
+       "l": "G/PENNY SPAGHETTI 450G",
+       "r": "1,000.00",
+       "b": false
+      },
+      {
+       "l": "KINGS VEG OIL 1LTR",
+       "r": "3,300.00",
+       "b": false
+      },
+      {
+       "l": "DANGOTE SUGAR 500G",
+       "r": "1,150.00",
+       "b": false
+      },
+      {
+       "l": "TOTAL",
+       "r": "21,400.00",
+       "b": true
+      }
+     ],
+     "feeds": [
+      11.25,
+      11.5625,
+      11.875,
+      12.1875,
+      12.5,
+      12.8125,
+      13.125,
+      13.4375
+     ],
+     "tear": 16.25,
+     "end": 17.5
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Any receipt.",
+      "Any currency.",
+      "Every line read."
+     ],
+     "x": 160,
+     "y": 300,
+     "size": 84,
+     "font": "words",
+     "color": "ink",
+     "in": [
+      12.5,
+      13.75,
+      15.0
+     ],
+     "out": 18.75,
+     "gap": null
+    },
+    {
+     "type": "floater",
+     "emoji": "🛍️",
+     "x": 220,
+     "y": 700,
+     "size": 170,
+     "t": 12.8125,
+     "out": 18.75
+    },
+    {
+     "type": "floater",
+     "emoji": "📸",
+     "x": 430,
+     "y": 720,
+     "size": 150,
+     "t": 14.0625,
+     "out": 18.79,
+     "phase": 1
+    },
+    {
+     "type": "floater",
+     "emoji": "💱",
+     "x": 620,
+     "y": 700,
+     "size": 140,
+     "t": 15.3125,
+     "out": 18.83,
+     "phase": 2
+    },
+    {
+     "type": "sheet",
+     "src": "receipt-memory.png",
+     "kind": "screen",
+     "x": 800,
+     "y": 230,
+     "w": 1040,
+     "h": 700,
+     "in": 18.125,
+     "out": null,
+     "cam": [
+      {
+       "t": 18.125,
+       "box": {
+        "x": 60,
+        "y": 60,
+        "w": 1340
+       }
+      },
+      {
+       "t": 20.625,
+       "box": {
+        "x": 70,
+        "y": 285,
+        "w": 900
+       }
+      }
+     ],
+     "seed": 3
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Read in",
+      "seconds."
+     ],
+     "x": 160,
+     "y": 300,
+     "size": 120,
+     "font": "display",
+     "color": "ink",
+     "in": [
+      20.0,
+      20.625
+     ],
+     "out": 23.75,
+     "gap": null
+    },
+    {
+     "type": "stamp",
+     "label": "5 items",
+     "color": "green",
+     "x": 1380,
+     "y": 760,
+     "t": 22.5,
+     "size": 80,
+     "rot": -7,
+     "under": null,
+     "out": null
+    }
+   ],
+   "bg": "#FFD84D",
+   "bar": "#2F6BFF"
+  },
+  {
+   "id": "remember",
+   "start": 25.0,
+   "end": 40.0,
+   "els": [
+    {
+     "type": "chapter",
+     "word": "Remember",
+     "t": 25.0
+    },
+    {
+     "type": "slips",
+     "x": 830,
+     "y": 250,
+     "cols": 4,
+     "items": [
+      {
+       "title": "Shoprite Lekki",
+       "sub": "2026-09-20",
+       "amount": "₦22,200",
+       "t": 26.25
+      },
+      {
+       "title": "Market Square Ajah",
+       "sub": "2026-10-04",
+       "amount": "₦18,850",
+       "t": 26.5625
+      },
+      {
+       "title": "Shoprite Lekki",
+       "sub": "2026-10-18",
+       "amount": "₦19,350",
+       "t": 26.875
+      },
+      {
+       "title": "Tesco Express Brixton Hill",
+       "sub": "2026-10-21",
+       "amount": "£6.90",
+       "t": 27.1875
+      },
+      {
+       "title": "Peckham Afro Foods Peckham",
+       "sub": "2026-10-23",
+       "amount": "£22.69",
+       "t": 27.5
+      },
+      {
+       "title": "SPAR Adeniyi Jones",
+       "sub": "2026-11-01",
+       "amount": "₦20,480",
+       "t": 27.8125
+      },
+      {
+       "title": "Shoprite Lekki",
+       "sub": "2026-11-05",
+       "amount": "₦21,400",
+       "t": 28.125
+      }
+     ],
+     "shrink": 30.0
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Every price.",
+      "Every store."
+     ],
+     "x": 160,
+     "y": 300,
+     "size": 84,
+     "font": "words",
+     "color": "ink",
+     "in": [
+      27.5,
+      28.75
+     ],
+     "out": 31.25,
+     "gap": null
+    },
+    {
+     "type": "counter",
+     "x": 830,
+     "y": 250,
+     "size": 260,
+     "from": 0,
+     "to": 46,
+     "t0": 30.625,
+     "t1": 33.75,
+     "fmt": "int",
+     "label": "memories on Walrus Memory",
+     "dots": {
+      "x": 836,
+      "y": 600
+     },
+     "out": 35.625
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Encrypted on",
+      "Walrus Memory."
+     ],
+     "x": 160,
+     "y": 300,
+     "size": 96,
+     "font": "display",
+     "color": "ink",
+     "in": [
+      32.5,
+      33.125
+     ],
+     "out": 35.0,
+     "gap": null
+    },
+    {
+     "type": "floater",
+     "emoji": "🦭",
+     "x": 230,
+     "y": 640,
+     "size": 190,
+     "t": 33.4375,
+     "out": 35.0
+    },
+    {
+     "type": "floater",
+     "emoji": "🔒",
+     "x": 470,
+     "y": 660,
+     "size": 150,
+     "t": 33.75,
+     "out": 35.04,
+     "phase": 1
+    },
+    {
+     "type": "rows",
+     "x": 830,
+     "y": 280,
+     "rows": [
+      [
+       "Peak Evaporated Milk",
+       "₦2,650"
+      ],
+      [
+       "Mama Gold Rice",
+       "₦13,300"
+      ],
+      [
+       "Golden Penny Spaghetti",
+       "₦1,000"
+      ],
+      [
+       "Kings Vegetable Oil",
+       "₦3,300"
+      ],
+      [
+       "Dangote Sugar",
+       "₦1,150"
+      ]
+     ],
+     "show": 35.625,
+     "redact": [
+      36.25,
+      36.5625,
+      36.875,
+      37.1875,
+      37.5
+     ]
+    },
+    {
+     "type": "text",
+     "lines": [
+      "No account.",
+      "Just your key."
+     ],
+     "x": 160,
+     "y": 300,
+     "size": 84,
+     "font": "words",
+     "color": "ink",
+     "in": [
+      35.625,
+      36.875
+     ],
+     "out": null,
+     "gap": null
+    },
+    {
+     "type": "floater",
+     "emoji": "🔑",
+     "x": 260,
+     "y": 600,
+     "size": 170,
+     "t": 37.5,
+     "tilt": -12
+    },
+    {
+     "type": "stamp",
+     "label": "Sealed",
+     "color": "green",
+     "x": 1140,
+     "y": 700,
+     "t": 38.75,
+     "size": 88,
+     "rot": -7,
+     "under": null,
+     "out": null
+    },
+    {
+     "type": "mascot",
+     "x": 1560,
+     "y": 900,
+     "w": 200,
+     "h": 74,
+     "color": "#2F6BFF",
+     "track": [
+      {
+       "t": 31.25,
+       "do": "enter"
+      },
+      {
+       "t": 31.875,
+       "do": "wake"
+      },
+      {
+       "t": 33.75,
+       "do": "blink"
+      },
+      {
+       "t": 37.5,
+       "do": "hop"
+      }
+     ]
+    }
+   ],
+   "bg": "#BFE6FF",
+   "bar": "#14213D"
+  },
+  {
+   "id": "know",
+   "start": 40.0,
+   "end": 55.0,
+   "els": [
+    {
+     "type": "chapter",
+     "word": "Know",
+     "t": 40.0
+    },
+    {
+     "type": "sheet",
+     "src": "receipt-memory.png",
+     "kind": "screen",
+     "x": 800,
+     "y": 230,
+     "w": 1040,
+     "h": 700,
+     "in": 40.9375,
+     "out": null,
+     "cam": [
+      {
+       "t": 40.9375,
+       "box": {
+        "x": 60,
+        "y": 60,
+        "w": 1340
+       }
+      },
+      {
+       "t": 43.75,
+       "box": {
+        "x": 90,
+        "y": 288,
+        "w": 760
+       }
+      },
+      {
+       "t": 46.25,
+       "box": {
+        "x": 90,
+        "y": 400,
+        "w": 760
+       }
+      },
+      {
+       "t": 48.75,
+       "box": {
+        "x": 90,
+        "y": 512,
+        "w": 760
+       }
+      }
+     ],
+     "seed": 5
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Milk: up 20%."
+     ],
+     "x": 160,
+     "y": 300,
+     "size": 84,
+     "font": "words",
+     "color": "ink",
+     "in": [
+      43.75
+     ],
+     "out": 46.25,
+     "gap": null
+    },
+    {
+     "type": "floater",
+     "emoji": "🥛",
+     "x": 260,
+     "y": 520,
+     "size": 220,
+     "t": 43.90625,
+     "rise": 30,
+     "out": 46.25
+    },
+    {
+     "type": "stamp",
+     "label": "+20%",
+     "color": "red",
+     "x": 1500,
+     "y": 300,
+     "t": 44.375,
+     "size": 88,
+     "rot": -5,
+     "under": null,
+     "out": 46.25
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Rice: cheaper at",
+      "Market Square."
+     ],
+     "x": 160,
+     "y": 300,
+     "size": 84,
+     "font": "words",
+     "color": "ink",
+     "in": [
+      46.875,
+      47.5
+     ],
+     "out": 49.375,
+     "gap": null
+    },
+    {
+     "type": "floater",
+     "emoji": "🍚",
+     "x": 220,
+     "y": 600,
+     "size": 200,
+     "t": 47.65625,
+     "out": 49.375
+    },
+    {
+     "type": "floater",
+     "emoji": "🏪",
+     "x": 470,
+     "y": 620,
+     "size": 170,
+     "t": 48.125,
+     "out": 49.415,
+     "phase": 1
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Spaghetti:",
+      "500g → 450g."
+     ],
+     "x": 160,
+     "y": 300,
+     "size": 84,
+     "font": "words",
+     "color": "ink",
+     "in": [
+      50.0,
+      50.625
+     ],
+     "out": 52.5,
+     "gap": null
+    },
+    {
+     "type": "floater",
+     "emoji": "🍝",
+     "x": 300,
+     "y": 640,
+     "size": 260,
+     "t": 50.15625,
+     "shrink": {
+      "t": 51.25,
+      "to": 0.72
+     },
+     "out": 52.5
+    },
+    {
+     "type": "stamp",
+     "label": "Smaller pack",
+     "color": "red",
+     "x": 1340,
+     "y": 330,
+     "t": 51.25,
+     "size": 88,
+     "rot": -5,
+     "under": null,
+     "out": null
+    },
+    {
+     "type": "sheet",
+     "src": "receipt-blank.png",
+     "kind": "screen",
+     "x": 800,
+     "y": 230,
+     "w": 1040,
+     "h": 700,
+     "in": 52.5,
+     "out": null,
+     "cam": [
+      {
+       "t": 52.5,
+       "box": {
+        "x": 60,
+        "y": 60,
+        "w": 1340
+       }
+      }
+     ],
+     "seed": 7
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Without memory:",
+      "just a list."
+     ],
+     "x": 160,
+     "y": 300,
+     "size": 84,
+     "font": "words",
+     "color": "muted",
+     "in": [
+      53.125,
+      53.75
+     ],
+     "out": null,
+     "gap": null
+    }
+   ],
+   "bg": "#FFD3C4",
+   "bar": "#E0301E"
+  },
+  {
+   "id": "yours",
+   "start": 55.0,
+   "end": 70.0,
+   "els": [
+    {
+     "type": "chapter",
+     "word": "Yours",
+     "t": 55.0
+    },
+    {
+     "type": "counter",
+     "x": 160,
+     "y": 250,
+     "size": 300,
+     "from": 0,
+     "to": 18.1,
+     "t0": 56.25,
+     "t1": 60.0,
+     "fmt": "pct",
+     "label": "your basket inflation",
+     "out": 62.5
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Since September.",
+      "Across 7 things you buy."
+     ],
+     "x": 166,
+     "y": 640,
+     "size": 56,
+     "font": "words",
+     "color": "muted",
+     "in": [
+      60.0,
+      61.25
+     ],
+     "out": 62.5,
+     "gap": null
+    },
+    {
+     "type": "floater",
+     "emoji": "📈",
+     "x": 1150,
+     "y": 300,
+     "size": 220,
+     "t": 57.5,
+     "out": 62.5
+    },
+    {
+     "type": "floater",
+     "emoji": "🛒",
+     "x": 1480,
+     "y": 520,
+     "size": 200,
+     "t": 58.75,
+     "out": 62.54,
+     "phase": 1
+    },
+    {
+     "type": "sheet",
+     "src": "overview.png",
+     "kind": "screen",
+     "x": 800,
+     "y": 230,
+     "w": 1040,
+     "h": 700,
+     "in": 63.125,
+     "out": null,
+     "cam": [
+      {
+       "t": 63.125,
+       "box": {
+        "x": 60,
+        "y": 610,
+        "w": 1340
+       }
+      },
+      {
+       "t": 66.25,
+       "box": {
+        "x": 60,
+        "y": 1300,
+        "w": 1340
+       }
+      }
+     ],
+     "seed": 9
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Your number,",
+      "not the",
+      "national one."
+     ],
+     "x": 160,
+     "y": 300,
+     "size": 96,
+     "font": "display",
+     "color": "ink",
+     "in": [
+      63.75,
+      65.0,
+      65.625
+     ],
+     "out": null,
+     "gap": null
+    },
+    {
+     "type": "mascot",
+     "x": 1500,
+     "y": 236,
+     "w": 180,
+     "h": 66,
+     "peek": true,
+     "color": "#FF5FA2",
+     "track": [
+      {
+       "t": 67.5,
+       "do": "peek"
+      },
+      {
+       "t": 68.125,
+       "do": "wake"
+      },
+      {
+       "t": 68.75,
+       "do": "wink"
+      }
+     ]
+    }
+   ],
+   "bg": "#CFF5C3",
+   "bar": "#0B8A47"
+  },
+  {
+   "id": "check",
+   "start": 70.0,
+   "end": 85.0,
+   "els": [
+    {
+     "type": "chapter",
+     "word": "Check",
+     "t": 70.0
+    },
+    {
+     "type": "tag",
+     "x": 830,
+     "y": 360,
+     "name": "MAMA GOLD RICE",
+     "size": "5kg bag",
+     "price": "₦13,500",
+     "in": 70.9375,
+     "scan": 73.125,
+     "tick": 74.375
+    },
+    {
+     "type": "phone",
+     "src": "phone-check.png",
+     "x": 1340,
+     "y": 120,
+     "w": 420,
+     "h": 860,
+     "in": 73.75,
+     "scroll": [
+      {
+       "t": 73.75,
+       "y": 0
+      },
+      {
+       "t": 76.25,
+       "y": 560
+      }
+     ]
+    },
+    {
+     "type": "text",
+     "lines": [
+      "₦13,500",
+      "for rice?"
+     ],
+     "x": 160,
+     "y": 300,
+     "size": 120,
+     "font": "display",
+     "color": "ink",
+     "in": [
+      72.5,
+      73.125
+     ],
+     "out": 76.25,
+     "gap": null
+    },
+    {
+     "type": "text",
+     "lines": [
+      "18% over",
+      "your usual."
+     ],
+     "x": 160,
+     "y": 300,
+     "size": 120,
+     "font": "display",
+     "color": "red",
+     "in": [
+      76.875,
+      77.5
+     ],
+     "out": 80.0,
+     "gap": null
+    },
+    {
+     "type": "stamp",
+     "label": "Too high",
+     "color": "red",
+     "x": 1180,
+     "y": 600,
+     "t": 78.125,
+     "size": 76,
+     "rot": -5,
+     "under": null,
+     "out": null
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Offer",
+      "₦10,500."
+     ],
+     "x": 160,
+     "y": 300,
+     "size": 120,
+     "font": "display",
+     "color": "green",
+     "in": [
+      80.625,
+      81.25
+     ],
+     "out": null,
+     "gap": null
+    },
+    {
+     "type": "text",
+     "lines": [
+      "You keep ₦3,000."
+     ],
+     "x": 164,
+     "y": 560,
+     "size": 64,
+     "font": "words",
+     "color": "ink",
+     "in": [
+      83.125
+     ],
+     "out": null,
+     "gap": null
+    },
+    {
+     "type": "floater",
+     "emoji": "💰",
+     "x": 700,
+     "y": 520,
+     "size": 150,
+     "t": 83.4375
+    },
+    {
+     "type": "floater",
+     "emoji": "🧺",
+     "x": 860,
+     "y": 760,
+     "size": 170,
+     "t": 71.25,
+     "phase": 2
+    },
+    {
+     "type": "stamp",
+     "label": "Fair offer",
+     "color": "green",
+     "x": 1160,
+     "y": 760,
+     "t": 81.875,
+     "size": 76,
+     "rot": -7,
+     "under": null,
+     "out": null
+    }
+   ],
+   "bg": "#FFC86B",
+   "bar": "#E0301E"
+  },
+  {
+   "id": "plan",
+   "start": 85.0,
+   "end": 95.0,
+   "els": [
+    {
+     "type": "chapter",
+     "word": "Plan",
+     "t": 85.0
+    },
+    {
+     "type": "tiles",
+     "x": 830,
+     "y": 250,
+     "w": 1000,
+     "items": [
+      {
+       "title": "Peak Evaporated Milk",
+       "sub": "due in 8 days · cheapest at Market Square Ajah",
+       "value": "₦2,100"
+      },
+      {
+       "title": "Mama Gold Rice",
+       "sub": "due in 8 days · cheapest at Market Square Ajah",
+       "value": "₦10,600"
+      },
+      {
+       "title": "Golden Penny Spaghetti",
+       "sub": "due in 8 days · cheapest at Market Square Ajah",
+       "value": "₦810"
+      }
+     ],
+     "t": [
+      86.25,
+      86.40625,
+      86.5625
+     ],
+     "lift": 89.375
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Your next shop,",
+      "already planned."
+     ],
+     "x": 160,
+     "y": 300,
+     "size": 84,
+     "font": "words",
+     "color": "ink",
+     "in": [
+      86.875,
+      87.5
+     ],
+     "out": 89.375,
+     "gap": null
+    },
+    {
+     "type": "floater",
+     "emoji": "🗓️",
+     "x": 240,
+     "y": 640,
+     "size": 170,
+     "t": 87.8125,
+     "out": 89.375
+    },
+    {
+     "type": "floater",
+     "emoji": "✈️",
+     "x": -160,
+     "y": 760,
+     "size": 170,
+     "t": 89.6875,
+     "path": {
+      "x": 2100,
+      "y": 600,
+      "t0": 89.6875,
+      "t1": 91.875,
+      "arc": 1.2
+     },
+     "bob": 0
+    },
+    {
+     "type": "floater",
+     "emoji": "🇬🇧",
+     "x": 250,
+     "y": 640,
+     "size": 150,
+     "t": 91.25,
+     "phase": 1
+    },
+    {
+     "type": "floater",
+     "emoji": "🍜",
+     "x": 440,
+     "y": 660,
+     "size": 150,
+     "t": 91.875,
+     "phase": 2
+    },
+    {
+     "type": "trip",
+     "x": 830,
+     "y": 250,
+     "title": "London · Tesco Express Brixton Hill, Peckham Afro Foods Peckham",
+     "total": "£29.59",
+     "home": "≈ ₦53,486",
+     "rows": [
+      {
+       "title": "Indomie Chicken Noodles",
+       "value": "4.9× home"
+      },
+      {
+       "title": "Mama Gold Rice",
+       "value": "2.7× home"
+      },
+      {
+       "title": "Peak Evaporated Milk",
+       "value": "1.8× home"
+      }
+     ],
+     "in": 90.625,
+     "t": [
+      91.25,
+      91.5625,
+      91.875
+     ]
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Abroad, priced",
+      "against home."
+     ],
+     "x": 160,
+     "y": 300,
+     "size": 84,
+     "font": "words",
+     "color": "ink",
+     "in": [
+      90.625,
+      91.25
+     ],
+     "out": null,
+     "gap": null
+    }
+   ],
+   "bg": "#C7EFE6",
+   "bar": "#0B7A75"
+  },
+  {
+   "id": "proof",
+   "start": 95.0,
+   "end": 105.0,
+   "els": [
+    {
+     "type": "chapter",
+     "word": "Proof",
+     "t": 95.0
+    },
+    {
+     "type": "terminal",
+     "x": 820,
+     "y": 260,
+     "w": 1000,
+     "h": 520,
+     "in": 95.9375,
+     "cmd": "pnpm verify",
+     "type0": 96.25,
+     "step": 0.052083333333333336,
+     "lines": [
+      "PASS  Tatum Sui gRPC: latest checkpoint",
+      "PASS  Tatum Sui gRPC: memory account object",
+      "PASS  Tatum Data API: rates",
+      "PASS  Walrus Memory: relayer ok",
+      "PASS  Walrus Memory: mainnet write + read",
+      "All checks passed."
+     ],
+     "lt": [
+      98.125,
+      98.4375,
+      98.75,
+      99.0625,
+      99.375,
+      99.6875
+     ]
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Walrus Memory",
+      "on mainnet.",
+      "Tatum on Sui."
+     ],
+     "x": 160,
+     "y": 300,
+     "size": 84,
+     "font": "words",
+     "color": "ink",
+     "in": [
+      97.5,
+      98.125,
+      99.375
+     ],
+     "out": null,
+     "gap": null
+    },
+    {
+     "type": "floater",
+     "emoji": "🦭",
+     "x": 230,
+     "y": 680,
+     "size": 200,
+     "t": 98.4375
+    },
+    {
+     "type": "floater",
+     "emoji": "⛓️",
+     "x": 470,
+     "y": 700,
+     "size": 150,
+     "t": 99.6875,
+     "phase": 1
+    },
+    {
+     "type": "stamp",
+     "label": "Mainnet",
+     "color": "green",
+     "x": 1420,
+     "y": 700,
+     "t": 102.5,
+     "size": 88,
+     "rot": -7,
+     "under": null,
+     "out": null
+    }
+   ],
+   "bg": "#E4E0FF",
+   "bar": "#3F2DB5"
+  },
+  {
+   "id": "end",
+   "start": 105.0,
+   "end": 120.0,
+   "els": [
+    {
+     "type": "reveal",
+     "word": "Basket",
+     "x": 160,
+     "y": 300,
+     "size": 300,
+     "grow": 106.25,
+     "reveal": 107.5
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Your prices, remembered."
+     ],
+     "x": 168,
+     "y": 640,
+     "size": 64,
+     "font": "words",
+     "color": "ink",
+     "in": [
+      108.75
+     ],
+     "out": null,
+     "gap": null
+    },
+    {
+     "type": "floater",
+     "emoji": "🍅",
+     "x": 1060,
+     "y": 190,
+     "size": 120,
+     "t": 107.5,
+     "phase": 0
+    },
+    {
+     "type": "floater",
+     "emoji": "🥛",
+     "x": 1210,
+     "y": 250,
+     "size": 120,
+     "t": 107.65625,
+     "phase": 1
+    },
+    {
+     "type": "floater",
+     "emoji": "🍚",
+     "x": 1360,
+     "y": 190,
+     "size": 120,
+     "t": 107.8125,
+     "phase": 2
+    },
+    {
+     "type": "floater",
+     "emoji": "🍝",
+     "x": 1510,
+     "y": 250,
+     "size": 120,
+     "t": 107.96875,
+     "phase": 3
+    },
+    {
+     "type": "floater",
+     "emoji": "🧺",
+     "x": 1660,
+     "y": 190,
+     "size": 120,
+     "t": 108.125,
+     "phase": 4
+    },
+    {
+     "type": "typed",
+     "text": "basket-iota-five.vercel.app",
+     "x": 168,
+     "y": 760,
+     "size": 40,
+     "t0": 111.25,
+     "step": 0.052083333333333336
+    },
+    {
+     "type": "text",
+     "lines": [
+      "Walrus Memory · Tatum · Sui"
+     ],
+     "x": 168,
+     "y": 860,
+     "size": 30,
+     "font": "mono",
+     "color": "muted",
+     "in": [
+      113.75
+     ],
+     "out": null,
+     "gap": null
+    },
+    {
+     "type": "mascot",
+     "x": 1440,
+     "y": 760,
+     "w": 300,
+     "h": 110,
+     "color": "#1FB574",
+     "track": [
+      {
+       "t": 110.0,
+       "do": "enter"
+      },
+      {
+       "t": 110.625,
+       "do": "wake"
+      },
+      {
+       "t": 112.5,
+       "do": "hop"
+      },
+      {
+       "t": 114.375,
+       "do": "blink"
+      },
+      {
+       "t": 116.25,
+       "do": "wink"
+      },
+      {
+       "t": 117.5,
+       "do": "hop"
+      }
+     ]
+    }
+   ],
+   "bg": "#FFE7D1",
+   "bar": "#FF4D2E"
+  }
+ ],
+ "events": [
+  {
+   "kind": "slam",
+   "t": 0.625,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "bloop",
+   "t": 0.9375,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": 0.01818181818181818
+  },
+  {
+   "kind": "slam",
+   "t": 1.25,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "bloop",
+   "t": 1.25,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": 0.24545454545454545
+  },
+  {
+   "kind": "bloop",
+   "t": 1.5625,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": 0.4636363636363636
+  },
+  {
+   "kind": "bloop",
+   "t": 1.875,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": 0.6727272727272727
+  },
+  {
+   "kind": "bloop",
+   "t": 3.125,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": 0.509090909090909
+  },
+  {
+   "kind": "slam",
+   "t": 5.0,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "riser",
+   "t": 5.0,
+   "dur": 1.25,
+   "gain": 0.18
+  },
+  {
+   "kind": "bloop",
+   "t": 5.3125,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": 0.10909090909090909
+  },
+  {
+   "kind": "slam",
+   "t": 6.25,
+   "w": 0.4,
+   "gain": 0.2
+  },
+  {
+   "kind": "slam",
+   "t": 6.40625,
+   "w": 0.4,
+   "gain": 0.2
+  },
+  {
+   "kind": "slam",
+   "t": 6.5625,
+   "w": 0.4,
+   "gain": 0.2
+  },
+  {
+   "kind": "kick",
+   "t": 7.5,
+   "level": 0.5
+  },
+  {
+   "kind": "bell_chord",
+   "t": 7.5,
+   "notes": [
+    62,
+    66,
+    69,
+    73,
+    78
+   ],
+   "ratio": 1,
+   "index": 0.8,
+   "decay": 1.0,
+   "gain": 0.2
+  },
+  {
+   "kind": "bloop",
+   "t": 7.65625,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": 0.15454545454545454
+  },
+  {
+   "kind": "sweep",
+   "t": 8.025,
+   "dur": 0.4,
+   "lo": 200,
+   "hi": 1400,
+   "up": true,
+   "gain": 0.14,
+   "pan": 0.4
+  },
+  {
+   "kind": "slam",
+   "t": 8.75,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "bloop",
+   "t": 9.6875,
+   "f0": 700,
+   "f1": 1100,
+   "dur": 0.07,
+   "gain": 0.12
+  },
+  {
+   "kind": "sweep",
+   "t": 9.7,
+   "dur": 0.55,
+   "lo": 380,
+   "hi": 3400,
+   "up": true,
+   "gain": 0.24,
+   "pan": 0
+  },
+  {
+   "kind": "kick",
+   "t": 10.0,
+   "level": 0.6
+  },
+  {
+   "kind": "stamp",
+   "t": 10.0,
+   "scale": 1.3,
+   "pitch": 0.8,
+   "gain": 0.5
+  },
+  {
+   "kind": "printer",
+   "t": 11.25,
+   "len": 0.22,
+   "gain": 0.15
+  },
+  {
+   "kind": "printer",
+   "t": 11.5625,
+   "len": 0.12,
+   "gain": 0.15
+  },
+  {
+   "kind": "printer",
+   "t": 11.875,
+   "len": 0.22,
+   "gain": 0.15
+  },
+  {
+   "kind": "printer",
+   "t": 12.1875,
+   "len": 0.12,
+   "gain": 0.15
+  },
+  {
+   "kind": "printer",
+   "t": 12.5,
+   "len": 0.22,
+   "gain": 0.15
+  },
+  {
+   "kind": "slam",
+   "t": 12.5,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "printer",
+   "t": 12.8125,
+   "len": 0.12,
+   "gain": 0.15
+  },
+  {
+   "kind": "bloop",
+   "t": 12.8125,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": -0.6727272727272727
+  },
+  {
+   "kind": "printer",
+   "t": 13.125,
+   "len": 0.22,
+   "gain": 0.15
+  },
+  {
+   "kind": "printer",
+   "t": 13.4375,
+   "len": 0.12,
+   "gain": 0.15
+  },
+  {
+   "kind": "slam",
+   "t": 13.75,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "bloop",
+   "t": 14.0625,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": -0.4818181818181818
+  },
+  {
+   "kind": "slam",
+   "t": 15.0,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "bloop",
+   "t": 15.3125,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": -0.3090909090909091
+  },
+  {
+   "kind": "tear",
+   "t": 16.25,
+   "gain": 0.16
+  },
+  {
+   "kind": "sweep",
+   "t": 18.075,
+   "dur": 0.25,
+   "lo": 500,
+   "hi": 3000,
+   "up": false,
+   "gain": 0.16,
+   "pan": 0.25
+  },
+  {
+   "kind": "slam",
+   "t": 20.0,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "sweep",
+   "t": 20.475,
+   "dur": 0.3,
+   "lo": 300,
+   "hi": 1800,
+   "up": true,
+   "gain": 0.1,
+   "pan": 0.1
+  },
+  {
+   "kind": "slam",
+   "t": 20.625,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "stamp",
+   "t": 22.5,
+   "scale": 1.6,
+   "pitch": 1.0,
+   "gain": 0.55
+  },
+  {
+   "kind": "kick",
+   "t": 22.5,
+   "level": 0.45
+  },
+  {
+   "kind": "sweep",
+   "t": 24.7,
+   "dur": 0.55,
+   "lo": 380,
+   "hi": 3400,
+   "up": true,
+   "gain": 0.24,
+   "pan": 0
+  },
+  {
+   "kind": "kick",
+   "t": 25.0,
+   "level": 0.6
+  },
+  {
+   "kind": "stamp",
+   "t": 25.0,
+   "scale": 1.3,
+   "pitch": 0.8,
+   "gain": 0.5
+  },
+  {
+   "kind": "pin",
+   "t": 26.25,
+   "gain": 0.12,
+   "pan": -0.4
+  },
+  {
+   "kind": "pin",
+   "t": 26.5625,
+   "gain": 0.12,
+   "pan": -0.28
+  },
+  {
+   "kind": "pin",
+   "t": 26.875,
+   "gain": 0.12,
+   "pan": -0.16000000000000003
+  },
+  {
+   "kind": "pin",
+   "t": 27.1875,
+   "gain": 0.12,
+   "pan": -0.040000000000000036
+  },
+  {
+   "kind": "pin",
+   "t": 27.5,
+   "gain": 0.12,
+   "pan": 0.07999999999999996
+  },
+  {
+   "kind": "slam",
+   "t": 27.5,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "pin",
+   "t": 27.8125,
+   "gain": 0.12,
+   "pan": 0.19999999999999996
+  },
+  {
+   "kind": "pin",
+   "t": 28.125,
+   "gain": 0.12,
+   "pan": 0.31999999999999995
+  },
+  {
+   "kind": "slam",
+   "t": 28.75,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "typekey",
+   "t": 30.625,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 30.830239,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 31.029259,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "sweep",
+   "t": 31.15,
+   "dur": 0.4,
+   "lo": 200,
+   "hi": 1400,
+   "up": true,
+   "gain": 0.12,
+   "pan": 0.5
+  },
+  {
+   "kind": "typekey",
+   "t": 31.222009,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 31.40844,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 31.588496,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 31.762121,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 31.929255,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 32.089833,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 32.243789,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 32.391051,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "slam",
+   "t": 32.5,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "typekey",
+   "t": 32.53154,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 32.665175,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 32.791867,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 32.911519,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 33.024025,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "slam",
+   "t": 33.125,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "typekey",
+   "t": 33.129271,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 33.227128,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 33.317455,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 33.400089,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "bloop",
+   "t": 33.4375,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": -0.6636363636363637
+  },
+  {
+   "kind": "typekey",
+   "t": 33.474849,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 33.541519,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 33.599844,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 33.649515,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 33.690129,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 33.721143,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 33.741713,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 33.75,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "bloop",
+   "t": 33.75,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": -0.44545454545454544
+  },
+  {
+   "kind": "bloop",
+   "t": 33.75,
+   "f0": 700,
+   "f1": 1100,
+   "dur": 0.07,
+   "gain": 0.12
+  },
+  {
+   "kind": "slam",
+   "t": 35.625,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "slam",
+   "t": 36.25,
+   "w": 0.6,
+   "gain": 0.3,
+   "pan": -0.3
+  },
+  {
+   "kind": "slam",
+   "t": 36.5625,
+   "w": 0.6,
+   "gain": 0.3,
+   "pan": -0.21999999999999997
+  },
+  {
+   "kind": "slam",
+   "t": 36.875,
+   "w": 0.6,
+   "gain": 0.3,
+   "pan": -0.13999999999999999
+  },
+  {
+   "kind": "slam",
+   "t": 36.875,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "slam",
+   "t": 37.1875,
+   "w": 0.6,
+   "gain": 0.3,
+   "pan": -0.06
+  },
+  {
+   "kind": "slam",
+   "t": 37.5,
+   "w": 0.6,
+   "gain": 0.3,
+   "pan": 0.020000000000000018
+  },
+  {
+   "kind": "bloop",
+   "t": 37.5,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": -0.6363636363636364
+  },
+  {
+   "kind": "bloop",
+   "t": 37.5,
+   "f0": 420,
+   "f1": 760,
+   "dur": 0.09,
+   "gain": 0.12
+  },
+  {
+   "kind": "stamp",
+   "t": 38.75,
+   "scale": 1.6,
+   "pitch": 1.0,
+   "gain": 0.55
+  },
+  {
+   "kind": "kick",
+   "t": 38.75,
+   "level": 0.45
+  },
+  {
+   "kind": "sweep",
+   "t": 39.7,
+   "dur": 0.55,
+   "lo": 380,
+   "hi": 3400,
+   "up": true,
+   "gain": 0.24,
+   "pan": 0
+  },
+  {
+   "kind": "kick",
+   "t": 40.0,
+   "level": 0.6
+  },
+  {
+   "kind": "stamp",
+   "t": 40.0,
+   "scale": 1.3,
+   "pitch": 0.8,
+   "gain": 0.5
+  },
+  {
+   "kind": "sweep",
+   "t": 40.8875,
+   "dur": 0.25,
+   "lo": 500,
+   "hi": 3000,
+   "up": false,
+   "gain": 0.16,
+   "pan": 0.25
+  },
+  {
+   "kind": "sweep",
+   "t": 43.6,
+   "dur": 0.3,
+   "lo": 300,
+   "hi": 1800,
+   "up": true,
+   "gain": 0.1,
+   "pan": 0.1
+  },
+  {
+   "kind": "slam",
+   "t": 43.75,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "bloop",
+   "t": 43.90625,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": -0.6363636363636364
+  },
+  {
+   "kind": "stamp",
+   "t": 44.375,
+   "scale": 1.6,
+   "pitch": 0.85,
+   "gain": 0.55
+  },
+  {
+   "kind": "kick",
+   "t": 44.375,
+   "level": 0.45
+  },
+  {
+   "kind": "sweep",
+   "t": 46.1,
+   "dur": 0.3,
+   "lo": 300,
+   "hi": 1800,
+   "up": true,
+   "gain": 0.1,
+   "pan": 0.1
+  },
+  {
+   "kind": "slam",
+   "t": 46.875,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "slam",
+   "t": 47.5,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "bloop",
+   "t": 47.65625,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": -0.6727272727272727
+  },
+  {
+   "kind": "bloop",
+   "t": 48.125,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": -0.44545454545454544
+  },
+  {
+   "kind": "sweep",
+   "t": 48.6,
+   "dur": 0.3,
+   "lo": 300,
+   "hi": 1800,
+   "up": true,
+   "gain": 0.1,
+   "pan": 0.1
+  },
+  {
+   "kind": "slam",
+   "t": 50.0,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "bloop",
+   "t": 50.15625,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": -0.6
+  },
+  {
+   "kind": "slam",
+   "t": 50.625,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "bloop",
+   "t": 51.25,
+   "f0": 900,
+   "f1": 420,
+   "dur": 0.2,
+   "gain": 0.12
+  },
+  {
+   "kind": "stamp",
+   "t": 51.25,
+   "scale": 1.6,
+   "pitch": 0.85,
+   "gain": 0.55
+  },
+  {
+   "kind": "kick",
+   "t": 51.25,
+   "level": 0.45
+  },
+  {
+   "kind": "sweep",
+   "t": 52.45,
+   "dur": 0.25,
+   "lo": 500,
+   "hi": 3000,
+   "up": false,
+   "gain": 0.16,
+   "pan": 0.25
+  },
+  {
+   "kind": "slam",
+   "t": 53.125,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "slam",
+   "t": 53.75,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "sweep",
+   "t": 54.7,
+   "dur": 0.55,
+   "lo": 380,
+   "hi": 3400,
+   "up": true,
+   "gain": 0.24,
+   "pan": 0
+  },
+  {
+   "kind": "kick",
+   "t": 55.0,
+   "level": 0.6
+  },
+  {
+   "kind": "stamp",
+   "t": 55.0,
+   "scale": 1.3,
+   "pitch": 0.8,
+   "gain": 0.5
+  },
+  {
+   "kind": "typekey",
+   "t": 56.25,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 56.496287,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 56.73511,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 56.966411,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 57.190128,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 57.406195,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "bloop",
+   "t": 57.5,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": 0.17272727272727273
+  },
+  {
+   "kind": "typekey",
+   "t": 57.614545,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 57.815105,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 58.0078,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 58.192547,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 58.369261,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 58.537848,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 58.698211,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "bloop",
+   "t": 58.75,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": 0.4727272727272727
+  },
+  {
+   "kind": "typekey",
+   "t": 58.850241,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 58.993823,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 59.12883,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 59.255125,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 59.372554,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 59.480945,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 59.580107,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 59.669818,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 59.749822,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 59.819813,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 59.879417,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 59.928155,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 59.965372,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 59.990056,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 60.0,
+   "level": 0.7,
+   "gain": 0.1
+  },
+  {
+   "kind": "slam",
+   "t": 60.0,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "slam",
+   "t": 61.25,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "sweep",
+   "t": 63.075,
+   "dur": 0.25,
+   "lo": 500,
+   "hi": 3000,
+   "up": false,
+   "gain": 0.16,
+   "pan": 0.25
+  },
+  {
+   "kind": "slam",
+   "t": 63.75,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "slam",
+   "t": 65.0,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "slam",
+   "t": 65.625,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "sweep",
+   "t": 66.1,
+   "dur": 0.3,
+   "lo": 300,
+   "hi": 1800,
+   "up": true,
+   "gain": 0.1,
+   "pan": 0.1
+  },
+  {
+   "kind": "bloop",
+   "t": 67.5,
+   "f0": 700,
+   "f1": 1100,
+   "dur": 0.07,
+   "gain": 0.12
+  },
+  {
+   "kind": "bloop",
+   "t": 68.75,
+   "f0": 800,
+   "f1": 1300,
+   "dur": 0.05,
+   "gain": 0.1
+  },
+  {
+   "kind": "bloop",
+   "t": 68.90625,
+   "f0": 800,
+   "f1": 1300,
+   "dur": 0.05,
+   "gain": 0.1
+  },
+  {
+   "kind": "sweep",
+   "t": 69.7,
+   "dur": 0.55,
+   "lo": 380,
+   "hi": 3400,
+   "up": true,
+   "gain": 0.24,
+   "pan": 0
+  },
+  {
+   "kind": "kick",
+   "t": 70.0,
+   "level": 0.6
+  },
+  {
+   "kind": "stamp",
+   "t": 70.0,
+   "scale": 1.3,
+   "pitch": 0.8,
+   "gain": 0.5
+  },
+  {
+   "kind": "slam",
+   "t": 70.9375,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "bloop",
+   "t": 71.25,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": -0.09090909090909091
+  },
+  {
+   "kind": "slam",
+   "t": 72.5,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "sweep",
+   "t": 73.125,
+   "dur": 0.45,
+   "lo": 1200,
+   "hi": 5200,
+   "up": true,
+   "gain": 0.14,
+   "pan": -0.2
+  },
+  {
+   "kind": "slam",
+   "t": 73.125,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "sweep",
+   "t": 73.63,
+   "dur": 0.32,
+   "lo": 400,
+   "hi": 2600,
+   "up": true,
+   "gain": 0.14,
+   "pan": 0.3
+  },
+  {
+   "kind": "bell",
+   "t": 74.375,
+   "f": 880.0,
+   "decay": 0.35,
+   "ratio": 2,
+   "index": 0.7,
+   "gain": 0.16
+  },
+  {
+   "kind": "bell",
+   "t": 74.6875,
+   "f": 1174.66,
+   "decay": 0.35,
+   "ratio": 2,
+   "index": 0.7,
+   "gain": 0.16
+  },
+  {
+   "kind": "slam",
+   "t": 76.875,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "slam",
+   "t": 77.5,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "stamp",
+   "t": 78.125,
+   "scale": 1.6,
+   "pitch": 0.85,
+   "gain": 0.55
+  },
+  {
+   "kind": "kick",
+   "t": 78.125,
+   "level": 0.45
+  },
+  {
+   "kind": "slam",
+   "t": 80.625,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "slam",
+   "t": 81.25,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "stamp",
+   "t": 81.875,
+   "scale": 1.6,
+   "pitch": 1.0,
+   "gain": 0.55
+  },
+  {
+   "kind": "kick",
+   "t": 81.875,
+   "level": 0.45
+  },
+  {
+   "kind": "slam",
+   "t": 83.125,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "bell",
+   "t": 83.125,
+   "f": 1318.5,
+   "decay": 0.4,
+   "ratio": 2,
+   "index": 0.7,
+   "gain": 0.14
+  },
+  {
+   "kind": "bloop",
+   "t": 83.4375,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": -0.23636363636363636
+  },
+  {
+   "kind": "sweep",
+   "t": 84.7,
+   "dur": 0.55,
+   "lo": 380,
+   "hi": 3400,
+   "up": true,
+   "gain": 0.24,
+   "pan": 0
+  },
+  {
+   "kind": "kick",
+   "t": 85.0,
+   "level": 0.6
+  },
+  {
+   "kind": "stamp",
+   "t": 85.0,
+   "scale": 1.3,
+   "pitch": 0.8,
+   "gain": 0.5
+  },
+  {
+   "kind": "bell",
+   "t": 86.25,
+   "f": 587.3295358348151,
+   "decay": 0.35,
+   "ratio": 2,
+   "index": 0.7,
+   "gain": 0.12,
+   "pan": -0.5
+  },
+  {
+   "kind": "bell",
+   "t": 86.40625,
+   "f": 659.2551138257398,
+   "decay": 0.35,
+   "ratio": 2,
+   "index": 0.7,
+   "gain": 0.12,
+   "pan": -0.2
+  },
+  {
+   "kind": "bell",
+   "t": 86.5625,
+   "f": 739.9888454232688,
+   "decay": 0.35,
+   "ratio": 2,
+   "index": 0.7,
+   "gain": 0.12,
+   "pan": 0.09999999999999998
+  },
+  {
+   "kind": "slam",
+   "t": 86.875,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "slam",
+   "t": 87.5,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "bloop",
+   "t": 87.8125,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": -0.6545454545454545
+  },
+  {
+   "kind": "sweep",
+   "t": 89.255,
+   "dur": 0.18,
+   "lo": 900,
+   "hi": 4200,
+   "up": true,
+   "gain": 0.12,
+   "pan": 0.2
+  },
+  {
+   "kind": "sweep",
+   "t": 89.5675,
+   "dur": 0.18,
+   "lo": 900,
+   "hi": 4200,
+   "up": true,
+   "gain": 0.12,
+   "pan": 0.2
+  },
+  {
+   "kind": "sweep",
+   "t": 89.6875,
+   "dur": 1.2,
+   "lo": 300,
+   "hi": 1600,
+   "up": true,
+   "gain": 0.1,
+   "pan": 0
+  },
+  {
+   "kind": "sweep",
+   "t": 89.88,
+   "dur": 0.18,
+   "lo": 900,
+   "hi": 4200,
+   "up": true,
+   "gain": 0.12,
+   "pan": 0.2
+  },
+  {
+   "kind": "sweep",
+   "t": 90.575,
+   "dur": 0.25,
+   "lo": 500,
+   "hi": 3000,
+   "up": false,
+   "gain": 0.16,
+   "pan": 0.25
+  },
+  {
+   "kind": "slam",
+   "t": 90.625,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "bloop",
+   "t": 91.25,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": -0.6454545454545455
+  },
+  {
+   "kind": "pin",
+   "t": 91.25,
+   "gain": 0.12,
+   "pan": -0.2
+  },
+  {
+   "kind": "slam",
+   "t": 91.25,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "pin",
+   "t": 91.5625,
+   "gain": 0.12,
+   "pan": 0.0
+  },
+  {
+   "kind": "bloop",
+   "t": 91.875,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": -0.4727272727272727
+  },
+  {
+   "kind": "pin",
+   "t": 91.875,
+   "gain": 0.12,
+   "pan": 0.2
+  },
+  {
+   "kind": "sweep",
+   "t": 94.7,
+   "dur": 0.55,
+   "lo": 380,
+   "hi": 3400,
+   "up": true,
+   "gain": 0.24,
+   "pan": 0
+  },
+  {
+   "kind": "kick",
+   "t": 95.0,
+   "level": 0.6
+  },
+  {
+   "kind": "stamp",
+   "t": 95.0,
+   "scale": 1.3,
+   "pitch": 0.8,
+   "gain": 0.5
+  },
+  {
+   "kind": "sweep",
+   "t": 95.8175,
+   "dur": 0.32,
+   "lo": 400,
+   "hi": 2600,
+   "up": true,
+   "gain": 0.14,
+   "pan": 0.3
+  },
+  {
+   "kind": "typekey",
+   "t": 96.25,
+   "level": 0.75,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 96.302083,
+   "level": 0.7975,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 96.354167,
+   "level": 0.845,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 96.40625,
+   "level": 0.8925,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 96.458333,
+   "level": 0.94,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 96.510417,
+   "level": 0.9875,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 96.5625,
+   "level": 0.785,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 96.614583,
+   "level": 0.8325,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 96.666667,
+   "level": 0.88,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 96.71875,
+   "level": 0.9275,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 96.770833,
+   "level": 0.975,
+   "gain": 0.1
+  },
+  {
+   "kind": "slam",
+   "t": 97.5,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "bloop",
+   "t": 98.125,
+   "f0": 1500,
+   "f1": 1200,
+   "dur": 0.03,
+   "gain": 0.08
+  },
+  {
+   "kind": "typekey",
+   "t": 98.125,
+   "level": 0.5,
+   "gain": 0.08
+  },
+  {
+   "kind": "slam",
+   "t": 98.125,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "bloop",
+   "t": 98.4375,
+   "f0": 1500,
+   "f1": 1200,
+   "dur": 0.03,
+   "gain": 0.08
+  },
+  {
+   "kind": "typekey",
+   "t": 98.4375,
+   "level": 0.5,
+   "gain": 0.08
+  },
+  {
+   "kind": "bloop",
+   "t": 98.4375,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": -0.6636363636363637
+  },
+  {
+   "kind": "bloop",
+   "t": 98.75,
+   "f0": 1500,
+   "f1": 1200,
+   "dur": 0.03,
+   "gain": 0.08
+  },
+  {
+   "kind": "typekey",
+   "t": 98.75,
+   "level": 0.5,
+   "gain": 0.08
+  },
+  {
+   "kind": "bloop",
+   "t": 99.0625,
+   "f0": 1500,
+   "f1": 1200,
+   "dur": 0.03,
+   "gain": 0.08
+  },
+  {
+   "kind": "typekey",
+   "t": 99.0625,
+   "level": 0.5,
+   "gain": 0.08
+  },
+  {
+   "kind": "bloop",
+   "t": 99.375,
+   "f0": 1500,
+   "f1": 1200,
+   "dur": 0.03,
+   "gain": 0.08
+  },
+  {
+   "kind": "typekey",
+   "t": 99.375,
+   "level": 0.5,
+   "gain": 0.08
+  },
+  {
+   "kind": "slam",
+   "t": 99.375,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "bloop",
+   "t": 99.6875,
+   "f0": 1500,
+   "f1": 1200,
+   "dur": 0.03,
+   "gain": 0.08
+  },
+  {
+   "kind": "typekey",
+   "t": 99.6875,
+   "level": 0.5,
+   "gain": 0.08
+  },
+  {
+   "kind": "bloop",
+   "t": 99.6875,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": -0.44545454545454544
+  },
+  {
+   "kind": "stamp",
+   "t": 102.5,
+   "scale": 1.6,
+   "pitch": 1.0,
+   "gain": 0.55
+  },
+  {
+   "kind": "kick",
+   "t": 102.5,
+   "level": 0.45
+  },
+  {
+   "kind": "sweep",
+   "t": 104.7,
+   "dur": 0.55,
+   "lo": 380,
+   "hi": 3400,
+   "up": true,
+   "gain": 0.24,
+   "pan": 0
+  },
+  {
+   "kind": "riser",
+   "t": 105.0,
+   "dur": 1.25,
+   "gain": 0.18
+  },
+  {
+   "kind": "slam",
+   "t": 106.25,
+   "w": 0.4,
+   "gain": 0.2
+  },
+  {
+   "kind": "slam",
+   "t": 106.40625,
+   "w": 0.4,
+   "gain": 0.2
+  },
+  {
+   "kind": "slam",
+   "t": 106.5625,
+   "w": 0.4,
+   "gain": 0.2
+  },
+  {
+   "kind": "kick",
+   "t": 107.5,
+   "level": 0.5
+  },
+  {
+   "kind": "bell_chord",
+   "t": 107.5,
+   "notes": [
+    62,
+    66,
+    69,
+    73,
+    78
+   ],
+   "ratio": 1,
+   "index": 0.8,
+   "decay": 1.0,
+   "gain": 0.22
+  },
+  {
+   "kind": "bloop",
+   "t": 107.5,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": 0.09090909090909091
+  },
+  {
+   "kind": "bloop",
+   "t": 107.65625,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": 0.22727272727272727
+  },
+  {
+   "kind": "bloop",
+   "t": 107.8125,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": 0.36363636363636365
+  },
+  {
+   "kind": "bloop",
+   "t": 107.96875,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": 0.5
+  },
+  {
+   "kind": "bloop",
+   "t": 108.125,
+   "f0": 620,
+   "f1": 1240,
+   "dur": 0.06,
+   "gain": 0.1,
+   "pan": 0.6363636363636364
+  },
+  {
+   "kind": "slam",
+   "t": 108.75,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "sweep",
+   "t": 109.9,
+   "dur": 0.4,
+   "lo": 200,
+   "hi": 1400,
+   "up": true,
+   "gain": 0.14,
+   "pan": 0.4
+  },
+  {
+   "kind": "typekey",
+   "t": 111.25,
+   "level": 0.75,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 111.302083,
+   "level": 0.8225,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 111.354167,
+   "level": 0.895,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 111.40625,
+   "level": 0.9675,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 111.458333,
+   "level": 0.79,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 111.510417,
+   "level": 0.8625,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 111.5625,
+   "level": 0.935,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 111.614583,
+   "level": 0.7575,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 111.666667,
+   "level": 0.83,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 111.71875,
+   "level": 0.9025,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 111.770833,
+   "level": 0.975,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 111.822917,
+   "level": 0.7975,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 111.875,
+   "level": 0.87,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 111.927083,
+   "level": 0.9425,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 111.979167,
+   "level": 0.765,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 112.03125,
+   "level": 0.8375,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 112.083333,
+   "level": 0.91,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 112.135417,
+   "level": 0.9825,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 112.1875,
+   "level": 0.805,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 112.239583,
+   "level": 0.8775,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 112.291667,
+   "level": 0.95,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 112.34375,
+   "level": 0.7725,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 112.395833,
+   "level": 0.845,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 112.447917,
+   "level": 0.9175,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 112.5,
+   "level": 0.99,
+   "gain": 0.1
+  },
+  {
+   "kind": "bloop",
+   "t": 112.5,
+   "f0": 420,
+   "f1": 760,
+   "dur": 0.09,
+   "gain": 0.12
+  },
+  {
+   "kind": "typekey",
+   "t": 112.552083,
+   "level": 0.8125,
+   "gain": 0.1
+  },
+  {
+   "kind": "typekey",
+   "t": 112.604167,
+   "level": 0.885,
+   "gain": 0.1
+  },
+  {
+   "kind": "slam",
+   "t": 113.75,
+   "w": 0.5,
+   "gain": 0.22
+  },
+  {
+   "kind": "bloop",
+   "t": 114.375,
+   "f0": 700,
+   "f1": 1100,
+   "dur": 0.07,
+   "gain": 0.1
+  },
+  {
+   "kind": "bloop",
+   "t": 116.25,
+   "f0": 800,
+   "f1": 1300,
+   "dur": 0.05,
+   "gain": 0.1
+  },
+  {
+   "kind": "bloop",
+   "t": 116.40625,
+   "f0": 800,
+   "f1": 1300,
+   "dur": 0.05,
+   "gain": 0.1
+  },
+  {
+   "kind": "bloop",
+   "t": 117.5,
+   "f0": 420,
+   "f1": 760,
+   "dur": 0.09,
+   "gain": 0.12
+  }
+ ],
+ "vo": [
+  {
+   "id": "l1",
+   "file": "vo/l1-fab6b87fa0.wav",
+   "t": 1.0,
+   "dur": 7.35
+  },
+  {
+   "id": "l2",
+   "file": "vo/l2-617cd00c5c.wav",
+   "t": 11.0,
+   "dur": 6.25
+  },
+  {
+   "id": "l3",
+   "file": "vo/l3-3a2d3d7427.wav",
+   "t": 26.0,
+   "dur": 8.9
+  },
+  {
+   "id": "l4",
+   "file": "vo/l4-0a01ad346b.wav",
+   "t": 41.0,
+   "dur": 9.2
+  },
+  {
+   "id": "l5",
+   "file": "vo/l5-966bde6ec6.wav",
+   "t": 56.0,
+   "dur": 7.95
+  },
+  {
+   "id": "l6",
+   "file": "vo/l6-55627938e4.wav",
+   "t": 71.0,
+   "dur": 6.65
+  },
+  {
+   "id": "l7",
+   "file": "vo/l7-fc5eed2904.wav",
+   "t": 86.0,
+   "dur": 7.05
+  },
+  {
+   "id": "l8",
+   "file": "vo/l8-58a94b0eb4.wav",
+   "t": 96.0,
+   "dur": 8.9
+  },
+  {
+   "id": "l9",
+   "file": "vo/l9-c321e35e78.wav",
+   "t": 108.0,
+   "dur": 3.35
+  }
+ ],
+ "quiet": [
+  2
+ ],
+ "middle": [
+  16,
+  34
+ ]
+}

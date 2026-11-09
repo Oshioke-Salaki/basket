@@ -479,22 +479,27 @@
   ],
   "nextShop": {
     "currency": "NGN",
-    "items": [
+    "items": [],
+    "stops": [],
+    "totalMinor": 0,
+    "savingMinor": 0,
+    "receiptsUsed": 7,
+    "upcoming": [
       {
-        "itemKey": "golden-penny-spaghetti",
-        "itemName": "Golden Penny Spaghetti",
+        "itemKey": "peak-evaporated-milk",
+        "itemName": "Peak Evaporated Milk",
         "size": {
-          "amount": 450,
+          "amount": 400,
           "unit": "g"
         },
         "quantity": 1,
         "intervalDays": 12,
         "lastBoughtOn": "2026-11-05",
-        "dueInDays": 4,
+        "dueInDays": 8,
         "storeKey": "market-square-ajah",
         "storeName": "Market Square Ajah",
-        "expectedMinor": 81000,
-        "usualMinor": 88200
+        "expectedMinor": 210000,
+        "usualMinor": 225000
       },
       {
         "itemKey": "mama-gold-rice",
@@ -506,90 +511,29 @@
         "quantity": 1,
         "intervalDays": 12,
         "lastBoughtOn": "2026-11-05",
-        "dueInDays": 4,
+        "dueInDays": 8,
         "storeKey": "market-square-ajah",
         "storeName": "Market Square Ajah",
         "expectedMinor": 1060000,
         "usualMinor": 1140000
       },
       {
-        "itemKey": "peak-evaporated-milk",
-        "itemName": "Peak Evaporated Milk",
+        "itemKey": "golden-penny-spaghetti",
+        "itemName": "Golden Penny Spaghetti",
         "size": {
-          "amount": 400,
+          "amount": 450,
           "unit": "g"
         },
         "quantity": 1,
         "intervalDays": 12,
         "lastBoughtOn": "2026-11-05",
-        "dueInDays": 4,
+        "dueInDays": 8,
         "storeKey": "market-square-ajah",
         "storeName": "Market Square Ajah",
-        "expectedMinor": 210000,
-        "usualMinor": 225000
+        "expectedMinor": 81000,
+        "usualMinor": 88200
       }
-    ],
-    "stops": [
-      {
-        "storeKey": "market-square-ajah",
-        "storeName": "Market Square Ajah",
-        "items": [
-          {
-            "itemKey": "golden-penny-spaghetti",
-            "itemName": "Golden Penny Spaghetti",
-            "size": {
-              "amount": 450,
-              "unit": "g"
-            },
-            "quantity": 1,
-            "intervalDays": 12,
-            "lastBoughtOn": "2026-11-05",
-            "dueInDays": 4,
-            "storeKey": "market-square-ajah",
-            "storeName": "Market Square Ajah",
-            "expectedMinor": 81000,
-            "usualMinor": 88200
-          },
-          {
-            "itemKey": "mama-gold-rice",
-            "itemName": "Mama Gold Rice",
-            "size": {
-              "amount": 5000,
-              "unit": "g"
-            },
-            "quantity": 1,
-            "intervalDays": 12,
-            "lastBoughtOn": "2026-11-05",
-            "dueInDays": 4,
-            "storeKey": "market-square-ajah",
-            "storeName": "Market Square Ajah",
-            "expectedMinor": 1060000,
-            "usualMinor": 1140000
-          },
-          {
-            "itemKey": "peak-evaporated-milk",
-            "itemName": "Peak Evaporated Milk",
-            "size": {
-              "amount": 400,
-              "unit": "g"
-            },
-            "quantity": 1,
-            "intervalDays": 12,
-            "lastBoughtOn": "2026-11-05",
-            "dueInDays": 4,
-            "storeKey": "market-square-ajah",
-            "storeName": "Market Square Ajah",
-            "expectedMinor": 210000,
-            "usualMinor": 225000
-          }
-        ],
-        "subtotalMinor": 1351000
-      }
-    ],
-    "totalMinor": 1351000,
-    "savingMinor": 102200,
-    "receiptsUsed": 7,
-    "upcoming": []
+    ]
   },
   "trips": [
     {

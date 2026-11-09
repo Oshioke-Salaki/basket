@@ -48,3 +48,6 @@ next-env.d.ts
 /test-results
 /playwright-report
 /.vercel
+
+# rendered film outputs (rebuild with video/README)
+/video/out
