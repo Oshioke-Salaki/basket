@@ -51,12 +51,18 @@ describe("BasketMemory", () => {
     expect(statuses.every((s) => s.state === "done" && s.blobId)).toBe(true);
   });
 
-  it("splits large writes into bulk batches of twenty", async () => {
+  it("splits large writes and status checks into batches of twenty", async () => {
     const port = MemWalMock.create() as unknown as MemoryPort;
     const lessons = Array.from({ length: 45 }, (_, i) => mergeLesson(`x${i}`, "y", "Y", NOW));
     const write = await new BasketMemory(port, "basket-c").commit(null, lessons);
     expect(write.jobIds).toHaveLength(45);
     expect(write.receiptJobId).toBeNull();
+
+    const calls: number[] = [];
+    const counting = { ...port, getRememberBulkStatus: (ids: string[]) => (calls.push(ids.length), port.getRememberBulkStatus(ids)) } as MemoryPort;
+    const statuses = await new BasketMemory(counting, "basket-c").status(write.jobIds);
+    expect(statuses).toHaveLength(45);
+    expect(calls).toEqual([20, 20, 5]);
   });
 
   it("keeps recent local writes the relayer has not indexed yet", () => {

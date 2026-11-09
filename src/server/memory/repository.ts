@@ -12,6 +12,8 @@ import type { MemoryPort } from "./port";
 export const RECALL_CAP = 100;
 /** The relayer accepts at most this many memories per bulk write. */
 export const BULK_CAP = 20;
+/** The relayer answers at most this many job ids per status request. */
+export const STATUS_CAP = 20;
 
 export interface MemoryWrite {
   readonly jobIds: readonly string[];
@@ -78,10 +80,14 @@ export class BasketMemory {
     return { jobIds, receiptJobId: receipt ? (jobIds[0] ?? null) : null };
   }
 
+  /** The relayer answers at most 20 job ids per status request, so larger checks go in batches. */
   async status(jobIds: readonly string[]): Promise<JobStatus[]> {
-    if (jobIds.length === 0) return [];
-    const { results } = await guard(() => this.port.getRememberBulkStatus([...jobIds]));
-    return results.map((r) => ({ jobId: r.job_id, state: r.status, blobId: r.blob_id ?? null }));
+    const out: JobStatus[] = [];
+    for (let i = 0; i < jobIds.length; i += STATUS_CAP) {
+      const { results } = await guard(() => this.port.getRememberBulkStatus(jobIds.slice(i, i + STATUS_CAP)));
+      out.push(...results.map((r) => ({ jobId: r.job_id, state: r.status, blobId: r.blob_id ?? null })));
+    }
+    return out;
   }
 
   private async recallAll(namespace: string, query: string) {

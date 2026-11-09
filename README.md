@@ -4,6 +4,10 @@
 
 Built for the Tatum × Walrus **Total Recall** hackathon, Track 3: Consumer Finance Apps.
 
+**Live:** https://basket-iota-five.vercel.app · **Demo household (read-only):** https://basket-iota-five.vercel.app/demo
+
+The demo household is seven sample receipts rendered for the demo (three Lagos stores over seven weeks and a London trip in pounds). They were scanned through the production pipeline: read by the AI reader, judged against the household's memory, stored on Walrus Memory mainnet as 49 memories, and stamped with Sui checkpoints read through Tatum. Start your own basket to scan real receipts.
+
 ## What it does
 
 | On a receipt | Across your receipts | Through your wallet |
