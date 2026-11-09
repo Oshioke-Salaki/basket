@@ -1,6 +1,6 @@
 import "server-only";
-import type { Ledger } from "@/domain/ledger";
-import { newerVersion } from "@/domain/revise";
+import { mergeLedgers, type Ledger } from "@/domain/ledger";
+import { config } from "../config";
 
 /**
  * Recall costs a relayer call from a budget shared by every household, and a
@@ -18,6 +18,7 @@ interface Entry {
 const entries = new Map<string, Entry>();
 
 export function cachedLedger(namespace: string): Ledger | null {
+  if (config().BASKET_CACHE === "off") return null;
   const entry = entries.get(namespace);
   if (!entry || Date.now() - entry.storedAt > TTL_MS) return null;
   return entry.ledger;
@@ -25,6 +26,7 @@ export function cachedLedger(namespace: string): Ledger | null {
 
 /** The last ledger this process saw, fresh or not, for reconciling with a new recall. */
 export function lastKnownLedger(namespace: string): Ledger | null {
+  if (config().BASKET_CACHE === "off") return null;
   return entries.get(namespace)?.ledger ?? null;
 }
 
@@ -42,13 +44,5 @@ export function storeLedger(namespace: string, ledger: Ledger): void {
  * the relayer has not indexed yet is not lost from view.
  */
 export function reconcile(recalled: Ledger, previous: Ledger | null): Ledger {
-  if (!previous) return recalled;
-  const receipts = new Map(previous.receipts.map((r) => [r.id, r]));
-  for (const r of recalled.receipts) {
-    const seen = receipts.get(r.id);
-    receipts.set(r.id, seen ? newerVersion(seen, r) : r);
-  }
-  const lessons = new Map(previous.lessons.map((l) => [`${l.key}@${l.learnedAt}`, l]));
-  for (const l of recalled.lessons) lessons.set(`${l.key}@${l.learnedAt}`, l);
-  return { receipts: [...receipts.values()], lessons: [...lessons.values()] };
+  return previous ? mergeLedgers(recalled, previous) : recalled;
 }

@@ -24,6 +24,7 @@ export default defineConfig({
     url: `http://localhost:${PORT}/start`,
     reuseExistingServer: false,
     timeout: 180_000,
-    env: { BASKET_FAKE_SERVICES: "1", BASKET_DEMO_KEY: "", NEXT_TELEMETRY_DISABLED: "1" },
+    // Like production on Vercel: no shared cache, and new memories take a while to be recalled.
+    env: { BASKET_FAKE_SERVICES: "1", BASKET_FAKE_INDEX_DELAY_MS: "60000", BASKET_CACHE: "off", BASKET_DEMO_KEY: "", NEXT_TELEMETRY_DISABLED: "1" },
   },
 });

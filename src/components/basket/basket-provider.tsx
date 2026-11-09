@@ -2,11 +2,13 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef, type ReactNode } from "react";
 import { rateBook, type RateBook } from "@/domain/currency";
-import { effectiveReceipts, homeCurrency } from "@/domain/ledger";
+import { effectiveReceipts, homeCurrency, mergeLedgers } from "@/domain/ledger";
+import { NO_PENDING, type Pending } from "@/domain/pending";
 import type { Lesson } from "@/domain/lessons";
 import type { Receipt } from "@/domain/receipt";
 import type { LineRevision } from "@/domain/revise";
 import { api, ApiError } from "@/lib/api";
+import { addPending, loadPending, prunePending } from "@/lib/pending-store";
 import type { BasketPayload, JobStatePayload, MemoryWritePayload, MergePayload, RevisionPayload, ScanPayload } from "@/lib/api-types";
 
 /** How often pending Walrus writes are checked, and when to stop waiting on them. */
@@ -25,6 +27,7 @@ export interface MemoryJob {
 type Status = "loading" | "ready" | "no-basket" | "error";
 
 interface State {
+  readonly basketId: string | null;
   readonly status: Status;
   readonly error: string | null;
   readonly receipts: readonly Receipt[];
@@ -49,6 +52,7 @@ type Action =
   | { type: "jobs"; updates: readonly Partial<MemoryJob>[] };
 
 const initial: State = {
+  basketId: null,
   status: "loading",
   error: null,
   receipts: [],
@@ -75,8 +79,8 @@ function reducer(state: State, action: Action): State {
     case "loading":
       return { ...state, status: state.status === "ready" ? "ready" : "loading", error: null };
     case "loaded": {
-      const { receipts, lessons, readOnly, isDemo, degraded } = action.payload;
-      return { ...state, status: "ready", error: null, receipts, lessons, readOnly, isDemo, degraded };
+      const { basketId, receipts, lessons, readOnly, isDemo, degraded } = action.payload;
+      return { ...state, basketId, status: "ready", error: null, receipts, lessons, readOnly, isDemo, degraded };
     }
     case "failed":
       return { ...state, status: action.status, error: action.error };
@@ -123,6 +127,7 @@ interface BasketContextValue extends State {
   readonly merge: (from: string, into: string) => Promise<MergePayload>;
   readonly revise: (receiptId: string, revision: LineRevision) => Promise<RevisionPayload>;
   readonly setHomeCurrency: (currency: string) => Promise<void>;
+  readonly priceTag: (image: Blob) => ReturnType<typeof api.priceTag>;
   /** Fetch today's rates for currencies not yet in the book. Failures leave the book as it is. */
   readonly ensureRates: (currencies: readonly string[]) => Promise<void>;
   /** The currency the basket is measured in. */
@@ -140,7 +145,10 @@ export function BasketProvider({ children }: { children: ReactNode }) {
   const reload = useCallback(async (fresh = false) => {
     dispatch({ type: "loading" });
     try {
-      dispatch({ type: "loaded", payload: await api.basket(fresh) });
+      const payload = await api.basket(fresh);
+      // Writes Walrus has not indexed yet stay in view until recall returns them.
+      const pending = payload.readOnly ? NO_PENDING : prunePending(payload.basketId, payload);
+      dispatch({ type: "loaded", payload: { ...payload, ...mergeLedgers(payload, pending) } });
     } catch (error) {
       const noBasket = error instanceof ApiError && error.status === 401;
       dispatch({ type: "failed", status: noBasket ? "no-basket" : "error", error: (error as Error).message });
@@ -151,28 +159,55 @@ export function BasketProvider({ children }: { children: ReactNode }) {
     void reload();
   }, [reload]);
 
-  const scan = useCallback(async (image: Blob) => {
-    const result = await api.scan(image);
-    dispatch({ type: "scanned", scan: result });
-    return result;
-  }, []);
+  const basketId = state.basketId;
+  const pending = useCallback((): Pending => (basketId ? loadPending(basketId) : NO_PENDING), [basketId]);
+  const remember = useCallback(
+    (written: { receipts?: readonly Receipt[]; lessons?: readonly Lesson[] }) => {
+      if (basketId) addPending(basketId, { receipts: written.receipts ?? [], lessons: written.lessons ?? [] });
+    },
+    [basketId],
+  );
 
-  const merge = useCallback(async (from: string, into: string) => {
-    const result = await api.merge(from, into);
-    dispatch({ type: "merged", merge: result });
-    return result;
-  }, []);
+  const scan = useCallback(
+    async (image: Blob) => {
+      const result = await api.scan(image, pending());
+      if (!result.duplicateOf) remember({ receipts: [result.receipt], lessons: result.learned });
+      dispatch({ type: "scanned", scan: result });
+      return result;
+    },
+    [pending, remember],
+  );
 
-  const revise = useCallback(async (receiptId: string, revision: LineRevision) => {
-    const result = await api.revise(receiptId, revision);
-    dispatch({ type: "revised", revision: result });
-    return result;
-  }, []);
+  const merge = useCallback(
+    async (from: string, into: string) => {
+      const result = await api.merge(from, into, pending());
+      remember({ lessons: result.learned });
+      dispatch({ type: "merged", merge: result });
+      return result;
+    },
+    [pending, remember],
+  );
 
-  const setHomeCurrency = useCallback(async (currency: string) => {
-    const result = await api.setHomeCurrency(currency);
-    dispatch({ type: "merged", merge: result });
-  }, []);
+  const revise = useCallback(
+    async (receiptId: string, revision: LineRevision) => {
+      const result = await api.revise(receiptId, revision, pending());
+      remember({ receipts: [result.receipt], lessons: result.learned });
+      dispatch({ type: "revised", revision: result });
+      return result;
+    },
+    [pending, remember],
+  );
+
+  const setHomeCurrency = useCallback(
+    async (currency: string) => {
+      const result = await api.setHomeCurrency(currency, pending());
+      remember({ lessons: result.learned });
+      dispatch({ type: "merged", merge: result });
+    },
+    [pending, remember],
+  );
+
+  const priceTag = useCallback((image: Blob) => api.priceTag(image, pending()), [pending]);
 
   const liveRef = useRef(state.liveRates);
   useEffect(() => {
@@ -206,8 +241,8 @@ export function BasketProvider({ children }: { children: ReactNode }) {
   );
 
   const value = useMemo<BasketContextValue>(
-    () => ({ ...state, effective, home, rates, reload, scan, merge, revise, setHomeCurrency, ensureRates, blobFor }),
-    [state, effective, home, rates, reload, scan, merge, revise, setHomeCurrency, ensureRates, blobFor],
+    () => ({ ...state, effective, home, rates, reload, scan, merge, revise, setHomeCurrency, priceTag, ensureRates, blobFor }),
+    [state, effective, home, rates, reload, scan, merge, revise, setHomeCurrency, priceTag, ensureRates, blobFor],
   );
   return <BasketContext value={value}>{children}</BasketContext>;
 }

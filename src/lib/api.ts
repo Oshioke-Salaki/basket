@@ -12,6 +12,7 @@ import type {
   SessionPayload,
 } from "./api-types";
 import type { LineRevision } from "@/domain/revise";
+import type { Pending } from "@/domain/pending";
 
 export class ApiError extends Error {
   constructor(
@@ -44,23 +45,25 @@ const json = (body: unknown): RequestInit => ({ method: "POST", headers: { "cont
 
 export const api = {
   basket: (fresh = false) => call<BasketPayload>(`/api/basket${fresh ? "?fresh=1" : ""}`),
-  scan: (image: Blob) => {
+  scan: (image: Blob, pending: Pending) => {
     const form = new FormData();
     form.append("image", image, "receipt");
+    form.append("pending", JSON.stringify(pending));
     return call<ScanPayload>("/api/basket/receipts", { method: "POST", body: form });
   },
-  merge: (from: string, into: string) => call<MergePayload>("/api/basket/merge", json({ from, into })),
-  revise: (receiptId: string, revision: LineRevision) =>
-    call<RevisionPayload>(`/api/basket/receipts/${encodeURIComponent(receiptId)}`, { ...json(revision), method: "PATCH" }),
-  setHomeCurrency: (homeCurrency: string) => call<MergePayload>("/api/basket/settings", json({ homeCurrency })),
-  priceTag: (image: Blob) => {
+  merge: (from: string, into: string, pending: Pending) => call<MergePayload>("/api/basket/merge", json({ from, into, pending })),
+  revise: (receiptId: string, revision: LineRevision, pending: Pending) =>
+    call<RevisionPayload>(`/api/basket/receipts/${encodeURIComponent(receiptId)}`, { ...json({ ...revision, pending }), method: "PATCH" }),
+  setHomeCurrency: (homeCurrency: string, pending: Pending) => call<MergePayload>("/api/basket/settings", json({ homeCurrency, pending })),
+  priceTag: (image: Blob, pending: Pending) => {
     const form = new FormData();
     form.append("image", image, "price");
+    form.append("pending", JSON.stringify(pending));
     return call<PriceTagPayload>("/api/basket/price-tag", { method: "POST", body: form });
   },
   rates: (currencies: readonly string[]) => call<RatesPayload>(`/api/rates?currencies=${currencies.map(encodeURIComponent).join(",")}`),
   memoryStatus: (jobIds: readonly string[]) => call<MemoryStatusPayload>(`/api/basket/memory?jobs=${jobIds.map(encodeURIComponent).join(",")}`),
-  runway: (address: string) => call<RunwayPayload>(`/api/basket/runway?address=${encodeURIComponent(address)}`),
+  runway: (address: string, currency: string) => call<RunwayPayload>(`/api/basket/runway?address=${encodeURIComponent(address)}&currency=${encodeURIComponent(currency)}`),
   proof: () => call<ProofPayload>("/api/basket/proof"),
   newBasket: () => call<SessionPayload>("/api/session", json({ action: "new" })),
   openBasket: (key: string) => call<SessionPayload>("/api/session", json({ action: "open", key })),

@@ -45,7 +45,7 @@ export function RunwayPanel() {
     }
     setState({ kind: "loading" });
     try {
-      const report = await api.runway(value);
+      const report = await api.runway(value, spend!.currency);
       setState({ kind: "done", report });
       try {
         localStorage.setItem(STORAGE_KEY, value);
@@ -100,16 +100,16 @@ export function RunwayPanel() {
               <p className="text-sm text-muted">Read-only. Balances come from Sui mainnet through Tatum; nothing is signed or sent.</p>
             )}
           </form>
-          {state.kind === "done" ? <RunwayResult report={state.report} /> : null}
+          {state.kind === "done" ? <RunwayResult report={state.report} weeklyMinor={spend.weeklyMinor} /> : null}
         </div>
       </div>
     </Panel>
   );
 }
 
-function RunwayResult({ report }: { report: RunwayPayload }) {
+function RunwayResult({ report, weeklyMinor }: { report: RunwayPayload; weeklyMinor: number }) {
   const money = (minor: number) => formatMoney(minor, report.currency);
-  const weeks = report.weeks ?? 0;
+  const weeks = weeklyMinor > 0 ? report.holdingsMinor / weeklyMinor : 0;
   return (
     <div className="mt-6 border-t border-line pt-6" aria-live="polite">
       <p className="text-[2rem] leading-tight font-medium tracking-tight">

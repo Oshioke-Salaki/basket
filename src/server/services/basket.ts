@@ -5,6 +5,7 @@ import { effectiveReceipts, homeCurrency, knownItems, type Ledger } from "@/doma
 import { deriveLessons, homeCurrencyLesson, lessonsToRecord, mergeLesson, type Lesson } from "@/domain/lessons";
 import type { Receipt } from "@/domain/receipt";
 import { reviseReceipt, RevisionError, type LineRevision } from "@/domain/revise";
+import { NO_PENDING, type Pending } from "@/domain/pending";
 import { AppError } from "../errors";
 import { cachedLedger, lastKnownLedger, reconcile, storeLedger } from "../memory/cache";
 import { memoryClient } from "../memory/client";
@@ -25,13 +26,14 @@ export interface LoadedLedger extends Ledger {
 }
 
 /** Everything the household's Walrus Memory holds, served from a short cache when it can be. */
-export async function loadLedger(household: Household, { fresh = false } = {}): Promise<LoadedLedger> {
+export async function loadLedger(household: Household, { fresh = false, pending = NO_PENDING }: { fresh?: boolean; pending?: Pending } = {}): Promise<LoadedLedger> {
   const cached = fresh ? null : cachedLedger(household.namespace);
-  if (cached) return { ...cached, degraded: false, fromCache: true };
+  if (cached) return { ...reconcile(pending, cached), degraded: false, fromCache: true };
   const recalled = await memoryOf(household).recall();
   const ledger = reconcile(recalled, lastKnownLedger(household.namespace));
   storeLedger(household.namespace, ledger);
-  return { ...ledger, degraded: recalled.degraded, fromCache: false };
+  // The browser's own unindexed writes join what Walrus returned; newer versions win.
+  return { ...reconcile(pending, ledger), degraded: recalled.degraded, fromCache: false };
 }
 
 export interface ScanResult {
@@ -46,8 +48,8 @@ export interface ScanResult {
  * Read a receipt, judge it against everything remembered, and write the receipt
  * and whatever Basket newly learned back to Walrus Memory in one call.
  */
-export async function scanReceipt(household: Household, image: ReceiptImage, now = new Date()): Promise<ScanResult> {
-  const ledger = await loadLedger(household);
+export async function scanReceipt(household: Household, image: ReceiptImage, pending: Pending = NO_PENDING, now = new Date()): Promise<ScanResult> {
+  const ledger = await loadLedger(household, { pending });
   const home = homeCurrency(ledger);
   const extraction = await readReceipt(image, knownItems(ledger), home);
 
@@ -78,9 +80,9 @@ export async function scanReceipt(household: Household, image: ReceiptImage, now
 }
 
 /** Record that two item names are one product, then re-learn what that changes. */
-export async function mergeItems(household: Household, from: string, into: string, now = new Date()): Promise<{ learned: readonly Lesson[]; memory: MemoryWrite }> {
+export async function mergeItems(household: Household, from: string, into: string, pending: Pending = NO_PENDING, now = new Date()): Promise<{ learned: readonly Lesson[]; memory: MemoryWrite }> {
   if (from === into) throw new AppError("bad_request", "Pick two different items to join.");
-  const ledger = await loadLedger(household);
+  const ledger = await loadLedger(household, { pending });
   const effective = effectiveReceipts(ledger);
   const target = effective.flatMap((r) => r.lines).find((l) => l.itemKey === into);
   if (!target || !effective.some((r) => r.lines.some((l) => l.itemKey === from))) {
@@ -100,8 +102,8 @@ export async function memoryStatus(household: Household, jobIds: readonly string
 }
 
 /** Correct a line the reader got wrong: a new version of the receipt goes to Walrus, then lessons are re-learned. */
-export async function reviseLine(household: Household, receiptId: string, revision: LineRevision, now = new Date()): Promise<{ receipt: Receipt; learned: readonly Lesson[]; memory: MemoryWrite }> {
-  const ledger = await loadLedger(household);
+export async function reviseLine(household: Household, receiptId: string, revision: LineRevision, pending: Pending = NO_PENDING, now = new Date()): Promise<{ receipt: Receipt; learned: readonly Lesson[]; memory: MemoryWrite }> {
+  const ledger = await loadLedger(household, { pending });
   const current = ledger.receipts.find((r) => r.id === receiptId);
   if (!current) throw new AppError("not_found", "That receipt is not in this basket.");
   let receipt: Receipt;
@@ -119,8 +121,8 @@ export async function reviseLine(household: Household, receiptId: string, revisi
 }
 
 /** Set the household's home currency, and re-learn what that changes. */
-export async function setHomeCurrency(household: Household, currency: string, now = new Date()): Promise<{ learned: readonly Lesson[]; memory: MemoryWrite }> {
-  const ledger = await loadLedger(household);
+export async function setHomeCurrency(household: Household, currency: string, pending: Pending = NO_PENDING, now = new Date()): Promise<{ learned: readonly Lesson[]; memory: MemoryWrite }> {
+  const ledger = await loadLedger(household, { pending });
   const choice = homeCurrencyLesson(currency, now);
   const after: Ledger = { receipts: ledger.receipts, lessons: [...ledger.lessons, choice] };
   const relearned = lessonsToRecord(deriveLessons(effectiveReceipts(after), currency), after.lessons, now);

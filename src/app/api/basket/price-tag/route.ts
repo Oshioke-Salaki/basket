@@ -8,5 +8,6 @@ export const maxDuration = 90;
 /** Read a shelf or market price from a photo. Read-only: nothing is remembered. */
 export const POST = route(async (request: Request) => {
   const household = await requireHousehold();
-  return Response.json(await priceFromPhoto(household, await imageFromForm(request)));
+  const { pending, ...image } = await imageFromForm(request);
+  return Response.json(await priceFromPhoto(household, image, pending));
 });

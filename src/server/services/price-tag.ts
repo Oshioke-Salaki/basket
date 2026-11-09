@@ -8,10 +8,11 @@ import type { Household } from "../session";
 import type { InputImage } from "../vision/models/port";
 import { readPriceTag } from "../vision/price-tag";
 import { loadLedger } from "./basket";
+import type { Pending } from "@/domain/pending";
 
 /** Read a shelf price and match it to an item the household already buys. Nothing is written. */
-export async function priceFromPhoto(household: Household, image: InputImage): Promise<PriceTagPayload> {
-  const ledger = await loadLedger(household);
+export async function priceFromPhoto(household: Household, image: InputImage, pending?: Pending): Promise<PriceTagPayload> {
+  const ledger = await loadLedger(household, { pending });
   const known = knownItems(ledger);
   const home = homeCurrency(ledger);
   const tag = await readPriceTag(image, known, home);

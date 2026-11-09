@@ -1,4 +1,5 @@
 import { LineRevisionSchema } from "@/domain/revise";
+import { parsePending } from "@/domain/pending";
 import { AppError } from "@/server/errors";
 import { readJson, route } from "@/server/http";
 import { reviseLine } from "@/server/services/basket";
@@ -9,11 +10,11 @@ import type { RevisionPayload } from "@/lib/api-types";
 export const PATCH = route(async (request: Request, ctx: RouteContext<"/api/basket/receipts/[id]">) => {
   const household = await requireHousehold({ write: true });
   const { id } = await ctx.params;
-  const revision = await readJson(request, (v) => {
+  const { revision, pending } = await readJson(request, (v) => {
     const parsed = LineRevisionSchema.safeParse(v);
     if (!parsed.success) throw new AppError("bad_request", "That correction is incomplete. Check the name, price and quantity.");
-    return parsed.data;
+    return { revision: parsed.data, pending: parsePending((v as { pending?: unknown }).pending) };
   });
-  const payload: RevisionPayload = await reviseLine(household, id, revision);
+  const payload: RevisionPayload = await reviseLine(household, id, revision, pending);
   return Response.json(payload);
 });

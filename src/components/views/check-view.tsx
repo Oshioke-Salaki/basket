@@ -16,13 +16,13 @@ import { knownItems } from "@/domain/ledger";
 import { formatMoney, formatPercent, formatUnitPrice, toMajor, toMinor } from "@/domain/money";
 import { checkPrice, roundDownToStep, type PriceCheck } from "@/domain/price-check";
 import { formatSize, normalizeSize, type Size } from "@/domain/units";
-import { api, ApiError } from "@/lib/api";
+import { ApiError } from "@/lib/api";
 import { prepareReceiptImage, UnsupportedImageError } from "@/lib/image";
 
 const UNITS = ["g", "kg", "ml", "l", "pcs"] as const;
 
 export function CheckView() {
-  const { receipts, lessons, effective, home, rates, ensureRates } = useBasket();
+  const { receipts, lessons, effective, home, rates, ensureRates, priceTag } = useBasket();
   const items = useMemo(() => knownItems({ receipts, lessons }, 500), [receipts, lessons]);
   const ids = { item: useId(), price: useId(), currency: useId(), amount: useId(), unit: useId() };
   const [query, setQuery] = useState("");
@@ -70,7 +70,7 @@ export function CheckView() {
     if (!file) return;
     setSnap({ kind: "reading" });
     try {
-      const tag = await api.priceTag(await prepareReceiptImage(file));
+      const tag = await priceTag(await prepareReceiptImage(file));
       setCurrency(tag.currency);
       void ensureRates([tag.currency]);
       setPrice(String(toMajor(tag.quotedMinor, tag.currency)));

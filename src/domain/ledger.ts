@@ -1,6 +1,7 @@
 import { homeCurrencyOf } from "./currency";
 import { applyMerges, chosenHomeCurrency, currentLessons, type Lesson } from "./lessons";
 import type { Receipt } from "./receipt";
+import { newerVersion } from "./revise";
 import type { Size } from "./units";
 
 /** Everything Basket remembers about one household, as recalled from Walrus Memory. */
@@ -59,4 +60,20 @@ export { currentLessons };
 /** The currency this household's basket is measured in. */
 export function homeCurrency(ledger: Ledger): string | null {
   return homeCurrencyOf(ledger.receipts, chosenHomeCurrency(ledger.lessons));
+}
+
+/**
+ * Union two views of one basket: every receipt once (its newest version) and every
+ * lesson once (by key and time learned). Used to join what Walrus recalled with
+ * writes it has not indexed yet.
+ */
+export function mergeLedgers(a: Ledger, b: Ledger): Ledger {
+  const receipts = new Map<string, Receipt>();
+  for (const r of [...b.receipts, ...a.receipts]) {
+    const seen = receipts.get(r.id);
+    receipts.set(r.id, seen ? newerVersion(seen, r) : r);
+  }
+  const lessons = new Map<string, Lesson>();
+  for (const l of [...b.lessons, ...a.lessons]) lessons.set(`${l.key}@${l.learnedAt}`, l);
+  return { receipts: [...receipts.values()], lessons: [...lessons.values()] };
 }

@@ -11,6 +11,7 @@ export const GET = route(async (request: Request) => {
   const fresh = new URL(request.url).searchParams.get("fresh") === "1";
   const ledger = await loadLedger(household, { fresh });
   const payload: BasketPayload = {
+    basketId: household.namespace,
     receipts: ledger.receipts,
     lessons: ledger.lessons,
     degraded: ledger.degraded,

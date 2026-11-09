@@ -33,6 +33,10 @@ const schema = z.object({
     .enum(["0", "1"])
     .default("0")
     .transform((v) => v === "1"),
+  /** Tests only: the fake memory hides writes from recall this long, as Walrus indexing does. */
+  BASKET_FAKE_INDEX_DELAY_MS: z.coerce.number().int().min(0).max(600_000).default(0),
+  /** The per-process ledger cache. "off" behaves like serverless instances that share nothing. */
+  BASKET_CACHE: z.enum(["on", "off"]).default("on"),
 });
 
 export type Config = z.infer<typeof schema>;

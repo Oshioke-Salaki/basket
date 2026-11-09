@@ -5,6 +5,8 @@ import type { Receipt } from "@/domain/receipt";
 /** Shapes exchanged between the browser and Basket's API routes. */
 
 export interface BasketPayload {
+  /** Stable per basket; the browser keys its unindexed writes by it. */
+  readonly basketId: string;
   readonly receipts: readonly Receipt[];
   readonly lessons: readonly Lesson[];
   readonly degraded: boolean;
@@ -50,8 +52,6 @@ export interface RunwayPayload {
   readonly totalUsd: number;
   readonly currency: string;
   readonly holdingsMinor: number;
-  readonly weeklySpendMinor: number;
-  readonly weeks: number | null;
   readonly rates: { readonly suiUsd: number; readonly usdPerUnit: number; readonly asOf: string; readonly source: string };
 }
 
