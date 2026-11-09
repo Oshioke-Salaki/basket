@@ -60,6 +60,11 @@ export function InflationPanel() {
           </div>
         ) : null}
       </div>
+      {local.currency !== "USD" && usd.changeRatio === null ? (
+        <p className="mt-4 max-w-[62ch] text-sm text-muted">
+          A view in US dollars appears once receipts are scanned within a few days of purchase: Basket records the exchange rate on the day it reads a receipt, so older receipts have no rate from their own day.
+        </p>
+      ) : null}
       {canShowUsd && denomination === "local" && usd.changeRatio !== null ? (
         <p className="mt-4 text-soft">
           {Math.abs(usd.changeRatio - change) < 0.005

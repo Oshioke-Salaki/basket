@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { formatDay } from "@/domain/dates";
-import { formatMoney } from "@/domain/money";
+import { formatApprox, formatMoney } from "@/domain/money";
 import { tripsOf } from "@/domain/trips";
 import { cx } from "../ui/cx";
 import { Panel, PanelHeader } from "../ui/panel";
@@ -23,7 +23,7 @@ export function TripsPanel() {
   return (
     <Panel>
       <PanelHeader title="Trips abroad">
-        Receipts in other currencies, grouped by trip, converted to {home} at the rate of each day, and priced against what you pay at home.
+        Receipts in other currencies, grouped by trip, converted to {home} at the exchange rate recorded with each receipt, and priced against what you pay at home.
       </PanelHeader>
       <ul className="grid gap-6">
         {trips.map((trip) => (
@@ -40,7 +40,7 @@ export function TripsPanel() {
             </div>
             <p className="mt-3 text-[1.5rem] leading-tight font-medium tracking-tight">
               {formatMoney(trip.totalMinor, trip.currency)}
-              {trip.totalHomeMinor !== null ? <span className="text-muted"> ≈ {formatMoney(trip.totalHomeMinor, home)}</span> : null}
+              {trip.totalHomeMinor !== null ? <span className="text-muted"> ≈ {formatApprox(trip.totalHomeMinor, home)}</span> : null}
             </p>
             {trip.comparisons.length ? (
               <ul className="mt-4">

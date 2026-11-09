@@ -17,6 +17,8 @@ export interface Observation {
   readonly packMinor: number;
   readonly currency: string;
   readonly usdPerUnit: number | null;
+  /** True when the USD rate was observed within a few days of the purchase. */
+  readonly rateContemporary: boolean;
 }
 
 /**
@@ -51,10 +53,20 @@ export function observationsOf(receipts: readonly Receipt[]): Observation[] {
         packMinor: packPriceMinor(line),
         currency: receipt.currency,
         usdPerUnit: receipt.usdPerUnit,
+        rateContemporary: rateIsContemporary(receipt),
       });
     });
   }
   return out.sort(byDateThenReceipt);
+}
+
+/** A receipt's USD rate can price that day's spending only if it was observed close to the purchase. */
+export const RATE_WINDOW_DAYS = 3;
+
+export function rateIsContemporary(receipt: Pick<Receipt, "usdPerUnit" | "usdRateOn" | "scannedAt" | "purchasedOn">): boolean {
+  if (!receipt.usdPerUnit) return false;
+  const on = receipt.usdRateOn ?? receipt.scannedAt.slice(0, 10);
+  return Math.abs(Date.parse(on) - Date.parse(receipt.purchasedOn)) <= RATE_WINDOW_DAYS * 86_400_000;
 }
 
 export function unitPrice(obs: Observation): UnitPrice {

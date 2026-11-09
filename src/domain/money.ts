@@ -79,3 +79,8 @@ export function formatUnitPrice(minor: number, currency: CurrencyCode): string {
   if (Math.abs(major) >= 10) return formatMoney(Math.round(major) * 10 ** fractionDigits(currency), currency);
   return formatMoney(Math.round(minor), currency, { compact: false });
 }
+
+/** An estimate or a conversion: whole major units, since the minor digits are not real. */
+export function formatApprox(minor: number, currency: CurrencyCode): string {
+  return formatMoney(Math.round(toMajor(minor, currency)) * 10 ** fractionDigits(currency), currency);
+}

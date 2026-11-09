@@ -51,8 +51,9 @@ test("a household's basket learns from receipt to receipt", async ({ page }) => 
   await page.goto("/basket");
   await expect(page.getByText(/Your basket inflation, in NGN/)).toBeVisible();
   await expect(page.getByText("Cheapest", { exact: true })).toBeVisible();
-  await page.getByRole("radio", { name: "USD" }).click();
-  await expect(page.getByText(/Your basket inflation, in US dollars/)).toBeVisible();
+  // These receipts were bought weeks before they were scanned, so no dollar view is offered.
+  await expect(page.getByRole("radio", { name: "USD" })).toHaveCount(0);
+  await expect(page.getByText(/A view in US dollars appears once receipts are scanned within a few days/)).toBeVisible();
 
   // Runway reads a wallet through (fake) Tatum.
   await page.getByLabel("Sui wallet address").fill("0x" + "a".repeat(64));

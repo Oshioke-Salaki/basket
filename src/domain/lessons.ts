@@ -132,7 +132,7 @@ export function deriveLessons(receipts: readonly Receipt[], home: string | null 
   }
 
   const names = new Map(observations.map((o) => [o.itemKey, o.itemName]));
-  for (const [itemKey, cadence] of purchaseCadence(receipts)) {
+  for (const [itemKey, cadence] of purchaseCadence(receipts.filter((r) => r.currency === currency))) {
     if (!names.has(itemKey) || cadence.days < 1) continue;
     drafts.push({
       key: `cadence:${itemKey}`,

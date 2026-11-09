@@ -76,7 +76,7 @@ export function personalInflation(
   if (!currency) return empty;
 
   const observations = observationsOf(receipts).filter(
-    (o) => o.currency === currency && (denomination === "local" || o.usdPerUnit !== null),
+    (o) => o.currency === currency && (denomination === "local" || (o.usdPerUnit !== null && o.rateContemporary)),
   );
   const tracks = buildTracks(observations, denomination);
   if (tracks.length === 0) return empty;

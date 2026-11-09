@@ -79,7 +79,7 @@ test("a trip abroad, a new home currency, the QR code and a shared card", async 
 
   // A shared card shows only its numbers.
   await page.goto("/share/eyJyIjowLjA4NywidSI6bnVsbCwiYyI6Ik5HTiIsInMiOiIyMDI2LTEwLTAzIiwibiI6NH0");
-  await expect(page.getByText("+8.7%")).toBeVisible();
+  await expect(page.getByText("+8.7%", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: "Measure your own basket" })).toBeVisible();
 });
 

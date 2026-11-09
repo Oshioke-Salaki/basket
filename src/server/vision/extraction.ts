@@ -11,7 +11,7 @@ export const SIZE_UNITS = ["g", "kg", "mg", "ml", "cl", "l", "pcs"] as const;
 export const ExtractionSchema = z.object({
   readable: z.boolean().describe("False when the image is not a purchase receipt or too unclear to read prices from."),
   problem: z.string().nullable().describe("When readable is false, one short sentence the shopper can act on."),
-  store_name: z.string().describe("Store or market name with its branch if shown, in normal capitalisation (\"Shoprite Lekki\", not \"SHOPRITE LEKKI\"); keep brand spellings such as SPAR."),
+  store_name: z.string().describe("Store or market name with its branch if shown, and its branch area only, in normal capitalisation: \"Shoprite Lekki\", \"Tesco Express Brixton\". Never a street address or postcode. Keep brand spellings such as SPAR."),
   purchased_on: z.string().nullable().describe("Purchase date as YYYY-MM-DD, or null if not printed."),
   currency: z.string().describe("ISO 4217 code of the amounts, e.g. NGN, USD, GBP, KES."),
   total: z.number().nullable().describe("Grand total paid, in major units, or null if not printed."),

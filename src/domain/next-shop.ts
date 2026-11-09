@@ -42,6 +42,8 @@ export interface NextShop {
   /** What the plan saves against paying the usual price for everything on it. */
   readonly savingMinor: number;
   readonly receiptsUsed: number;
+  /** When nothing is due this week: the next items to come due, soonest first. */
+  readonly upcoming: readonly DueItem[];
 }
 
 /**
@@ -56,6 +58,7 @@ export function nextShop(receipts: readonly Receipt[], today: string, home: stri
   for (const o of observations) byItem.set(o.itemKey, [...(byItem.get(o.itemKey) ?? []), o]);
 
   const items: DueItem[] = [];
+  const later: DueItem[] = [];
   for (const list of byItem.values()) {
     const dates = [...new Set(list.map((o) => o.date))].sort();
     if (dates.length < 2) continue;
@@ -63,7 +66,6 @@ export function nextShop(receipts: readonly Receipt[], today: string, home: stri
     if (intervalDays < 2) continue;
     const lastBoughtOn = dates[dates.length - 1]!;
     const dueInDays = intervalDays - daysBetween(lastBoughtOn, today);
-    if (dueInDays > HORIZON_DAYS) continue;
 
     const latest = list[list.length - 1]!;
     const quantity = median(list.map((o) => o.quantity));
@@ -76,7 +78,7 @@ export function nextShop(receipts: readonly Receipt[], today: string, home: stri
     const best = [...perStore.values()].sort((a, b) => unitPrice(a).value - unitPrice(b).value)[0] ?? latest;
     const packAt = (unit: number) => (latest.size ? (unit * latest.size.amount) / quoteBasis(latest.size.unit) : unit);
     const baseline = baselineFor({ ...latest, receiptId: "__plan__" }, list);
-    items.push({
+    (dueInDays > HORIZON_DAYS ? later : items).push({
       itemKey: latest.itemKey,
       itemName: latest.itemName,
       size: latest.size,
@@ -90,7 +92,8 @@ export function nextShop(receipts: readonly Receipt[], today: string, home: stri
       usualMinor: Math.round(packAt(baseline?.usual ?? unitPrice(latest).value) * quantity),
     });
   }
-  if (items.length === 0) return { currency, items: [], stops: [], totalMinor: 0, savingMinor: 0, receiptsUsed: receipts.length };
+  const upcoming = later.sort((a, b) => a.dueInDays - b.dueInDays).slice(0, 3);
+  if (items.length === 0) return { currency, items: [], stops: [], totalMinor: 0, savingMinor: 0, receiptsUsed: receipts.length, upcoming };
 
   items.sort((a, b) => a.dueInDays - b.dueInDays || a.itemName.localeCompare(b.itemName));
   const stops = new Map<string, DueItem[]>();
@@ -100,5 +103,5 @@ export function nextShop(receipts: readonly Receipt[], today: string, home: stri
     .sort((a, b) => b.items.length - a.items.length || b.subtotalMinor - a.subtotalMinor);
   const totalMinor = items.reduce((s, i) => s + i.expectedMinor, 0);
   const usual = items.reduce((s, i) => s + i.usualMinor, 0);
-  return { currency, items, stops: shopStops, totalMinor, savingMinor: Math.max(0, usual - totalMinor), receiptsUsed: receipts.length };
+  return { currency, items, stops: shopStops, totalMinor, savingMinor: Math.max(0, usual - totalMinor), receiptsUsed: receipts.length, upcoming: [] };
 }

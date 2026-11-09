@@ -43,6 +43,7 @@ export function toReceipt(extraction: Extraction, ctx: ReceiptContext): Receipt 
     // A printed total wins when it is close to the lines, since it includes rounding and fees.
     totalMinor: printed !== null && Math.abs(printed - lineSum) <= lineSum * 0.25 ? printed : lineSum,
     usdPerUnit: currency === "USD" ? 1 : ctx.usdPerUnit,
+    usdRateOn: currency === "USD" || ctx.usdPerUnit ? isoDay(ctx.now) : null,
     checkpoint: ctx.checkpoint,
     scannedAt: ctx.now.toISOString(),
   };

@@ -67,6 +67,8 @@ export const ReceiptSchema = z.object({
   totalMinor: z.number().int().nonnegative(),
   /** USD value of one major unit of `currency` on the day the receipt was read. */
   usdPerUnit: z.number().positive().nullable(),
+  /** The day `usdPerUnit` was observed. A backfilled receipt's rate is from the day it was scanned, not bought. */
+  usdRateOn: isoDate.nullable().optional(),
   /** Sui checkpoint observed through Tatum when the receipt was committed. */
   checkpoint: z.string().regex(/^\d+$/).nullable(),
   scannedAt: z.string().datetime(),

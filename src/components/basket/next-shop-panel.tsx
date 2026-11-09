@@ -2,7 +2,7 @@
 
 import { useMemo, useSyncExternalStore } from "react";
 import { isoDay } from "@/domain/dates";
-import { formatMoney } from "@/domain/money";
+import { formatApprox } from "@/domain/money";
 import { nextShop, type DueItem } from "@/domain/next-shop";
 import { formatSize } from "@/domain/units";
 import { cx } from "../ui/cx";
@@ -29,8 +29,29 @@ export function NextShopPanel() {
   const { effective, home } = useBasket();
   const today = useToday();
   const plan = useMemo(() => (today ? nextShop(effective, today, home) : null), [effective, home, today]);
-  if (!plan || plan.items.length === 0) return null;
-  const money = (minor: number) => formatMoney(minor, plan.currency);
+  if (!plan) return null;
+  if (plan.items.length === 0) {
+    if (plan.upcoming.length === 0) return null;
+    return (
+      <Panel aria-labelledby="next-shop-h">
+        <PanelHeader title={<span id="next-shop-h">Your next shop</span>}>Nothing you buy regularly runs out this week. Coming up next, from the rhythm you buy each item at:</PanelHeader>
+        <ul>
+          {plan.upcoming.map((item) => (
+            <li key={item.itemKey} className="flex items-center justify-between gap-4 border-b border-line py-3 last:border-b-0">
+              <span className="min-w-0">
+                <span className="block truncate">{item.itemName}</span>
+                <span className="block text-sm text-muted">
+                  {due(item)} · cheapest lately at {item.storeName}
+                </span>
+              </span>
+              <span className="shrink-0 font-medium">{formatApprox(item.expectedMinor, plan.currency)}</span>
+            </li>
+          ))}
+        </ul>
+      </Panel>
+    );
+  }
+  const money = (minor: number) => formatApprox(minor, plan.currency);
 
   return (
     <Panel aria-labelledby="next-shop-h">

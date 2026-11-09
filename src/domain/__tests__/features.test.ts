@@ -109,3 +109,28 @@ describe("share cards", () => {
     expect(decodeShareCard(encodeShareCard({ r: 99, u: null, c: "NGN", s: "2026-10-03", n: 4 }))).toBeNull();
   });
 });
+
+import { personalInflation } from "../inflation";
+
+describe("honest exchange rates", () => {
+  it("leaves backfilled receipts out of inflation in dollars", () => {
+    const old = { ...receipt("A", "2026-09-01", [{ item: "Rice", paid: 1000 }], { usdPerUnit: 0.001 }), scannedAt: "2026-11-09T10:00:00.000Z" };
+    const recent = receipt("A", "2026-11-08", [{ item: "Rice", paid: 1200 }], { usdPerUnit: 0.0008 });
+    expect(personalInflation([old, recent], "local").changeRatio).toBeCloseTo(0.2, 6);
+    expect(personalInflation([old, recent], "usd").changeRatio).toBeNull();
+    const contemporary = { ...old, usdRateOn: "2026-09-02" };
+    expect(personalInflation([contemporary, recent], "usd").changeRatio).toBeCloseTo(1.2 * 0.8 - 1, 6);
+  });
+});
+
+describe("nextShop when nothing is due this week", () => {
+  it("names what comes up next", () => {
+    const rs = [
+      receipt("Market Square", "2026-10-10", [{ item: "Rice", size: [5, "kg"], paid: 11000 }]),
+      receipt("Shoprite", "2026-10-24", [{ item: "Rice", size: [5, "kg"], paid: 12000 }]),
+    ];
+    const plan = nextShop(rs, "2026-10-25")!;
+    expect(plan.items).toEqual([]);
+    expect(plan.upcoming.map((i) => [i.itemKey, i.dueInDays])).toEqual([["rice", 13]]);
+  });
+});

@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { formatDay } from "@/domain/dates";
 import { analyzeReceipt, type Finding } from "@/domain/findings";
 import type { Lesson } from "@/domain/lessons";
-import { formatMoney } from "@/domain/money";
+import { formatApprox, formatMoney } from "@/domain/money";
 import type { Receipt } from "@/domain/receipt";
 import { formatSize } from "@/domain/units";
 import { receiptInHome } from "@/domain/currency";
@@ -57,7 +57,7 @@ export function ReceiptReport({ receipt, learned, isNew }: { receipt: Receipt; l
           <h1 className="mt-2 text-title sm:text-[2.5rem] sm:leading-[1.1] sm:tracking-[-0.025em]">{receipt.store.name}</h1>
           <p className="mt-2 text-muted">
             {formatDay(receipt.purchasedOn, { year: true })} · {receipt.lines.length} items · {money(receipt.totalMinor)}
-            {inHome !== null && home ? ` ≈ ${formatMoney(inHome, home)}` : ""}
+            {inHome !== null && home ? ` ≈ ${formatApprox(inHome, home)}` : ""}
           </p>
           {receipt.revisedAt ? <p className="mt-1 text-sm text-muted">Corrected {formatDay(receipt.revisedAt, { year: true })}</p> : null}
         </div>
@@ -70,7 +70,7 @@ export function ReceiptReport({ receipt, learned, isNew }: { receipt: Receipt; l
 
       {abroad.length ? (
         <Panel>
-          <PanelHeader title={`Against your prices at home in ${home}`}>Each item you also buy at home, converted at the rate on the day of this receipt.</PanelHeader>
+          <PanelHeader title={`Against your prices at home in ${home}`}>Each item you also buy at home, converted at the exchange rate recorded with this receipt.</PanelHeader>
           <ul>
             {abroad.map((c) => (
               <li key={c.itemKey} className="flex items-center justify-between gap-4 border-b border-line py-3 last:border-b-0">

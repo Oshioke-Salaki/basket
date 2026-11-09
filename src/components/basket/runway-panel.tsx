@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useMemo, useState, useSyncExternalStore } from "react";
-import { formatMoney } from "@/domain/money";
+import { formatApprox, formatMoney } from "@/domain/money";
 import { weeklySpend } from "@/domain/spend";
 import { api, ApiError } from "@/lib/api";
 import type { RunwayPayload } from "@/lib/api-types";
@@ -56,7 +56,6 @@ export function RunwayPanel() {
   }
 
   if (!spend) return null;
-  const money = (minor: number) => formatMoney(minor, spend.currency);
 
   return (
     <Panel>
@@ -64,7 +63,7 @@ export function RunwayPanel() {
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
         <div>
           <Label>Your average week</Label>
-          <p className="mt-1 text-[2rem] leading-tight font-medium tracking-tight">{money(spend.weeklyMinor)}</p>
+          <p className="mt-1 text-[2rem] leading-tight font-medium tracking-tight">{formatApprox(spend.weeklyMinor, spend.currency)}</p>
           <p className="text-sm text-muted">
             from {spend.receipts} {spend.receipts === 1 ? "receipt" : "receipts"} over {spend.weeksObserved} {spend.weeksObserved === 1 ? "week" : "weeks"}
             {spend.unconverted ? `, leaving out ${spend.unconverted} without an exchange rate` : ""}
